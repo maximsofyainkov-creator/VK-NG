@@ -1,0 +1,1051 @@
+/* ОБНУЛЕНИЕ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    color: #1a1a1a;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== ШАПКА ===== */
+header {
+    background: #1a3a2b;
+    color: white;
+    padding: 15px 0 0 0;
+    border-bottom: 4px solid #d4a843;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Верхняя часть: герб + название */
+.header-top {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo img {
+    filter: brightness(0) invert(1);
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.ministry {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.ministry-sub {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.vai-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #d4a843;
+    letter-spacing: 0.5px;
+}
+
+.vai-sub {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #b8b8b8;
+    letter-spacing: 0.3px;
+}
+
+/* ===== ПЛАШКА НА ВСЮ ШИРИНУ (кнопки + навигация) ===== */
+.header-actions-full {
+    background: #2d5a27;
+    padding: 6px 0;
+    margin: 5px 0 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+}
+
+.header-actions-full .container {
+    display: flex;
+    align-items: center;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Дополнительные кнопки (Эл.приёмная, 6д, ⚙️) */
+.action-btn {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.05);
+    white-space: nowrap;
+}
+
+.action-btn:hover {
+    background: rgba(212, 168, 67, 0.25);
+    color: #d4a843;
+}
+
+.action-divider {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.85rem;
+}
+
+.icon-btn {
+    font-size: 1.1rem;
+    padding: 2px 8px;
+}
+
+/* Разделитель между дополнительными кнопками и навигацией */
+.nav-divider {
+    flex: 1;
+    min-width: 20px;
+}
+
+/* ===== НАВИГАЦИЯ (пункты меню на плашке) ===== */
+.menu-inline {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.menu-inline li {
+    display: inline;
+}
+
+.menu-inline a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.menu-inline a:hover {
+    background: rgba(212, 168, 67, 0.2);
+    color: #d4a843;
+}
+
+.menu-inline a.active {
+    color: #d4a843;
+    background: rgba(212, 168, 67, 0.15);
+}
+
+/* ===== МОБИЛЬНОЕ МЕНЮ (бургер) ===== */
+.mobile-nav {
+    display: none;
+    padding: 8px 0 12px 0;
+}
+
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.menu-mobile {
+    display: none;
+    flex-direction: column;
+    list-style: none;
+    padding: 15px 0;
+    gap: 12px;
+    width: 100%;
+}
+
+.menu-mobile.open {
+    display: flex;
+}
+
+.menu-mobile a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: 0.3s;
+    display: block;
+}
+
+.menu-mobile a:hover {
+    background: rgba(212, 168, 67, 0.2);
+    color: #d4a843;
+}
+
+.menu-mobile a.active {
+    color: #d4a843;
+    background: rgba(212, 168, 67, 0.15);
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 992px) {
+    .menu-inline {
+        gap: 15px;
+    }
+
+    .menu-inline a {
+        font-size: 0.8rem;
+        padding: 3px 6px;
+    }
+
+    .action-btn {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .ministry,
+    .ministry-sub {
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .vai-title {
+        font-size: 0.7rem;
+    }
+
+    .vai-sub {
+        font-size: 0.6rem;
+    }
+
+    /* Скрываем десктопное меню на плашке */
+    .menu-inline {
+        display: none;
+    }
+
+    .nav-divider {
+        display: none;
+    }
+
+    /* Показываем мобильное меню с бургером */
+    .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .header-actions-full .container {
+        justify-content: flex-start;
+    }
+
+    .action-buttons {
+        gap: 5px;
+    }
+
+    .action-btn {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+
+    .action-divider {
+        font-size: 0.7rem;
+    }
+
+    .icon-btn {
+        font-size: 0.9rem;
+        padding: 1px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .ministry,
+    .ministry-sub {
+        font-size: 0.7rem;
+        letter-spacing: 0.3px;
+    }
+
+    .vai-title {
+        font-size: 0.6rem;
+    }
+
+    .vai-sub {
+        font-size: 0.5rem;
+    }
+
+    .logo {
+        gap: 10px;
+    }
+
+    .action-btn {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+
+    .action-divider {
+        font-size: 0.6rem;
+    }
+
+    .icon-btn {
+        font-size: 0.8rem;
+        padding: 1px 4px;
+    }
+
+    .burger {
+        font-size: 1.6rem;
+    }
+
+    .menu-mobile a {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+}
+
+/* МЕНЮ */
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: #d4a843;
+}
+
+.menu a.active {
+    color: #d4a843;
+    border-bottom: 2px solid #d4a843;
+    padding-bottom: 3px;
+}
+
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* БАННЕР */
+.banner {
+    background: linear-gradient(135deg, #1a3a2b, #2d5a27);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.banner p {
+    font-size: 1.4rem;
+    opacity: 0.9;
+}
+
+/* СЕКЦИИ */
+.section {
+    padding: 60px 0;
+}
+
+.section.dark {
+    background: #e8e8e8;
+}
+
+.section h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #1a3a2b;
+    border-bottom: 3px solid #d4a843;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+/* О ВОЕННОЙ ПОЛИЦИИ */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 18px;
+    font-size: 1.05rem;
+}
+
+.about-text ul li {
+    padding: 5px 0;
+    font-size: 1.05rem;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* КАРТОЧКИ */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    border-left: 5px solid #d4a843;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+    color: #1a3a2b;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+/* ДОСКА ПОЧЁТА */
+.honor-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.honor-item {
+    background: #1a3a2b;
+    color: #d4a843;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* НОВОСТИ (на главной) */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.news-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.news-item .date {
+    color: #d4a843;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.news-item h3 {
+    margin: 8px 0 12px;
+    color: #1a3a2b;
+}
+
+/* НОВОСТИ (полный список на странице news.html) */
+.all-news {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.news-item-full {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border-left: 5px solid #d4a843;
+}
+
+.news-item-full .date {
+    color: #d4a843;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.news-item-full h3 {
+    color: #1a3a2b;
+    font-size: 1.5rem;
+    margin: 10px 0 15px;
+}
+
+.news-item-full p {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* КНОПКИ */
+.btn {
+    display: inline-block;
+    background: #d4a843;
+    color: #1a3a2b;
+    padding: 12px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #b8922f;
+    transform: scale(1.02);
+}
+
+.btn-back {
+    display: inline-block;
+    background: #1a3a2b;
+    color: #d4a843;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    border: 2px solid #d4a843;
+}
+
+.btn-back:hover {
+    background: #d4a843;
+    color: #1a3a2b;
+}
+
+.btn-read {
+    display: inline-block;
+    color: #1a3a2b;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    margin-top: 5px;
+}
+
+.btn-read:hover {
+    color: #d4a843;
+    transform: translateX(5px);
+}
+
+/* СЛУЖБА */
+.service-block {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+.service-block ul {
+    list-style: none;
+    text-align: left;
+    margin: 20px 0;
+    font-size: 1.1rem;
+}
+
+.service-block li {
+    padding: 6px 0;
+}
+
+/* ПОДВАЛ */
+footer {
+    background: #0f281c;
+    color: #ccc;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 3px solid #d4a843;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* АДАПТИВ */
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #1a3a2b;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .menu.open {
+        display: flex;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .header-inner {
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        flex: 1;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .banner h1 {
+        font-size: 2rem;
+    }
+
+    .banner p {
+        font-size: 1.1rem;
+    }
+
+    .section h2 {
+        font-size: 1.7rem;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .honor-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .vai-title {
+        font-size: 1rem;
+    }
+
+    .ministry {
+        font-size: 0.7rem;
+    }
+
+    .banner {
+        padding: 50px 0;
+    }
+
+    .banner h1 {
+        font-size: 1.5rem;
+    }
+
+    .service-block {
+        padding: 20px;
+    }
+
+    .honor-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* СТИЛИ ДЛЯ СТРАНИЦ НОВОСТЕЙ */
+
+/* Кнопка "К списку новостей" */
+.btn-back {
+    display: inline-block;
+    background: #1a3a2b;
+    color: #d4a843;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    border: 2px solid #d4a843;
+}
+
+.btn-back:hover {
+    background: #d4a843;
+    color: #1a3a2b;
+}
+
+/* Полный блок новости (на странице news.html) */
+.all-news {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.news-item-full {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border-left: 5px solid #d4a843;
+}
+
+.news-item-full .date {
+    color: #d4a843;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.news-item-full h3 {
+    color: #1a3a2b;
+    font-size: 1.
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ НАПРАВЛЕНИЙ (как на фото) ===== */
+
+/* Вступительный текст */
+.direction-intro {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+}
+
+.direction-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #1a3a2b;
+}
+
+/* Блок направления (как на фото) */
+.direction-block-simple {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0 10px 0;
+}
+
+.direction-block-simple h3 {
+    color: #1a3a2b;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+}
+
+.direction-block-simple p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333333;
+    margin: 0;
+}
+
+/* Разделительная линия между блоками */
+.direction-divider {
+    max-width: 900px;
+    margin: 20px auto;
+    border: none;
+    border-top: 2px solid #e0e0e0;
+    opacity: 1;
+}
+
+/* ===== АДАПТИВ ДЛЯ СТРАНИЦЫ НАПРАВЛЕНИЙ ===== */
+@media (max-width: 768px) {
+    .direction-intro p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .direction-block-simple {
+        padding: 16px 0 8px 0;
+        margin: 0 15px;
+    }
+
+    .direction-block-simple h3 {
+        font-size: 1.05rem;
+    }
+
+    .direction-block-simple p {
+        font-size: 0.92rem;
+        line-height: 1.6;
+    }
+
+    .direction-divider {
+        margin: 16px 15px;
+        max-width: calc(100% - 30px);
+    }
+}
+
+@media (max-width: 480px) {
+    .direction-intro p {
+        font-size: 0.9rem;
+        padding: 0 5px;
+    }
+
+    .direction-block-simple {
+        padding: 12px 0 6px 0;
+        margin: 0 10px;
+    }
+
+    .direction-block-simple h3 {
+        font-size: 0.95rem;
+    }
+
+    .direction-block-simple p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+
+    .direction-divider {
+        margin: 12px 10px;
+        max-width: calc(100% - 20px);
+    }
+}
+
+@media (max-width: 360px) {
+    .direction-block-simple {
+        padding: 10px 0 5px 0;
+        margin: 0 8px;
+    }
+
+    .direction-block-simple h3 {
+        font-size: 0.85rem;
+    }
+
+    .direction-block-simple p {
+        font-size: 0.78rem;
+        line-height: 1.5;
+    }
+
+    .direction-divider {
+        margin: 10px 8px;
+        max-width: calc(100% - 16px);
+    }
+}
+
+/* ===== СТИЛИ ДЛЯ НОВОСТЕЙ И НАПРАВЛЕНИЙ (общие таблички) ===== */
+
+.news-item-full {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border-left: 5px solid #d4a843;
+    margin-bottom: 25px;
+    transition: 0.3s;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.news-item-full:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.news-item-full .date {
+    display: block;
+    color: #d4a843;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.news-item-full h3 {
+    color: #1a3a2b;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
+.news-item-full h3 a {
+    color: #1a3a2b;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.news-item-full h3 a:hover {
+    color: #d4a843;
+}
+
+.news-item-full p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333333;
+    margin-bottom: 12px;
+}
+
+.news-item-full .btn-read {
+    display: inline-block;
+    color: #1a3a2b;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    margin-top: 5px;
+}
+
+.news-item-full .btn-read:hover {
+    color: #d4a843;
+    transform: translateX(5px);
+}
+
+/* ===== НОВОСТЬ С КАРТИНКОЙ СБОКУ ===== */
+
+.news-item-row {
+    display: flex;           /* Включаем flexbox */
+    gap: 20px;               /* Отступ между картинкой и текстом */
+    background: white;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border-left: 5px solid #d4a843;
+    margin-bottom: 25px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+}
+
+/* КАРТИНКА (фиксированный размер) */
+.news-image {
+    flex-shrink: 0;          /* Картинка не сжимается */
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* Картинка заполняет блок без искажений */
+    display: block;
+}
+
+/* КОНТЕНТ СПРАВА */
+.news-content {
+    flex: 1;                 /* Занимает всё оставшееся место */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;            /* Чтобы текст не вылезал */
+}
+
+.news-content .news-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a3a2b;
+    line-height: 1.4;
+}
+
+.news-content p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #444444;
+    margin: 0;
+}
+
+.news-content .news-date {
+    color: #999999;
+    font-size: 0.78rem;
+}
+
+.news-content .btn-read {
+    color: #1a3a2b;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.news-content .btn-read:hover {
+    color: #d4a843;
+    transform: translateX(5px);
+}
+
+/* ===== АДАПТИВ (на телефонах картинка сверху) ===== */
+@media (max-width: 768px) {
+    .news-item-row {
+        flex-direction: column;  /* Картинка становится сверху */
+        padding: 16px 18px;
+        gap: 12px;
+    }
+
+    .news-image {
+        width: 100%;
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-item-row {
+        padding: 12px 14px;
+    }
+
+    .news-image {
+        height: 140px;
+    }
+}
