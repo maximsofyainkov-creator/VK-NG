@@ -1,0 +1,3202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Военная комендатура — GreenTech RP</title>
+<style>
+/* ==================== БАЗОВЫЕ СТИЛИ ==================== */
+.mil-wrapper,.mil-wrapper *,.mil-wrapper *::before,.mil-wrapper *::after{box-sizing:border-box;margin:0;padding:0}
+.mil-wrapper{font-family:'PT Sans',Arial,Helvetica,sans-serif;background:#fff;color:#222;font-size:16px;line-height:1.5;width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;box-sizing:border-box;overflow:hidden}
+.mil-wrapper *{margin:0;padding:0;box-sizing:border-box}
+.mil-wrapper .container{max-width:1060px;margin:0 auto;padding:0 20px;width:100%}
+.mil-wrapper a{text-decoration:none;color:inherit;transition:color .15s,background .15s}
+.mil-wrapper .loading-spinner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;gap:20px}
+.mil-wrapper .spinner{width:48px;height:48px;border:4px solid #e3e3e3;border-top-color:#9f0000;border-radius:50%;animation:mil-spin .8s linear infinite}
+@keyframes mil-spin{to{transform:rotate(360deg)}}
+.mil-wrapper .loading-text{font-size:16px;color:#666}
+.mil-wrapper .error-message{padding:60px 0;text-align:center}
+.mil-wrapper .error-title{font-size:20px;font-weight:700;color:#c0392b;margin-bottom:8px}
+.mil-wrapper .error-text{font-size:15px;color:#666;line-height:1.6}
+
+/* ==================== ШАПКА ==================== */
+.mil-wrapper .main-header{background:#1f2025;color:#fff;min-height:88px;display:flex;align-items:center;width:100%}
+.mil-wrapper .main-header .container{display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px}
+.mil-wrapper .header-left{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.mil-wrapper .header-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap}
+.mil-wrapper .logo-wrapper{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mil-wrapper .org-title{font-size:16px;font-weight:700;line-height:1.2}
+.mil-wrapper .org-sub{font-size:13px;color:#ddd}
+
+/* ==================== КНОПКА ЛИЧНОГО КАБИНЕТА ==================== */
+.mil-wrapper .account-login-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#fff;font-size:13px;font-weight:600;
+  cursor:pointer;padding:8px 14px;
+  border-radius:6px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.22);
+  transition:background .18s, border-color .18s, transform .12s;
+  white-space:nowrap;
+  font-family:'PT Sans',Arial,sans-serif;
+  line-height:1;
+  margin-left:auto;
+  order:999;
+}
+.mil-wrapper .account-login-btn:hover{background:rgba(159,0,0,0.35);border-color:rgba(255,255,255,0.45)}
+.mil-wrapper .account-login-btn:active{transform:scale(0.97)}
+.mil-wrapper .account-login-btn svg{width:18px;height:18px;flex-shrink:0;fill:currentColor}
+.mil-wrapper .account-login-btn .account-label{display:inline-block}
+
+/* ==================== ВЫПАДАЮЩЕЕ МЕНЮ ПРИЁМНОЙ ==================== */
+.mil-wrapper .electronic-reception{position:relative;display:flex;align-items:center;gap:6px;color:#ddd;font-size:13px;cursor:pointer;padding:4px 8px;transition:color .15s;white-space:nowrap;font-family:'PT Sans',Arial,sans-serif}
+.mil-wrapper .electronic-reception:hover{color:#fff}
+.mil-wrapper .electronic-reception svg{fill:currentColor;width:18px;height:18px;flex-shrink:0}
+.mil-wrapper .electronic-reception .dropdown-arrow{font-size:8px;color:#888;margin-left:2px;transition:transform .2s}
+.mil-wrapper .electronic-reception:hover .dropdown-arrow{transform:rotate(180deg)}
+.mil-wrapper .electronic-reception .dropdown-menu{display:none;position:absolute;top:100%;left:0;min-width:280px;background:#2a2b32;border-radius:4px;padding:6px 0;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:1000;margin-top:-2px;border:1px solid rgba(255,255,255,.08)}
+.mil-wrapper .electronic-reception:hover .dropdown-menu,.mil-wrapper .electronic-reception .dropdown-menu:hover{display:block}
+.mil-wrapper .electronic-reception .dropdown-menu .dropdown-item{display:block;padding:8px 18px;font-size:13px;color:#ddd;cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;background:transparent;border:none;width:100%;text-align:left;font-family:'PT Sans',Arial,sans-serif}
+.mil-wrapper .electronic-reception .dropdown-menu .dropdown-item:hover{background:rgba(30,126,52,.25);color:#fff}
+.mil-wrapper .electronic-reception .dropdown-menu .dropdown-divider{height:1px;background:rgba(255,255,255,.12);margin:4px 12px}
+
+/* ==================== ЗЕЛЁНОЕ МЕНЮ ==================== */
+.mil-wrapper .green-menu{background:#9f0000;min-height:38px;display:flex;align-items:center;width:100%}
+.mil-wrapper .green-menu .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;width:100%}
+.mil-wrapper .menu-left{display:flex;gap:22px;list-style:none;height:100%;align-items:center;flex-wrap:wrap;margin:0;padding:0;justify-content:flex-start}
+.mil-wrapper .menu-left li{font-size:15px;font-weight:600;color:#fff;cursor:default;transition:background .15s;padding:0 2px;height:100%;display:flex;align-items:center}
+.mil-wrapper .menu-left li:hover{background:rgba(255,255,255,.15)}
+.mil-wrapper .menu-left li a{color:#fff;display:block;padding:0 2px}
+.mil-wrapper .menu-social{display:flex;align-items:center;gap:14px;margin-left:auto}
+.mil-wrapper .menu-social a{display:flex;align-items:center;justify-content:center;opacity:.8;transition:opacity .15s}
+.mil-wrapper .menu-social a:hover{opacity:1}
+.mil-wrapper .menu-social a img{display:block;width:18px;height:18px;object-fit:contain}
+
+/* ==================== КОНТЕНТ ==================== */
+.mil-wrapper .main-grid{padding:32px 0 50px;background-color:#fff;width:100%}
+.mil-wrapper .left-col{max-width:100%}
+.mil-wrapper .page-title{font-size:24px;font-weight:700;line-height:1.2;margin-bottom:4px;text-align:left}
+.mil-wrapper .title-underline{width:100%;height:1px;background:#d7d7d7;margin-bottom:32px}
+
+/* ==================== НОВОСТИ ==================== */
+.mil-wrapper .news-list{display:flex;flex-direction:column;gap:54px}
+.mil-wrapper .news-card{display:flex;gap:28px;transition:transform .15s;cursor:pointer;min-height:145px}
+.mil-wrapper .news-card:hover{transform:translateY(-2px)}
+.mil-wrapper .news-card:hover .news-title{color:#1e7e34}
+.mil-wrapper .news-img{width:230px;height:130px;flex-shrink:0;background:#eef1f4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;overflow:hidden}
+.mil-wrapper .news-img img{width:100%;height:100%;object-fit:cover;display:block}
+.mil-wrapper .news-content{flex:1;display:flex;flex-direction:column;min-width:0}
+.mil-wrapper .news-title{font-size:17px;font-weight:700;line-height:1.35;margin-bottom:4px;transition:color .15s;text-align:left;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-desc{font-size:14px;line-height:1.6;color:#333;margin-bottom:6px;text-align:left;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-date{font-size:13px;color:#8d8d8d;margin-top:auto;text-align:left}
+.mil-wrapper .pagination{display:flex;align-items:center;gap:18px;margin-top:44px;flex-wrap:wrap;justify-content:flex-start}
+.mil-wrapper .pagination .page{font-size:16px;font-weight:700;color:#aaa;cursor:pointer;transition:color .15s;line-height:1}
+.mil-wrapper .pagination .page.active{color:#1e7e34}
+.mil-wrapper .pagination .page:hover:not(.active){color:#555}
+.mil-wrapper .pagination .arrow-right,.mil-wrapper .pagination .arrow-left{font-size:20px;color:#aaa;cursor:pointer;margin:0 4px}
+.mil-wrapper .pagination .arrow-right:hover,.mil-wrapper .pagination .arrow-left:hover{color:#1e7e34}
+
+/* ==================== ДЕТАЛЬ НОВОСТИ ==================== */
+.mil-wrapper .news-detail{display:none}
+.mil-wrapper .back-to-news{display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:24px;transition:color .15s}
+.mil-wrapper .back-to-news:hover{color:#000}
+.mil-wrapper .back-to-news svg{width:18px;height:18px;fill:currentColor}
+.mil-wrapper .news-detail-title{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:16px;text-align:left;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-detail-date{font-size:14px;color:#8d8d8d;margin-bottom:24px}
+.mil-wrapper .news-detail-text{font-size:16px;line-height:1.8;color:#333;margin-bottom:32px;text-align:justify;white-space:pre-line;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-detail-author{font-size:14px;color:#1f2025;font-weight:600;border-top:1px solid #e3e3e3;padding-top:20px}
+.mil-wrapper .news-detail-image{width:100%;max-width:100%;height:auto;border-radius:4px;display:block}
+
+/* ==================== РУКОВОДСТВО ==================== */
+.mil-wrapper .rucuvodsvo-section{margin-bottom:40px}
+.mil-wrapper .rucuvodsvo-section-title{font-size:20px;font-weight:700;color:#9f0000;padding-bottom:8px;border-bottom:2px solid #9f0000;margin-bottom:16px}
+
+/* ==================== ЛИЧНЫЙ КАБИНЕТ ==================== */
+.mil-wrapper .account-card{display:flex;align-items:center;gap:20px;padding:22px;background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;margin-bottom:28px}
+.mil-wrapper .account-avatar{width:80px;height:80px;border-radius:50%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-size:36px;color:#999;flex-shrink:0}
+.mil-wrapper .account-info h2{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.mil-wrapper .account-position{font-size:15px;color:#666;font-weight:600;margin-bottom:4px}
+.mil-wrapper .account-login{font-size:13px;color:#888}
+.mil-wrapper .account-section{margin-bottom:28px;padding:18px 20px;border:1px solid #e8e8e8;border-radius:8px;background:#fff}
+.mil-wrapper .account-section h3{font-size:17px;font-weight:700;color:#9f0000;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #9f0000}
+.mil-wrapper .account-row{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px dashed #eee;font-size:15px}
+.mil-wrapper .account-row:last-child{border-bottom:none}
+.mil-wrapper .account-row span{color:#777}
+.mil-wrapper .account-row strong{color:#222;font-weight:600;text-align:right}
+
+/* ==================== КОЛОКОЛЬЧИК УВЕДОМЛЕНИЙ ==================== */
+.mil-wrapper .notif-wrap{position:relative;display:inline-block}
+.mil-wrapper .notif-btn{
+  background:rgba(159,0,0,0.1);color:#9f0000;border:1px solid #e0c0c0;
+  border-radius:8px;padding:8px 12px;font-size:14px;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;font-family:inherit;transition:background .15s;
+}
+.mil-wrapper .notif-btn:hover{background:rgba(159,0,0,0.2)}
+.mil-wrapper .notif-btn svg{width:20px;height:20px;fill:currentColor}
+.mil-wrapper .notif-badge{
+  background:#c0392b;color:#fff;border-radius:10px;font-size:11px;font-weight:700;
+  padding:1px 7px;margin-left:4px;min-width:20px;text-align:center;
+}
+.mil-wrapper .notif-panel{
+  display:none;position:absolute;right:0;top:110%;background:#fff;border:1px solid #e3e3e3;
+  border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.2);min-width:340px;max-width:420px;z-index:2000;
+  max-height:400px;overflow-y:auto;
+}
+.mil-wrapper .notif-panel.open{display:block}
+.mil-wrapper .notif-header{background:#1f2025;color:#fff;padding:10px 14px;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center;border-radius:8px 8px 0 0}
+.mil-wrapper .notif-list{padding:8px}
+.mil-wrapper .notif-empty{padding:20px;text-align:center;color:#888;font-size:13px;font-style:italic}
+.mil-wrapper .notif-item{background:#f8f9fa;border:1px solid #e8e8e8;border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:13px;line-height:1.5}
+.mil-wrapper .notif-item:last-child{margin-bottom:0}
+.mil-wrapper .notif-item .notif-time{color:#888;font-size:11px;margin-top:4px}
+.mil-wrapper .notif-item .notif-text{color:#333;font-weight:600}
+
+/* ==================== РЕЕСТР / ТРЕБОВАНИЯ / ГАУПТВАХТА / КУПО / ПАТРУЛЬ ==================== */
+.mil-wrapper .registry-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#9f0000;color:#fff;
+  border:none;border-radius:6px;
+  padding:12px 24px;font-size:15px;font-weight:700;
+  cursor:pointer;
+  transition:background .2s;
+  font-family:'PT Sans',Arial,sans-serif;
+}
+.mil-wrapper .registry-btn:hover{background:#7d0000}
+.mil-wrapper .registry-btn svg{width:20px;height:20px;fill:currentColor}
+.mil-wrapper .registry-btn.requirements-btn{background:#1f2025}
+.mil-wrapper .registry-btn.requirements-btn:hover{background:#33353d}
+.mil-wrapper .registry-btn.guard-btn{background:#6b1d1d}
+.mil-wrapper .registry-btn.guard-btn:hover{background:#8a2626}
+.mil-wrapper .registry-btn.kupo-btn{background:#1f4e79}
+.mil-wrapper .registry-btn.kupo-btn:hover{background:#163a5a}
+.mil-wrapper .registry-btn.patrol-btn{background:#4a6b1d}
+.mil-wrapper .registry-btn.patrol-btn:hover{background:#3a5517}
+.mil-wrapper .account-actions-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+
+.mil-wrapper .registry-form{background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;padding:24px;margin-bottom:28px}
+.mil-wrapper .registry-form h3{font-size:18px;font-weight:700;color:#9f0000;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #9f0000}
+.mil-wrapper .registry-field{margin-bottom:16px}
+.mil-wrapper .registry-field label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .registry-field label .req{color:#c0392b}
+.mil-wrapper .registry-field input,.mil-wrapper .registry-field textarea,.mil-wrapper .registry-field select{
+  width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;
+  font-size:14px;font-family:inherit;outline:none;transition:border-color .15s;
+  background:#fff;
+}
+.mil-wrapper .registry-field input:focus,.mil-wrapper .registry-field textarea:focus,.mil-wrapper .registry-field select:focus{border-color:#9f0000}
+.mil-wrapper .registry-field textarea{resize:vertical;min-height:60px}
+.mil-wrapper .registry-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.mil-wrapper .btn-add{
+  background:#1e7e34;color:#fff;border:none;border-radius:4px;
+  padding:11px 24px;font-size:15px;font-weight:700;cursor:pointer;
+  transition:background .15s;font-family:inherit;
+}
+.mil-wrapper .btn-add:hover{background:#145a24}
+.mil-wrapper .btn-cancel{
+  background:#e9ecef;color:#333;border:none;border-radius:4px;
+  padding:11px 24px;font-size:15px;font-weight:700;cursor:pointer;
+  transition:background .15s;font-family:inherit;
+}
+.mil-wrapper .btn-cancel:hover{background:#d6d9dd}
+
+/* ==================== ПОИСК ==================== */
+.mil-wrapper .search-wrap{margin-bottom:16px}
+.mil-wrapper .search-input{
+  width:100%;padding:11px 14px;border:1px solid #ccc;border-radius:6px;
+  font-size:14px;font-family:inherit;outline:none;transition:border-color .15s;
+  background:#fff;
+}
+.mil-wrapper .search-input:focus{border-color:#9f0000}
+.mil-wrapper .search-hint{font-size:12px;color:#888;margin-top:4px}
+
+/* ==================== ТАБЛИЦА ==================== */
+.mil-wrapper .registry-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #e3e3e3;border-radius:8px}
+.mil-wrapper .registry-table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+.mil-wrapper .registry-table th{
+  background:#1f2025;color:#fff;font-weight:700;
+  padding:12px 10px;text-align:left;white-space:nowrap;
+  position:sticky;top:0;font-size:12px;letter-spacing:.3px;
+}
+.mil-wrapper .registry-table td{
+  padding:10px;border-bottom:1px solid #eee;
+  vertical-align:top;color:#333;
+}
+.mil-wrapper .registry-table tbody tr:nth-child(even){background:#fafafa}
+.mil-wrapper .registry-table tbody tr:hover{background:#f0f4f8}
+.mil-wrapper .registry-table .empty-row td{text-align:center;color:#999;padding:40px 10px;font-style:italic}
+
+.mil-wrapper .registry-del{
+  background:#fef0f0;color:#c0392b;border:1px solid #f5c6c6;
+  border-radius:4px;padding:5px 10px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:background .15s;font-family:inherit;
+  white-space:nowrap;
+}
+.mil-wrapper .registry-del:hover{background:#c0392b;color:#fff;border-color:#c0392b}
+.mil-wrapper .registry-edit{
+  background:#eef4fb;color:#1f4e79;border:1px solid #c5d8ef;
+  border-radius:4px;padding:5px 10px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:background .15s;font-family:inherit;
+  white-space:nowrap;
+}
+.mil-wrapper .registry-edit:hover{background:#1f4e79;color:#fff;border-color:#1f4e79}
+
+.mil-wrapper .registry-stats{
+  display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;
+}
+.mil-wrapper .registry-stat{
+  background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;
+  padding:14px 20px;flex:1;min-width:160px;
+}
+.mil-wrapper .registry-stat .num{font-size:24px;font-weight:700;color:#9f0000}
+.mil-wrapper .registry-stat .lbl{font-size:13px;color:#666;margin-top:2px}
+
+.mil-wrapper .action-cell{display:flex;flex-direction:column;gap:6px;min-width:140px}
+
+/* ==================== СТАТУСЫ ==================== */
+.mil-wrapper .status-select{
+  padding:6px 8px;border:1px solid #ccc;border-radius:4px;
+  font-size:12px;font-family:inherit;background:#fff;cursor:pointer;
+  outline:none;transition:border-color .15s;max-width:180px;
+}
+.mil-wrapper .status-select:focus{border-color:#9f0000}
+.mil-wrapper .status-select.status-done{border-color:#1e7e34;color:#1e7e34;font-weight:700;background:#f0f9f2}
+.mil-wrapper .status-select.status-pending{border-color:#c0392b;color:#c0392b;font-weight:700;background:#fef0f0}
+.mil-wrapper .status-select.status-arrest{border-color:#c0392b;color:#c0392b;font-weight:700;background:#fef0f0}
+.mil-wrapper .status-select.status-released{border-color:#1e7e34;color:#1e7e34;font-weight:700;background:#f0f9f2}
+.mil-wrapper .status-select.status-early{border-color:#b8860b;color:#8a6508;font-weight:700;background:#fff8e1}
+.mil-wrapper .action-cell{display:flex;flex-direction:column;gap:6px;min-width:140px}
+
+/* ==================== ТАЙМЕР ==================== */
+.mil-wrapper .timer-cell{font-weight:700;font-size:13px;white-space:nowrap}
+.mil-wrapper .timer-cell .timer-ok{color:#1e7e34}
+.mil-wrapper .timer-cell .timer-warn{color:#b8860b}
+.mil-wrapper .timer-cell .timer-danger{color:#c0392b}
+.mil-wrapper .timer-cell .timer-done{color:#888;font-style:italic}
+
+/* ==================== ЖУРНАЛ ==================== */
+.mil-wrapper .logs-block{margin-top:28px;border:1px solid #e3e3e3;border-radius:8px;overflow:hidden;background:#fff}
+.mil-wrapper .logs-header{background:#1f2025;color:#fff;padding:14px 18px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.mil-wrapper .logs-header .logs-count{font-size:13px;color:#bbb;font-weight:400}
+.mil-wrapper .logs-body{max-height:420px;overflow-y:auto;padding:12px;background:#f8f9fa}
+.mil-wrapper .logs-empty{padding:24px;text-align:center;color:#888;font-style:italic;font-size:14px}
+.mil-wrapper .log-item{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:10px 12px;margin-bottom:8px;font-size:13px;line-height:1.5;color:#333}
+.mil-wrapper .log-item:last-child{margin-bottom:0}
+.mil-wrapper .log-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.mil-wrapper .log-who{font-weight:700;color:#9f0000}
+.mil-wrapper .log-time{color:#888;font-size:12px}
+.mil-wrapper .log-what{color:#444;margin-bottom:4px;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .log-reason{color:#c0392b;font-weight:600;word-wrap:break-word;overflow-wrap:break-word;margin-bottom:6px}
+.mil-wrapper .log-type{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-right:6px;vertical-align:middle;text-transform:uppercase}
+.mil-wrapper .log-type.log-del{background:#fdecea;color:#c0392b}
+.mil-wrapper .log-type.log-edit{background:#eaf1fb;color:#1f4e79}
+.mil-wrapper .log-type.log-restore{background:#eaf7ee;color:#1e7e34}
+.mil-wrapper .log-type.log-purge{background:#3a1a1a;color:#fff}
+.mil-wrapper .log-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+.mil-wrapper .btn-danger{background:#c0392b;color:#fff;border:none;border-radius:4px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.mil-wrapper .btn-danger:hover{background:#a93226}
+.mil-wrapper .btn-blue{background:#1f4e79;color:#fff;border:none;border-radius:4px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.mil-wrapper .btn-blue:hover{background:#163a5a}
+.mil-wrapper .btn-neutral{background:#e9ecef;color:#333;border:none;border-radius:4px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.mil-wrapper .btn-neutral:hover{background:#d6d9dd}
+
+/* ==================== МОДАЛКА ==================== */
+.mil-wrapper .del-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px}
+.mil-wrapper .del-modal{background:#fff;border-radius:8px;width:100%;max-width:520px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:hidden;max-height:92vh;display:flex;flex-direction:column}
+.mil-wrapper .del-modal-header{background:#c0392b;color:#fff;padding:14px 18px;font-size:16px;font-weight:700}
+.mil-wrapper .del-modal-header.edit-mode{background:#1f4e79}
+.mil-wrapper .del-modal-body{padding:20px 18px;overflow-y:auto}
+.mil-wrapper .del-summary{background:#fef6f6;border:1px solid #f5c6c6;border-radius:6px;padding:10px 12px;font-size:13px;color:#444;margin-bottom:14px;line-height:1.5;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .del-modal-body label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .del-modal-body label .req{color:#c0392b}
+.mil-wrapper .del-modal-body textarea,
+.mil-wrapper .del-modal-body input,
+.mil-wrapper .del-modal-body select{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;font-size:14px;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
+.mil-wrapper .del-modal-body textarea{resize:vertical;min-height:80px}
+.mil-wrapper .del-modal-body textarea:focus,
+.mil-wrapper .del-modal-body input:focus,
+.mil-wrapper .del-modal-body select:focus{border-color:#9f0000}
+.mil-wrapper .del-error{background:#fef0f0;border:1px solid #f5c6c6;color:#a94442;font-size:13px;padding:8px 10px;border-radius:4px;margin-top:10px;display:none}
+.mil-wrapper .del-modal-actions{display:flex;gap:12px;margin-top:16px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ==================== БУМАГИ ==================== */
+.mil-wrapper .paper{
+  background:#fff;border:1px solid #ddd;padding:30px 40px;font-family:'Times New Roman',serif;
+  color:#111;line-height:1.6;font-size:15px;
+}
+.mil-wrapper .paper .p-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;border-bottom:1px solid #ccc;padding-bottom:12px}
+.mil-wrapper .paper .p-emblem{width:80px;height:80px;object-fit:contain}
+.mil-wrapper .paper .p-center{text-align:center;font-weight:700;font-size:13px;line-height:1.4}
+.mil-wrapper .paper .p-address{text-align:right;font-size:13px;line-height:1.5}
+.mil-wrapper .paper .p-title{text-align:center;font-size:20px;font-weight:700;letter-spacing:4px;margin:16px 0}
+.mil-wrapper .paper .p-body{text-indent:30px;text-align:justify;font-size:15px;line-height:1.7;margin-bottom:16px;white-space:pre-line}
+.mil-wrapper .paper .p-sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:30px;gap:14px}
+.mil-wrapper .paper .p-sign-left{font-size:14px;line-height:1.5}
+.mil-wrapper .paper .p-sign-right{text-align:right;font-size:14px;line-height:1.5}
+.mil-wrapper .paper .p-underline{border-bottom:1px solid #333;display:inline-block;min-width:80px;text-align:center}
+.mil-wrapper .paper .p-line{display:flex;justify-content:space-between;gap:14px;margin-bottom:8px;font-size:14px}
+.mil-wrapper .paper .p-line .p-val{border-bottom:1px solid #333;flex:1;text-align:center;min-width:80px;padding:0 6px}
+.mil-wrapper .paper .p-requirement-text{margin:16px 0;font-size:15px;text-align:justify;line-height:1.7;text-indent:30px}
+.mil-wrapper .paper .p-note{margin-top:14px;font-size:13px;color:#444;line-height:1.6}
+.mil-wrapper .paper .p-stamp{margin-top:20px;text-align:right;font-size:13px;color:#1f4e79}
+
+/* ==================== ПОДВАЛ ==================== */
+.mil-wrapper .main-footer{background:#1f2025;color:#fff;padding:40px 0 28px;margin-top:10px;min-height:300px;width:100%}
+.mil-wrapper .footer-copy-year{font-size:14px;color:#888;white-space:nowrap}
+.mil-wrapper .footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-bottom:32px}
+.mil-wrapper .footer-col .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.mil-wrapper .footer-col .footer-logo .logo-sm{width:48px;height:48px;background:#1f2025;border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.mil-wrapper .footer-col .footer-logo .logo-sm img{width:100%;height:100%;object-fit:contain;display:block}
+.mil-wrapper .footer-col .footer-logo .org-title-sm{font-weight:700;font-size:16px;line-height:1.2}
+.mil-wrapper .footer-col .footer-logo .org-sub-sm{font-size:13px;color:#ccc}
+.mil-wrapper .footer-title{font-weight:700;font-size:15px;margin-bottom:12px;color:#fff}
+.mil-wrapper .footer-links{list-style:none;display:flex;flex-direction:column;gap:2px}
+.mil-wrapper .footer-links li a{color:#ccc;font-size:14px;line-height:2;transition:color .15s}
+.mil-wrapper .footer-links li a:hover{color:#fff}
+.mil-wrapper .footer-utility{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mil-wrapper .footer-utility li a{display:flex;align-items:center;gap:8px;color:#bbb;font-size:14px;transition:color .15s}
+.mil-wrapper .footer-utility li a:hover{color:#fff}
+.mil-wrapper .footer-utility li a svg{fill:currentColor;width:18px;height:18px}
+.mil-wrapper .footer-bottom-text{border-top:1px solid #333;padding-top:20px;font-size:14px;color:#888;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+
+/* ==================== МОДАЛЬНОЕ ОКНО ВХОДА ==================== */
+.mil-wrapper .mil-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px}
+.mil-wrapper .mil-modal{background:#fff;border-radius:8px;width:100%;max-width:400px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:hidden}
+.mil-wrapper .mil-modal-header{background:#1f2025;color:#fff;padding:14px 18px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.mil-wrapper .mil-modal-close{background:transparent;border:none;color:#ccc;font-size:24px;line-height:1;cursor:pointer;padding:0 4px}
+.mil-wrapper .mil-modal-close:hover{color:#fff}
+.mil-wrapper .mil-modal-body{padding:20px 18px}
+.mil-wrapper .mil-form-group{margin-bottom:14px}
+.mil-wrapper .mil-form-group label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .mil-form-group input{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;font-size:15px;font-family:inherit;outline:none;transition:border-color .15s}
+.mil-wrapper .mil-form-group input:focus{border-color:#9f0000}
+.mil-wrapper .mil-btn-primary,.mil-wrapper .mil-btn-secondary{width:100%;padding:11px 16px;border:none;border-radius:4px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.mil-wrapper .mil-btn-primary{background:#9f0000;color:#fff}
+.mil-wrapper .mil-btn-primary:hover{background:#7d0000}
+.mil-wrapper .mil-btn-secondary{background:#e9ecef;color:#333;margin-top:8px}
+.mil-wrapper .mil-btn-secondary:hover{background:#d6d9dd}
+.mil-wrapper .mil-login-error{background:#fef0f0;border:1px solid #f5c6c6;color:#a94442;font-size:13px;padding:8px 10px;border-radius:4px;margin-bottom:12px}
+
+/* ==================== АДАПТИВ ==================== */
+@media(max-width:680px){
+  .mil-wrapper .main-header{min-height:auto;padding:12px 0}
+  .mil-wrapper .main-header .container{flex-direction:row;flex-wrap:wrap}
+  .mil-wrapper .header-left{flex:1 1 auto;gap:10px}
+  .mil-wrapper .header-right{flex:0 0 auto;gap:8px}
+  .mil-wrapper .account-login-btn{padding:7px 10px;font-size:12px}
+  .mil-wrapper .account-login-btn .account-label{display:none}
+  .mil-wrapper .green-menu .container{flex-wrap:wrap;height:auto;padding:8px 20px}
+  .mil-wrapper .menu-left{flex-wrap:wrap;gap:8px 16px}
+  .mil-wrapper .menu-left li{font-size:14px;padding:4px 0;height:auto}
+  .mil-wrapper .news-card{flex-direction:column;gap:14px}
+  .mil-wrapper .news-img{width:100%;height:auto;aspect-ratio:16/9;max-height:250px;min-height:150px}
+  .mil-wrapper .footer-grid{grid-template-columns:1fr;gap:24px}
+  .mil-wrapper .account-card{flex-direction:column;text-align:center}
+  .mil-wrapper .account-row{flex-direction:column;gap:2px}
+  .mil-wrapper .account-row strong{text-align:left}
+  .mil-wrapper .paper{padding:16px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="mil-wrapper">
+  <!-- ==================== ШАПКА ==================== -->
+  <header class="main-header">
+    <div class="container">
+      <div class="header-left">
+        <div class="logo-wrapper">
+          <div class="logo">
+            <img src="https://psv4.vkuserphoto.ru/s/v1/d2/3mi-8d4X9mKt3DotGc7hhwiYmcirOOTdSwLUqCJTTSl7kUY1rxifq1JOPyzgaTCIiTrWaQjXvPoLmsg7Lek62BSsdYvp0ZNmYFhCun5c-lBLcuMDzI9IBv9XtilXvYlfVFD7YTaZzZCJ/image-Photoroom.png" alt="Герб" width="55">
+          </div>
+          <div>
+            <div class="org-title">Министерство обороны</div>
+            <div class="org-title">Российской Федерации</div>
+            <div class="org-sub">Военная комендатура 1-го разряда Нижегородского территориального гарнизона</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="electronic-reception">
+          <svg viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.283 6h-13a1.5 1.5 0 00-1.5 1.5v9a1.5 1.5 0 001.5 1.5h13a1.5 1.5 0 001.5-1.5v-9a1.5 1.5 0 00-1.5-1.5zm0 1.5v1.275a319.84 319.84 0 01-4.206 3.328c-.526.414-1.569 1.409-2.294 1.397-.726.012-1.768-.983-2.294-1.397-2.388-1.87-3.506-2.757-4.206-3.328V7.5h13zm-13 9v-5.8c.716.57 1.731 1.37 3.279 2.583.683.537 1.88 1.724 3.22 1.717 1.336.007 2.517-1.162 3.221-1.717a535.429 535.429 0 003.28-2.583v5.8h-13z" fill="currentColor"/>
+          </svg>
+          <span>Электронная приёмная</span>
+          <span class="dropdown-arrow">▼</span>
+          <div class="dropdown-menu">
+            <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=8234" target="_blank" class="dropdown-item">Приёмная Военной комендатуры</a>
+            <div class="dropdown-divider"></div>
+            <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=31547" target="_blank" class="dropdown-item">Приёмная ВАИ</a>
+            <div class="dropdown-divider"></div>
+            <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=8867" target="_blank" class="dropdown-item">Приёмная войсковой части №41659</a>
+          </div>
+        </div>
+
+        <div class="account-login-btn" id="mil-account-login-btn" title="Личный кабинет" role="button" tabindex="0">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
+          </svg>
+          <span class="account-label">Личный кабинет</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== МЕНЮ ==================== -->
+  <nav class="green-menu">
+    <div class="container">
+      <ul class="menu-left">
+        <li class="nav-btn" data-page="about" style="cursor:pointer;">О Военной полиции</li>
+        <li class="nav-btn" data-page="directions" style="cursor:pointer;">Направления деятельности</li>
+        <li class="nav-btn active" data-page="news" style="cursor:pointer;">Новости</li>
+        <li class="nav-btn" data-page="rucuvodsvo" style="cursor:pointer;">Руководство</li>
+        <li><a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=forums&id=1271" target="_blank">Служба в ВП</a></li>
+      </ul>
+      <div class="menu-social">
+        <a href="https://vk.ru/vhgreentech" target="_blank" title="ВКонтакте">
+          <img src="https://psv4.vkuserphoto.ru/s/v1/d2/Hz4IS_A5zu6b0UPV-67ktIDL9Bcpmz6uDFkEXM0aoXiATqjCRtotja7siVf0uZBEA1P_UvJCrqzINi630xmuzU2UJDBOo8Am_49cxOVvpnbw--fdyfj-FrnuxQAiHhwYgt3_SBDPrXOq/image_1.png" alt="ВКонтакте" width="18" height="18">
+        </a>
+        <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=forums&id=55" target="_blank" title="Forum">
+          <img src="https://psv4.vkuserphoto.ru/s/v1/d2/BB3JqCLPejiXlcTf_zTKNEeykqB6tq7zGoAoUUYdOWeba8a-7_yTO__ytrpwzQxsiCa5zuHEBeo89ZPrdLZjfKCnJIzfNt9MpY3OjTI0mWYfGvNYTJ8Z2u0tECwzJXKNw-Kq76fUjGh_/image_3.png" alt="Форум" width="18" height="18">
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== ОСНОВНОЙ КОНТЕНТ ==================== -->
+  <main>
+    <div class="container main-grid">
+      <section class="left-col">
+
+        <div id="mil-page-about" style="display: none;">
+          <h1 class="page-title">О Военной полиции</h1>
+          <div class="title-underline"></div>
+          <div style="font-size: 16px; line-height: 1.8; color: #333; text-align: justify;">
+            <p style="margin-bottom: 16px;"><strong>Военная полиция Вооружённых Сил Российской Федерации</strong> является специализированным органом, предназначенным для обеспечения законности, правопорядка и воинской дисциплины в войсках. В соответствии с Уставом военной полиции Вооружённых Сил РФ и иными нормативными правовыми актами Министерства обороны Российской Федерации, на военную полицию возложен комплекс задач, направленных на защиту прав, свобод и законных интересов военнослужащих, гражданского персонала и иных лиц, находящихся на территориях воинских частей и гарнизонов.</p>
+            <p style="margin-bottom: 16px;">К основным направлениям деятельности военной полиции относятся: осуществление патрульной службы и контроль за соблюдением требований воинской дисциплины; проведение разбирательств по фактам дисциплинарных проступков; организация розыска и задержания военнослужащих, самовольно оставивших часть либо уклоняющихся от исполнения обязанностей военной службы; обеспечение охраны объектов Министерства обороны РФ, а также служебных помещений органов военной прокуратуры и военных следственных органов; содержание и конвоирование задержанных и подвергнутых дисциплинарному аресту лиц.</p>
+            <p style="margin-bottom: 16px;">В пределах установленной компетенции военная полиция реализует полномочия органа дознания, в том числе вправе проверять документы, удостоверяющие личность, производить досмотр, осуществлять задержание лиц, подозреваемых в совершении правонарушений, и передавать материалы о выявленных преступлениях в компетентные следственные органы. Деятельность подразделений военной полиции, развёрнутых во всех военных округах и функционирующих на территории гарнизонов, воинских частей и закрытых военных городков, строится на принципах законности, объективности, беспристрастности и межведомственного взаимодействия.</p>
+            <p style="margin-bottom: 16px;">Важной составляющей деятельности военной полиции является участие в обеспечении режима секретности и противодействии утечке сведений, составляющих государственную тайну: сотрудники контролируют соблюдение установленного порядка обращения с документами ограниченного доступа, проверяют организацию пропускного режима на охраняемых объектах, фиксируют нарушения, способные создать угрозу информационной безопасности Вооружённых Сил РФ.</p>
+          </div>
+        </div>
+
+        <div id="mil-page-directions" style="display: none;">
+          <h1 class="page-title">Направления деятельности</h1>
+          <div class="title-underline"></div>
+          <div style="font-size: 16px; line-height: 1.8; color: #333; text-align: justify;">
+            <p style="margin-bottom: 16px;">Деятельность Военной полиции охватывает несколько направлений, каждое из которых имеет свою специфику и регламентируется соответствующими нормативными правовыми актами Министерства обороны.</p>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Обеспечение правопорядка и воинской дисциплины</h3><p>Данное направление является основополагающим и заключается в поддержании установленного порядка и дисциплины среди военнослужащих, лиц гражданского персонала и граждан, проходящих военные сборы, а также в противодействии преступности в Вооруженных Силах.</p></div>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Осуществление полномочий органа дознания</h3><p>Военная полиция проводит дознание по грубым дисциплинарным проступкам, отнесенным к ее компетенции, выявляет и пресекает преступления и правонарушения, совершаемые военнослужащими и иными лицами на территории воинских частей и учреждений.</p></div>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Охрана объектов Вооруженных Сил Российской Федерации</h3><p>Военная полиция участвует в охране и обороне важных государственных и военных объектов, командных пунктов, линий коммуникаций, а также служебных помещений органов военной прокуратуры и военных следственных органов</p></div>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Розыск и задержание военнослужащих</h3><p>Данное направление включает розыск и задержание военнослужащих, самовольно оставивших воинские части (места службы), а также осужденных, подозреваемых либо обвиняемых в совершении преступлений и скрывшихся от органов дознания, следствия или суда.</p></div>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Охрана и конвоирование военнослужащих</h3><p>Военная полиция осуществляет функции по охране и конвоированию военнослужащих, в том числе подозреваемых, обвиняемых или осужденных, а также обеспечивает личную охрану, охрану жилища и имущества лиц, подлежащих государственной защите в соответствии с законодательством.</p></div>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Организация патрульной службы и обеспечение правопорядка в общественных местах</h3><p>Военная полиция организует патрульную службу, обеспечивает правопорядок и воинскую дисциплину среди военнослужащих на улицах, вокзалах, аэропортах, в общественных местах, а также в районах проведения учений и ликвидации последствий чрезвычайных ситуаций.</p></div>
+            <div style="margin-bottom: 24px; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #9f0000;"><h3 style="color: #9f0000; margin-bottom: 8px; font-size: 18px;">Предупреждение и пресечение правонарушений</h3><p>В рамках данной функции военная полиция осуществляет предупреждение и пресечение преступлений, административных правонарушений и дисциплинарных проступков, совершаемых военнослужащими, а также лицами гражданского персонала на территориях воинских частей.</p></div>
+          </div>
+        </div>
+
+        <div id="mil-page-rucuvodsvo" style="display: none;">
+          <h1 class="page-title">Руководство</h1>
+          <div class="title-underline"></div>
+          <div id="mil-rucuvodsvo-loading" style="text-align:center;padding:40px 0;">
+            <div class="spinner" style="margin:0 auto 15px;"></div>
+            <div style="color:#666;">Загрузка данных руководства...</div>
+          </div>
+          <div id="mil-rucuvodsvo-error" style="display:none;text-align:center;padding:40px 20px;background:#fef0f0;border-radius:8px;border:1px solid #f5c6c6;">
+            <div style="font-size:20px;font-weight:600;color:#a94442;margin-bottom:10px;">Ошибка загрузки</div>
+            <div id="mil-rucuvodsvo-error-text" style="color:#a94442;font-size:15px;"></div>
+          </div>
+          <div id="mil-rucuvodsvo-content" style="display:none;">
+            <div id="mil-rucuvodsvo-list"></div>
+          </div>
+          <div id="mil-rucuvodsvo-detail" style="display:none;">
+            <div class="back-to-news" id="mil-back-to-rucuvodsvo-btn" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:24px;">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>К списку руководства
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;">
+              <div id="mil-rucuvodsvo-detail-image-wrap" style="flex:0 0 260px;max-width:100%;">
+                <img id="mil-rucuvodsvo-detail-image" src="" alt="Фото" style="width:100%;max-width:260px;height:auto;border-radius:8px;border:1px solid #e0e0e0;display:block;background:#f5f5f5;aspect-ratio:3/4;object-fit:cover;">
+              </div>
+              <div style="flex:1;min-width:280px;">
+                <h2 id="mil-rucuvodsvo-detail-name" style="font-size:26px;font-weight:700;margin-bottom:6px;color:#1a1a2e;"></h2>
+                <div id="mil-rucuvodsvo-detail-position" style="font-size:18px;color:#888;font-weight:600;margin-bottom:12px;"></div>
+                <div id="mil-rucuvodsvo-detail-bio" style="font-size:16px;line-height:1.8;color:#333;white-space:pre-line;"></div>
+                <div id="mil-rucuvodsvo-detail-extra" style="margin-top:16px;font-size:15px;color:#555;border-top:1px solid #eee;padding-top:16px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: Личный кабинет ===== -->
+        <div id="mil-page-account" style="display: none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+            <h1 class="page-title" style="margin-bottom:0;">Личный кабинет</h1>
+            <div class="notif-wrap">
+              <button class="notif-btn" id="mil-notif-btn" title="Уведомления">
+                <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                Уведомления
+                <span class="notif-badge" id="mil-notif-badge" style="display:none;">0</span>
+              </button>
+              <div class="notif-panel" id="mil-notif-panel">
+                <div class="notif-header">
+                  <span>Уведомления</span>
+                  <button class="mil-btn-secondary" id="mil-notif-clear" style="width:auto;padding:4px 10px;font-size:12px;margin:0;">Очистить</button>
+                </div>
+                <div class="notif-list" id="mil-notif-list">
+                  <div class="notif-empty">Пока уведомлений нет.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="title-underline"></div>
+          <div class="account-card">
+            <div class="account-avatar" id="mil-account-avatar">👤</div>
+            <div class="account-info">
+              <h2 id="mil-account-name">—</h2>
+              <div id="mil-account-position" class="account-position">—</div>
+              <div id="mil-account-login" class="account-login">Логин: —</div>
+            </div>
+          </div>
+          <div class="account-section">
+            <h3>Данные профиля</h3>
+            <div class="account-row"><span>Звание:</span><strong id="mil-account-rank">—</strong></div>
+            <div class="account-row"><span>Подразделение:</span><strong id="mil-account-unit">—</strong></div>
+            <div class="account-row"><span>Дата вступления:</span><strong id="mil-account-joined">—</strong></div>
+            <div class="account-row"><span>Статус:</span><strong id="mil-account-status">—</strong></div>
+          </div>
+
+          <div class="account-actions-row">
+            <button class="registry-btn" id="mil-open-ogips">
+              <svg viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V6l9-4z"/></svg>
+              ОГиПС
+            </button>
+            <button class="registry-btn requirements-btn" id="mil-open-oddp">
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              ОДДП
+            </button>
+          </div>
+
+          <div class="account-section">
+            <h3>Действия</h3>
+            <button class="mil-btn-secondary" id="mil-account-logout">Выйти из аккаунта</button>
+          </div>
+        </div>
+
+        <!-- ===== Страница: ОГиПС ===== -->
+        <div id="mil-page-ogips" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-ogips" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в личный кабинет
+          </div>
+          <h1 class="page-title">ОГиПС</h1>
+          <div class="title-underline"></div>
+          <div class="account-section">
+            <h3>Отделение гарнизонной и патрульной службы</h3>
+            <div class="account-actions-row" style="margin-bottom:0;">
+              <button class="registry-btn patrol-btn" id="mil-open-patrol">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                КАРТОЧКА ПАТРУЛЯ
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: ОДДП ===== -->
+        <div id="mil-page-oddp" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-oddp" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в личный кабинет
+          </div>
+          <h1 class="page-title">ОДДП</h1>
+          <div class="title-underline"></div>
+          <div class="account-section">
+            <h3>Отдел дознания и дисциплинарной практики</h3>
+            <div class="account-actions-row" style="margin-bottom:0;">
+              <button class="registry-btn" id="mil-open-registry">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                РЕЕСТР ВОЕННОСЛУЖАЩИХ
+              </button>
+              <button class="registry-btn requirements-btn" id="mil-open-requirements">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                ТРЕБОВАНИЯ
+              </button>
+              <button class="registry-btn guard-btn" id="mil-open-guard">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                ГАУПТВАХТА
+              </button>
+              <button class="registry-btn kupo-btn" id="mil-open-kupo">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                КУПО
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: Реестр военнослужащих ===== -->
+        <div id="mil-page-registry" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-btn" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП
+          </div>
+          <h1 class="page-title">Реестр военнослужащих</h1>
+          <div class="title-underline"></div>
+
+          <div class="registry-stats">
+            <div class="registry-stat">
+              <div class="num" id="mil-registry-count">0</div>
+              <div class="lbl">Всего записей в реестре</div>
+            </div>
+          </div>
+
+          <div class="registry-form">
+            <h3>Добавить запись</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field">
+                <label>ФИО <span class="req">*</span></label>
+                <input type="text" id="reg-fio" placeholder="Иванов Иван Иванович">
+              </div>
+              <div class="registry-field">
+                <label>Дата рождения <span class="req">*</span></label>
+                <input type="date" id="reg-birth">
+              </div>
+              <div class="registry-field">
+                <label>Воинское звание <span class="req">*</span></label>
+                <input type="text" id="reg-rank" placeholder="Рядовой / Сержант / Лейтенант...">
+              </div>
+              <div class="registry-field">
+                <label>Воинская должность <span class="req">*</span></label>
+                <input type="text" id="reg-position" placeholder="Стрелок / Командир отделения...">
+              </div>
+              <div class="registry-field">
+                <label>Подразделение (отделение, рота, батальон) <span class="req">*</span></label>
+                <input type="text" id="reg-unit" placeholder="1-я рота / 2-й батальон / отделение связи...">
+              </div>
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Дисциплинарный проступок <span class="req">*</span></label>
+                <textarea id="reg-offense" placeholder="Описание дисциплинарного проступка"></textarea>
+              </div>
+              <div class="registry-field">
+                <label>Мера наказания <span class="req">*</span></label>
+                <input type="text" id="reg-punishment" placeholder="Дисциплинарный арест / выговор...">
+              </div>
+              <div class="registry-field">
+                <label>Фамилия, инициалы уполномоченного лица <span class="req">*</span></label>
+                <input type="text" id="reg-officer" placeholder="Петров П.П.">
+              </div>
+            </div>
+            <div class="registry-actions">
+              <button class="btn-add" id="mil-registry-add">Добавить в реестр</button>
+              <button class="btn-cancel" id="mil-registry-clear">Очистить форму</button>
+            </div>
+            <div id="mil-registry-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+
+          <div class="search-wrap">
+            <input type="text" class="search-input" id="mil-registry-search" placeholder="🔍 Поиск по реестру: ФИО, звание, должность, подразделение, проступок, наказание, уполномоченное лицо...">
+            <div class="search-hint">Поиск работает в реальном времени, регистр не важен.</div>
+          </div>
+
+          <div class="registry-table-wrap">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>Дата рождения</th>
+                  <th>Звание</th>
+                  <th>Должность</th>
+                  <th>Подразделение</th>
+                  <th>Проступок</th>
+                  <th>Наказание</th>
+                  <th>Уполномоченное лицо</th>
+                  <th>Действие</th>
+                </tr>
+              </thead>
+              <tbody id="mil-registry-tbody">
+                <tr class="empty-row"><td colspan="10">Реестр пуст. Добавьте первую запись.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="logs-block">
+            <div class="logs-header">
+              <span>Журнал реестра</span>
+              <span class="logs-count" id="mil-registry-logs-count">0 записей</span>
+            </div>
+            <div class="logs-body" id="mil-registry-logs-body">
+              <div class="logs-empty">Пока событий не было.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: Требования ===== -->
+        <div id="mil-page-requirements" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-from-req-btn" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП
+          </div>
+          <h1 class="page-title">Требования</h1>
+          <div class="title-underline"></div>
+
+          <div class="registry-stats">
+            <div class="registry-stat">
+              <div class="num" id="mil-requirements-count">0</div>
+              <div class="lbl">Всего требований</div>
+            </div>
+          </div>
+
+          <div class="registry-form">
+            <h3>Выписать требование</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Кому выписано требование (ФИО) <span class="req">*</span></label>
+                <input type="text" id="req-to" placeholder="Иванов Иван Иванович">
+              </div>
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Нарушения УВС или иное <span class="req">*</span></label>
+                <textarea id="req-violation" placeholder="Опишите нарушение"></textarea>
+              </div>
+              <div class="registry-field">
+                <label>Цель прибытия <span class="req">*</span></label>
+                <input type="text" id="req-purpose" placeholder="Например: для разбирательства">
+              </div>
+              <div class="registry-field">
+                <label>Время прибытия <span class="req">*</span></label>
+                <input type="time" id="req-arrival-time">
+              </div>
+              <div class="registry-field">
+                <label>Дата прибытия <span class="req">*</span></label>
+                <input type="date" id="req-arrival-date">
+              </div>
+              <div class="registry-field">
+                <label>Дата выписывания требования <span class="req">*</span></label>
+                <input type="date" id="req-issue-date">
+              </div>
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Начальник патруля <span class="req">*</span></label>
+                <input type="text" id="req-patrol-chief" placeholder="Петров П.П.">
+              </div>
+            </div>
+            <div class="registry-actions">
+              <button class="btn-add" id="mil-requirements-add">Выписать требование</button>
+              <button class="btn-cancel" id="mil-requirements-clear">Очистить форму</button>
+            </div>
+            <div id="mil-requirements-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+
+          <div class="search-wrap">
+            <input type="text" class="search-input" id="mil-requirements-search" placeholder="🔍 Поиск по требованиям: кому выписано, нарушение, цель, начальник патруля, статус...">
+            <div class="search-hint">Поиск работает в реальном времени, регистр не важен.</div>
+          </div>
+
+          <div class="registry-table-wrap">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Кому выписано</th>
+                  <th>Нарушения УВС или иное</th>
+                  <th>Цель прибытия</th>
+                  <th>Время прибытия</th>
+                  <th>Дата прибытия</th>
+                  <th>Дата выписывания</th>
+                  <th>Начальник патруля</th>
+                  <th>Статус</th>
+                  <th>Действие</th>
+                </tr>
+              </thead>
+              <tbody id="mil-requirements-tbody">
+                <tr class="empty-row"><td colspan="10">Требований нет. Выпишите первое.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="logs-block">
+            <div class="logs-header">
+              <span>Журнал требований</span>
+              <span class="logs-count" id="mil-requirements-logs-count">0 записей</span>
+            </div>
+            <div class="logs-body" id="mil-requirements-logs-body">
+              <div class="logs-empty">Пока событий не было.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: Гауптвахта ===== -->
+        <div id="mil-page-guard" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-guard" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП
+          </div>
+          <h1 class="page-title">Гауптвахта</h1>
+          <div class="title-underline"></div>
+
+          <div class="registry-stats">
+            <div class="registry-stat">
+              <div class="num" id="mil-guard-count">0</div>
+              <div class="lbl">Всего записей</div>
+            </div>
+          </div>
+
+          <div class="registry-form">
+            <h3>Добавить на гауптвахту</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>ФИО <span class="req">*</span></label>
+                <input type="text" id="guard-fio" placeholder="Иванов Иван Иванович">
+              </div>
+              <div class="registry-field">
+                <label>Воинская часть (номер) <span class="req">*</span></label>
+                <input type="text" id="guard-unit" placeholder="в/ч 41659">
+              </div>
+              <div class="registry-field">
+                <label>Номер камеры <span class="req">*</span></label>
+                <input type="text" id="guard-cell" placeholder="№ 5">
+              </div>
+              <div class="registry-field">
+                <label>Время принятия <span class="req">*</span></label>
+                <input type="time" id="guard-accept-time">
+              </div>
+              <div class="registry-field">
+                <label>Дата принятия <span class="req">*</span></label>
+                <input type="date" id="guard-accept-date">
+              </div>
+              <div class="registry-field">
+                <label>Дата посадки <span class="req">*</span></label>
+                <input type="date" id="guard-put-date">
+              </div>
+              <div class="registry-field">
+                <label>Дата освобождения <span class="req">*</span></label>
+                <input type="date" id="guard-release-date">
+              </div>
+              <div class="registry-field">
+                <label>Кто передал (Фамилия И.О.) <span class="req">*</span></label>
+                <input type="text" id="guard-handed" placeholder="Петров П.П.">
+              </div>
+              <div class="registry-field">
+                <label>Начальник гауптвахты (Фамилия И.О.) <span class="req">*</span></label>
+                <input type="text" id="guard-chief" placeholder="Сидоров С.С.">
+              </div>
+            </div>
+            <div class="registry-actions">
+              <button class="btn-add" id="mil-guard-add">Добавить</button>
+              <button class="btn-cancel" id="mil-guard-clear">Очистить форму</button>
+            </div>
+            <div id="mil-guard-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+
+          <div class="search-wrap">
+            <input type="text" class="search-input" id="mil-guard-search" placeholder="🔍 Поиск по гауптвахте: ФИО, часть, камера, кто передал, начальник...">
+            <div class="search-hint">Поиск работает в реальном времени, регистр не важен.</div>
+          </div>
+
+          <div class="registry-table-wrap">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>В/ч</th>
+                  <th>Принят</th>
+                  <th>Посадка</th>
+                  <th>Освобождение</th>
+                  <th>Камера</th>
+                  <th>Передал</th>
+                  <th>Нач. гауптвахты</th>
+                  <th>Занесено</th>
+                  <th>Статус</th>
+                  <th>Таймер</th>
+                  <th>Действие</th>
+                </tr>
+              </thead>
+              <tbody id="mil-guard-tbody">
+                <tr class="empty-row"><td colspan="13">Записей нет.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="logs-block">
+            <div class="logs-header">
+              <span>Журнал гауптвахты</span>
+              <span class="logs-count" id="mil-guard-logs-count">0 записей</span>
+            </div>
+            <div class="logs-body" id="mil-guard-logs-body">
+              <div class="logs-empty">Пока событий не было.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: КУПО ===== -->
+        <div id="mil-page-kupo" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-kupo" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП
+          </div>
+          <h1 class="page-title">КУПО</h1>
+          <div class="title-underline"></div>
+
+          <div class="account-section">
+            <h3>Что такое КУПО?</h3>
+            <p style="color:#444;font-size:15px;line-height:1.7;margin-bottom:0;">
+              <strong>КУПО — Книга учёта письменных обращений</strong> (заявлений, рапортов о грубом дисциплинарном проступке).
+              Система автоматически присваивает номер в формате <strong>КУПО-26-N</strong> (где 26 — год, N — порядковый номер).
+              Если номер уже занят, будет выдан следующий свободный. После заполнения формы система сама формирует бумагу.
+            </p>
+          </div>
+
+          <div class="registry-stats">
+            <div class="registry-stat">
+              <div class="num" id="mil-kupo-count">0</div>
+              <div class="lbl">Всего зарегистрировано</div>
+            </div>
+          </div>
+
+          <div class="registry-form">
+            <h3>Регистрация обращения</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Тип документа <span class="req">*</span></label>
+                <select id="kupo-type">
+                  <option value="report">Рапорт</option>
+                  <option value="protocol">Протокол принятия устного заявления о преступлении</option>
+                </select>
+              </div>
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>На имя кого пишется <span class="req">*</span></label>
+                <input type="text" id="kupo-to" placeholder="Военному коменданту ...">
+              </div>
+              <div class="registry-field">
+                <label>Дата <span class="req">*</span></label>
+                <input type="date" id="kupo-date">
+              </div>
+              <div class="registry-field">
+                <label>Время <span class="req">*</span></label>
+                <input type="time" id="kupo-time">
+              </div>
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Объяснение ситуации <span class="req">*</span></label>
+                <textarea id="kupo-explanation" placeholder="Опишите ситуацию"></textarea>
+              </div>
+              <div class="registry-field">
+                <label>Дата написания <span class="req">*</span></label>
+                <input type="date" id="kupo-written-date">
+              </div>
+              <div class="registry-field">
+                <label>Должность <span class="req">*</span></label>
+                <input type="text" id="kupo-position" placeholder="Старший инспектор...">
+              </div>
+              <div class="registry-field">
+                <label>Звание <span class="req">*</span></label>
+                <input type="text" id="kupo-rank" placeholder="Прапорщик">
+              </div>
+              <div class="registry-field">
+                <label>ФИО <span class="req">*</span></label>
+                <input type="text" id="kupo-fio" placeholder="Романов Д.С.">
+              </div>
+            </div>
+            <div class="registry-actions">
+              <button class="btn-add" id="mil-kupo-add">Зарегистрировать</button>
+              <button class="btn-cancel" id="mil-kupo-clear">Очистить форму</button>
+            </div>
+            <div id="mil-kupo-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+
+          <div class="search-wrap">
+            <input type="text" class="search-input" id="mil-kupo-search" placeholder="🔍 Поиск по КУПО: номер, на имя кого, ФИО, должность...">
+            <div class="search-hint">Поиск работает в реальном времени, регистр не важен.</div>
+          </div>
+
+          <div class="registry-table-wrap">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>№ КУПО</th>
+                  <th>На имя</th>
+                  <th>Дата/время</th>
+                  <th>Объяснение</th>
+                  <th>Дата написания</th>
+                  <th>Должность</th>
+                  <th>Звание</th>
+                  <th>ФИО</th>
+                  <th>Действие</th>
+                </tr>
+              </thead>
+              <tbody id="mil-kupo-tbody">
+                <tr class="empty-row"><td colspan="9">Обращений нет.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="logs-block">
+            <div class="logs-header">
+              <span>Журнал КУПО</span>
+              <span class="logs-count" id="mil-kupo-logs-count">0 записей</span>
+            </div>
+            <div class="logs-body" id="mil-kupo-logs-body">
+              <div class="logs-empty">Пока событий не было.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Страница: Карточка патруля ===== -->
+        <div id="mil-page-patrol" style="display: none;">
+          <div class="back-to-news" id="mil-back-to-account-patrol" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОГиПС
+          </div>
+          <h1 class="page-title">Карточка патруля</h1>
+          <div class="title-underline"></div>
+
+          <div class="registry-stats">
+            <div class="registry-stat">
+              <div class="num" id="mil-patrol-count">0</div>
+              <div class="lbl">Всего карточек</div>
+            </div>
+          </div>
+
+          <div class="registry-form">
+            <h3>Создать карточку</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field">
+                <label>Время несения службы с <span class="req">*</span></label>
+                <input type="time" id="patrol-time-from">
+              </div>
+              <div class="registry-field">
+                <label>по <span class="req">*</span></label>
+                <input type="time" id="patrol-time-to">
+              </div>
+              <div class="registry-field">
+                <label>Дата <span class="req">*</span></label>
+                <input type="date" id="patrol-date">
+              </div>
+              <div class="registry-field">
+                <label>Место несения службы <span class="req">*</span></label>
+                <input type="text" id="patrol-place" placeholder="Нижегородский гарнизон, маршрут 1-ГА">
+              </div>
+              <div class="registry-field">
+                <label>Вид несения службы <span class="req">*</span></label>
+                <input type="text" id="patrol-type" placeholder="механизированный">
+              </div>
+              <div class="registry-field">
+                <label>Начальник патруля <span class="req">*</span></label>
+                <input type="text" id="patrol-chief" placeholder="Командир 1-го отделения взвода военной полиции, старший прапорщик Калибров Э.Я.">
+              </div>
+              <div class="registry-field">
+                <label>Патрульный <span class="req">*</span></label>
+                <input type="text" id="patrol-officer" placeholder="-">
+              </div>
+              <div class="registry-field">
+                <label>Патрульный автомобиль <span class="req">*</span></label>
+                <input type="text" id="patrol-car" placeholder="УАЗ Патриот 0100МР52">
+              </div>
+              <div class="registry-field" style="grid-column:1/-1;">
+                <label>Кем выдано <span class="req">*</span></label>
+                <input type="text" id="patrol-issued" placeholder="Дежурный по военной комендатуре">
+              </div>
+            </div>
+            <div class="registry-actions">
+              <button class="btn-add" id="mil-patrol-add">Создать карточку</button>
+              <button class="btn-cancel" id="mil-patrol-clear">Очистить форму</button>
+            </div>
+            <div id="mil-patrol-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+
+          <div class="registry-table-wrap">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Время</th>
+                  <th>Дата</th>
+                  <th>Место</th>
+                  <th>Вид</th>
+                  <th>Нач. патруля</th>
+                  <th>Автомобиль</th>
+                  <th>Выдано</th>
+                  <th>Действие</th>
+                </tr>
+              </thead>
+              <tbody id="mil-patrol-tbody">
+                <tr class="empty-row"><td colspan="9">Карточек нет.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="mil-loading-container">
+          <h1 class="page-title">Новости</h1>
+          <div class="title-underline"></div>
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+            <div class="loading-text">Загрузка новостей...</div>
+          </div>
+        </div>
+        <div id="mil-news-list-container" style="display: none;">
+          <h1 class="page-title">Новости</h1>
+          <div class="title-underline"></div>
+          <div class="news-list"></div>
+          <div class="pagination"></div>
+        </div>
+        <div id="mil-error-container" style="display: none;">
+          <h1 class="page-title">Новости</h1>
+          <div class="title-underline"></div>
+          <div class="error-message">
+            <div class="error-title">Ошибка загрузки новостей</div>
+            <div class="error-text" id="mil-error-text"></div>
+          </div>
+        </div>
+        <div id="mil-news-detail-container" class="news-detail">
+          <div class="back-to-news" id="mil-back-to-news-btn" style="cursor:pointer;">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>К списку новостей
+          </div>
+          <h1 class="news-detail-title" id="mil-detail-title"></h1>
+          <div class="news-detail-date" id="mil-detail-date"></div>
+          <div class="news-detail-text" id="mil-detail-text"></div>
+          <div class="news-detail-author" id="mil-detail-author"></div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- ==================== ПОДВАЛ ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <div class="logo-sm">
+              <img src="https://psv4.vkuserphoto.ru/s/v1/d2/3mi-8d4X9mKt3DotGc7hhwiYmcirOOTdSwLUqCJTTSl7kUY1rxifq1JOPyzgaTCIiTrWaQjXvPoLmsg7Lek62BSsdYvp0ZNmYFhCun5c-lBLcuMDzI9IBv9XtilXvYlfVFD7YTaZzZCJ/image-Photoroom.png" alt="Герб">
+            </div>
+            <div>
+              <div class="org-title-sm">Министерство обороны</div>
+              <div class="org-sub-sm">Военная комендатура 1-го разряда Нижегородского территорального гарнизона</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-title">Разделы сайта</div>
+          <ul class="footer-links">
+            <li><a href="#" class="nav-btn" data-page="about" style="cursor:pointer;">О Военной полиции</a></li>
+            <li><a href="#" class="nav-btn" data-page="directions" style="cursor:pointer;">Направления деятельности ВП</a></li>
+            <li><a href="#" class="nav-btn" data-page="news" style="cursor:pointer;">Новости</a></li>
+            <li><a href="#" class="nav-btn" data-page="rucuvodsvo" style="cursor:pointer;">Руководство</a></li>
+            <li><a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=forums&id=1271" target="_blank">Служба в ВП</a></li>
+            <li><a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=31547" target="_blank">Электронная приемная</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <ul class="footer-utility">
+            <li><a href="https://vk.ru/chelmaximum" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> СООБЩИТЬ ОБ ОШИБКЕ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom-text">
+        <span>Данный сайт создан исключительно для использования в качестве атрибута ролевой игры <strong>GreenTech Role Play</strong> и не является официальным сайтом Министерства обороны РФ. Все материалы носят вымышленный характер.</span>
+        <span class="footer-copy-year">© 2026 Maksim_Kudashov</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== МОДАЛЬНОЕ ОКНО ВХОДА ==================== -->
+  <div class="mil-modal-overlay" id="mil-login-modal" style="display:none;">
+    <div class="mil-modal">
+      <div class="mil-modal-header">
+        <span>Вход в личный кабинет</span>
+        <button class="mil-modal-close" id="mil-login-modal-close">×</button>
+      </div>
+      <div class="mil-modal-body">
+        <div class="mil-form-group">
+          <label for="mil-login-username">Логин</label>
+          <input type="text" id="mil-login-username" placeholder="Введите логин" autocomplete="username">
+        </div>
+        <div class="mil-form-group">
+          <label for="mil-login-password">Пароль</label>
+          <input type="password" id="mil-login-password" placeholder="Введите пароль" autocomplete="current-password">
+        </div>
+        <div class="mil-login-error" id="mil-login-error" style="display:none;"></div>
+        <button class="mil-btn-primary" id="mil-login-submit">Войти</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.mil-wrapper -->
+
+<script>
+(function(){
+  // ==================== КОНСТАНТЫ ====================
+  var SPREADSHEET_ID = '13OmMeBkeuGjzsSPLOIW949VYA1dH8RqvaTX7gS93l40';
+  var NEWS_SHEET = 'Новости';
+  var ACCOUNTS_SHEET = 'Аккаунты';
+  var NEWS_API_URL = 'https://opensheet.elk.sh/' + SPREADSHEET_ID + '/' + encodeURIComponent(NEWS_SHEET);
+  var ACCOUNTS_API_URL = 'https://opensheet.elk.sh/' + SPREADSHEET_ID + '/' + encodeURIComponent(ACCOUNTS_SHEET);
+  var NEWS_PER_PAGE = 10;
+
+  // ==================== ПЕРЕМЕННЫЕ ====================
+  var currentPage = 1;
+  var allNewsData = [];
+  var totalPages = 1;
+  var currentPageType = 'news';
+
+  // DOM
+  var loadingContainer = document.getElementById('mil-loading-container');
+  var newsListContainer = document.getElementById('mil-news-list-container');
+  var errorContainer = document.getElementById('mil-error-container');
+  var errorText = document.getElementById('mil-error-text');
+  var newsDetailContainer = document.getElementById('mil-news-detail-container');
+  var backToNewsBtn = document.getElementById('mil-back-to-news-btn');
+  var newsList = document.querySelector('.mil-wrapper .news-list');
+  var pagination = document.querySelector('.mil-wrapper .pagination');
+
+  var pageAbout = document.getElementById('mil-page-about');
+  var pageDirections = document.getElementById('mil-page-directions');
+  var pageRucuvodsvo = document.getElementById('mil-page-rucuvodsvo');
+  var pageAccount = document.getElementById('mil-page-account');
+  var pageOgips = document.getElementById('mil-page-ogips');
+  var pageOddp = document.getElementById('mil-page-oddp');
+  var pageRegistry = document.getElementById('mil-page-registry');
+  var pageRequirements = document.getElementById('mil-page-requirements');
+  var pageGuard = document.getElementById('mil-page-guard');
+  var pageKupo = document.getElementById('mil-page-kupo');
+  var pagePatrol = document.getElementById('mil-page-patrol');
+
+  // ==================== НАВИГАЦИЯ ====================
+  function hideAllPages(){
+    var all = [pageAbout, pageDirections, pageRucuvodsvo, pageAccount, pageOgips, pageOddp, pageRegistry, pageRequirements, pageGuard, pageKupo, pagePatrol];
+    for(var i = 0; i < all.length; i++) if(all[i]) all[i].style.display = 'none';
+    loadingContainer.style.display = 'none';
+    newsListContainer.style.display = 'none';
+    errorContainer.style.display = 'none';
+    newsDetailContainer.style.display = 'none';
+  }
+
+  function showPage(pageType){
+    hideAllPages();
+    currentPageType = pageType;
+    var allNavBtns = document.querySelectorAll('.mil-wrapper .nav-btn');
+    for(var i = 0; i < allNavBtns.length; i++){
+      allNavBtns[i].classList.remove('active');
+      if(allNavBtns[i].getAttribute('data-page') === pageType) allNavBtns[i].classList.add('active');
+    }
+
+    if(pageType === 'about'){
+      if(pageAbout) pageAbout.style.display = 'block';
+    } else if(pageType === 'directions'){
+      if(pageDirections) pageDirections.style.display = 'block';
+    } else if(pageType === 'rucuvodsvo'){
+      if(pageRucuvodsvo){
+        pageRucuvodsvo.style.display = 'block';
+        if(window.loadRucuvodsvoData) window.loadRucuvodsvoData();
+      }
+    } else if(pageType === 'account'){
+      if(pageAccount){ pageAccount.style.display = 'block'; renderAccountPage(); }
+    } else if(pageType === 'ogips'){
+      if(pageOgips) pageOgips.style.display = 'block';
+    } else if(pageType === 'oddp'){
+      if(pageOddp) pageOddp.style.display = 'block';
+    } else if(pageType === 'registry'){
+      if(pageRegistry){
+        pageRegistry.style.display = 'block';
+        var s = document.getElementById('mil-registry-search');
+        if(s) s.value = '';
+        registrySearchQuery = '';
+        renderRegistryTable();
+        renderRegistryLogs();
+      }
+    } else if(pageType === 'requirements'){
+      if(pageRequirements){
+        pageRequirements.style.display = 'block';
+        var s2 = document.getElementById('mil-requirements-search');
+        if(s2) s2.value = '';
+        requirementsSearchQuery = '';
+        renderRequirementsTable();
+        renderRequirementsLogs();
+      }
+    } else if(pageType === 'guard'){
+      if(pageGuard){
+        pageGuard.style.display = 'block';
+        var s3 = document.getElementById('mil-guard-search');
+        if(s3) s3.value = '';
+        guardSearchQuery = '';
+        renderGuardTable();
+        renderGuardLogs();
+      }
+    } else if(pageType === 'kupo'){
+      if(pageKupo){
+        pageKupo.style.display = 'block';
+        var s4 = document.getElementById('mil-kupo-search');
+        if(s4) s4.value = '';
+        kupoSearchQuery = '';
+        renderKupoTable();
+        renderKupoLogs();
+      }
+    } else if(pageType === 'patrol'){
+      if(pagePatrol){
+        pagePatrol.style.display = 'block';
+        renderPatrolTable();
+      }
+    } else if(pageType === 'news'){
+      if(allNewsData.length > 0){
+        newsListContainer.style.display = 'block';
+        renderNewsPage(currentPage);
+      } else {
+        showLoading();
+      }
+    }
+  }
+
+  function showLoading(){ hideAllPages(); loadingContainer.style.display = 'block'; currentPageType = 'news'; }
+  function showNewsList(){ hideAllPages(); newsListContainer.style.display = 'block'; currentPageType = 'news'; }
+  function showError(msg){ hideAllPages(); errorContainer.style.display = 'block'; errorText.textContent = msg; currentPageType = 'news'; }
+
+  // ==================== ЗАГРУЗКА НОВОСТЕЙ ====================
+  function loadNewsData(){
+    showLoading();
+    fetch(NEWS_API_URL)
+      .then(function(r){ if(!r.ok) throw new Error('Ошибка сети: ' + r.status); return r.json(); })
+      .then(function(data){
+        if(!data || data.length === 0){ showError('Таблица пуста. Добавьте данные на лист «Новости».'); return; }
+        var rawData = [];
+        for(var i = 0; i < data.length; i++){
+          var row = data[i];
+          rawData.push({
+            id: parseInt(row['ID']) || i + 1,
+            date: row['Дата'] || '',
+            title: row['Заголовок'] || '',
+            desc: row['Краткое описание'] || '',
+            text: row['Полное описание'] || '',
+            image: row['Изображение'] || '',
+            author: row['Автор'] || ''
+          });
+        }
+        rawData.sort(function(a, b){ return b.id - a.id; });
+        allNewsData = rawData;
+        if(allNewsData.length === 0){ showError('Новости не найдены. Добавьте данные в таблицу.'); return; }
+        totalPages = Math.ceil(allNewsData.length / NEWS_PER_PAGE);
+        showNewsList();
+        renderNewsPage(1);
+      })
+      .catch(function(error){
+        console.error('Ошибка загрузки:', error);
+        showError('Не удалось загрузить данные из Google Таблицы.\n\nПроверьте:\n1. Доступ к таблице\n2. Название листа — «Новости»\n3. Подключение к интернету');
+      });
+  }
+
+  // ==================== УТИЛИТЫ ====================
+  function escapeHTML(str){
+    if(!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function getImagesArray(imageStr){
+    if(!imageStr || imageStr.trim() === '') return [];
+    return imageStr.split(';').map(function(url){ return url.trim(); }).filter(function(url){ return url !== ''; });
+  }
+
+  // ==================== РЕНДЕР НОВОСТЕЙ ====================
+  function renderNewsPage(page){
+    currentPage = page;
+    var start = (page - 1) * NEWS_PER_PAGE;
+    var end = start + NEWS_PER_PAGE;
+    var pageNews = allNewsData.slice(start, end);
+    newsList.innerHTML = '';
+    for(var i = 0; i < pageNews.length; i++){
+      (function(news){
+        var card = document.createElement('article');
+        card.className = 'news-card';
+        card.setAttribute('data-news-id', news.id);
+        card.style.cursor = 'pointer';
+        var imgDiv = document.createElement('div');
+        imgDiv.className = 'news-img';
+        var images = getImagesArray(news.image);
+        if(images.length > 0){
+          var img = document.createElement('img');
+          img.src = images[0];
+          img.alt = escapeHTML(news.title);
+          img.onerror = function(){ this.parentElement.textContent = '📄'; };
+          imgDiv.appendChild(img);
+        } else { imgDiv.textContent = 'Новость без изображения'; }
+        var contentDiv = document.createElement('div');
+        contentDiv.className = 'news-content';
+        var titleH2 = document.createElement('h2');
+        titleH2.className = 'news-title';
+        titleH2.textContent = escapeHTML(news.title);
+        contentDiv.appendChild(titleH2);
+        var descP = document.createElement('p');
+        descP.className = 'news-desc';
+        descP.textContent = escapeHTML(news.desc);
+        contentDiv.appendChild(descP);
+        var dateTime = document.createElement('time');
+        dateTime.className = 'news-date';
+        dateTime.textContent = escapeHTML(news.date);
+        contentDiv.appendChild(dateTime);
+        card.appendChild(imgDiv);
+        card.appendChild(contentDiv);
+        card.addEventListener('click', function(){ openNewsDetail(news.id); });
+        newsList.appendChild(card);
+      })(pageNews[i]);
+    }
+    renderPagination();
+  }
+
+  function renderPagination(){
+    pagination.innerHTML = '';
+    if(totalPages <= 1){ pagination.style.display = 'none'; return; }
+    pagination.style.display = 'flex';
+    if(currentPage > 1){
+      var prevArrow = document.createElement('span');
+      prevArrow.className = 'arrow-left'; prevArrow.innerHTML = '‹'; prevArrow.style.cursor = 'pointer';
+      prevArrow.addEventListener('click', function(){ renderNewsPage(currentPage - 1); });
+      pagination.appendChild(prevArrow);
+    }
+    var maxVisible = 7, startPage, endPage;
+    if(totalPages <= maxVisible){ startPage = 1; endPage = totalPages; }
+    else {
+      if(currentPage <= 4){ startPage = 1; endPage = 7; }
+      else if(currentPage >= totalPages - 3){ startPage = totalPages - 6; endPage = totalPages; }
+      else { startPage = currentPage - 3; endPage = currentPage + 3; }
+    }
+    if(startPage > 1){
+      pagination.appendChild(createPageElement(1));
+      if(startPage > 2){
+        var dots = document.createElement('span'); dots.className = 'page'; dots.textContent = '…'; dots.style.cursor = 'default';
+        pagination.appendChild(dots);
+      }
+    }
+    for(var i = startPage; i <= endPage; i++) pagination.appendChild(createPageElement(i));
+    if(endPage < totalPages){
+      if(endPage < totalPages - 1){
+        var dots2 = document.createElement('span'); dots2.className = 'page'; dots2.textContent = '…'; dots2.style.cursor = 'default';
+        pagination.appendChild(dots2);
+      }
+      pagination.appendChild(createPageElement(totalPages));
+    }
+    if(currentPage < totalPages){
+      var nextArrow = document.createElement('span');
+      nextArrow.className = 'arrow-right'; nextArrow.innerHTML = '›'; nextArrow.style.cursor = 'pointer';
+      nextArrow.addEventListener('click', function(){ renderNewsPage(currentPage + 1); });
+      pagination.appendChild(nextArrow);
+    }
+  }
+
+  function createPageElement(pageNum){
+    var span = document.createElement('span');
+    span.className = 'page'; span.textContent = pageNum; span.style.cursor = 'pointer';
+    if(pageNum === currentPage) span.classList.add('active');
+    span.addEventListener('click', function(){ if(pageNum !== currentPage) renderNewsPage(pageNum); });
+    return span;
+  }
+
+  // ==================== ДЕТАЛИ НОВОСТИ ====================
+  var currentImageIndex = 0;
+  var currentImages = [];
+
+  function openNewsDetail(newsId){
+    var data = null;
+    for(var i = 0; i < allNewsData.length; i++){
+      if(allNewsData[i].id === newsId){ data = allNewsData[i]; break; }
+    }
+    if(!data) return;
+    document.getElementById('mil-detail-title').textContent = data.title;
+    document.getElementById('mil-detail-date').textContent = data.date;
+    document.getElementById('mil-detail-text').textContent = data.text;
+    document.getElementById('mil-detail-author').textContent = data.author;
+    var oldGallery = document.getElementById('mil-detail-gallery');
+    if(oldGallery) oldGallery.remove();
+    var detailDate = document.getElementById('mil-detail-date');
+    var detailText = document.getElementById('mil-detail-text');
+    var gallery = document.createElement('div');
+    gallery.id = 'mil-detail-gallery';
+    gallery.style.cssText = 'position:relative;margin-bottom:28px;';
+    var images = getImagesArray(data.image);
+    currentImages = images; currentImageIndex = 0;
+    if(images.length > 0){
+      var imgWrapper = document.createElement('div');
+      imgWrapper.style.cssText = 'position:relative;width:100%;';
+      var img = document.createElement('img');
+      img.id = 'mil-detail-current-image';
+      img.className = 'news-detail-image visible';
+      img.src = images[0];
+      img.alt = escapeHTML(data.title);
+      img.style.cssText = 'width:100%;max-width:100%;height:auto;border-radius:4px;display:block;';
+      img.onerror = function(){ this.style.display = 'none'; };
+      imgWrapper.appendChild(img);
+      if(images.length > 1){
+        var dotsContainer = document.createElement('div');
+        dotsContainer.id = 'mil-detail-dots';
+        dotsContainer.style.cssText = 'display:flex;justify-content:center;gap:8px;margin-top:8px;padding:2px 0;';
+        for(var d = 0; d < images.length; d++){
+          (function(dot, index){
+            dot.addEventListener('click', function(e){ e.stopPropagation(); navigateToImage(index); });
+          })((function(){
+            var dot = document.createElement('span');
+            dot.className = 'mil-dot'; dot.dataset.index = d;
+            dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;transition:background .3s,transform .2s;display:inline-block;';
+            if(d === 0){ dot.classList.add('active'); dot.style.background = '#1f2025'; dot.style.transform = 'scale(1.2)'; }
+            dot.onmouseover = function(){ if(!this.classList.contains('active')) this.style.background = '#aaa'; };
+            dot.onmouseout = function(){ if(!this.classList.contains('active')) this.style.background = '#ccc'; };
+            return dot;
+          })(), d);
+          dotsContainer.appendChild(dot);
+        }
+        gallery.appendChild(imgWrapper);
+        gallery.appendChild(dotsContainer);
+      } else { gallery.appendChild(imgWrapper); }
+      if(images.length > 1){
+        var navStyle = 'position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:22px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s,opacity .2s;opacity:.7;';
+        var prevBtn = document.createElement('button');
+        prevBtn.className = 'mil-gallery-prev'; prevBtn.innerHTML = '‹'; prevBtn.style.cssText = navStyle + 'left:12px;';
+        prevBtn.onmouseover = function(){ this.style.background = 'rgba(0,0,0,.85)'; this.style.opacity = '1'; };
+        prevBtn.onmouseout = function(){ this.style.background = 'rgba(0,0,0,.6)'; this.style.opacity = '.7'; };
+        prevBtn.onclick = function(e){ e.stopPropagation(); e.preventDefault(); navigateGallery(-1); return false; };
+        imgWrapper.appendChild(prevBtn);
+        var nextBtn = document.createElement('button');
+        nextBtn.className = 'mil-gallery-next'; nextBtn.innerHTML = '›'; nextBtn.style.cssText = navStyle + 'right:12px;';
+        nextBtn.onmouseover = function(){ this.style.background = 'rgba(0,0,0,.85)'; this.style.opacity = '1'; };
+        nextBtn.onmouseout = function(){ this.style.background = 'rgba(0,0,0,.6)'; this.style.opacity = '.7'; };
+        nextBtn.onclick = function(e){ e.stopPropagation(); e.preventDefault(); navigateGallery(1); return false; };
+        imgWrapper.appendChild(nextBtn);
+      }
+    }
+    gallery.addEventListener('click', function(e){ if(e.target.closest('button, .mil-dot')) e.stopPropagation(); });
+    if(detailDate && detailText) detailDate.parentNode.insertBefore(gallery, detailText);
+    hideAllPages();
+    newsDetailContainer.style.display = 'block';
+  }
+
+  function navigateGallery(direction){
+    if(!currentImages || currentImages.length === 0) return;
+    var newIndex = currentImageIndex + direction;
+    if(newIndex < 0) newIndex = currentImages.length - 1;
+    if(newIndex >= currentImages.length) newIndex = 0;
+    navigateToImage(newIndex);
+  }
+
+  function navigateToImage(index){
+    if(!currentImages || currentImages.length === 0) return;
+    if(index < 0 || index >= currentImages.length) return;
+    currentImageIndex = index;
+    var img = document.getElementById('mil-detail-current-image');
+    if(img){ img.src = currentImages[index]; img.style.display = 'block'; img.onerror = function(){ this.style.display = 'none'; }; }
+    var dots = document.querySelectorAll('.mil-dot');
+    for(var i = 0; i < dots.length; i++){
+      if(i === index){ dots[i].classList.add('active'); dots[i].style.background = '#1f2025'; dots[i].style.transform = 'scale(1.2)'; }
+      else { dots[i].classList.remove('active'); dots[i].style.background = '#ccc'; dots[i].style.transform = 'scale(1)'; }
+    }
+  }
+
+  function closeNewsDetail(){
+    currentImageIndex = 0; currentImages = [];
+    hideAllPages(); newsListContainer.style.display = 'block'; currentPageType = 'news';
+  }
+  backToNewsBtn.addEventListener('click', closeNewsDetail);
+
+  // ==================== РУКОВОДСТВО ====================
+  var RUCUVODSVO_SHEETS = ['Руководство', 'Руководство_ОГПС', 'Руководство_ОДДП', 'Руководство_УЦ_ВП'];
+  var SECTION_TITLES = {
+    'Руководство': 'Военная комендатура',
+    'Руководство_ОГПС': 'Отделение гарнизонной и патрульной службы',
+    'Руководство_ОДДП': 'Отдел дознания и дисциплинарной практики',
+    'Руководство_УЦ_ВП': 'Учебный центр военной полиции'
+  };
+  var allRucuvodsvoData = {};
+
+  var rucuvodsvoLoading = document.getElementById('mil-rucuvodsvo-loading');
+  var rucuvodsvoError = document.getElementById('mil-rucuvodsvo-error');
+  var rucuvodsvoErrorText = document.getElementById('mil-rucuvodsvo-error-text');
+  var rucuvodsvoContent = document.getElementById('mil-rucuvodsvo-content');
+  var rucuvodsvoList = document.getElementById('mil-rucuvodsvo-list');
+  var rucuvodsvoDetail = document.getElementById('mil-rucuvodsvo-detail');
+  var backToRucuvodsvoBtn = document.getElementById('mil-back-to-rucuvodsvo-btn');
+  var detailImage = document.getElementById('mil-rucuvodsvo-detail-image');
+  var detailName = document.getElementById('mil-rucuvodsvo-detail-name');
+  var detailPosition = document.getElementById('mil-rucuvodsvo-detail-position');
+  var detailBio = document.getElementById('mil-rucuvodsvo-detail-bio');
+  var detailExtra = document.getElementById('mil-rucuvodsvo-detail-extra');
+  var currentDetailSource = null;
+  var currentDetailIndex = -1;
+
+  function loadRucuvodsvoData(){
+    rucuvodsvoLoading.style.display = 'block';
+    rucuvodsvoError.style.display = 'none';
+    rucuvodsvoContent.style.display = 'none';
+    rucuvodsvoDetail.style.display = 'none';
+    var promises = RUCUVODSVO_SHEETS.map(function(sheetName){
+      var url = 'https://opensheet.elk.sh/' + SPREADSHEET_ID + '/' + encodeURIComponent(sheetName);
+      return fetch(url)
+        .then(function(r){ if(!r.ok) return []; return r.json(); })
+        .then(function(data){
+          if(!data || data.length === 0) return { sheet: sheetName, data: [] };
+          var rawData = [];
+          for(var i = 0; i < data.length; i++){
+            var row = data[i];
+            rawData.push({
+              id: parseInt(row['ID']) || i + 1,
+              name: row['ФИО'] || row['Имя'] || '',
+              position: row['Должность'] || '',
+              bio: row['Биография'] || row['Описание'] || '',
+              image: row['Фото'] || row['Изображение'] || '',
+              extra: row['Дополнительно'] || ''
+            });
+          }
+          rawData.sort(function(a, b){ return a.id - b.id; });
+          return { sheet: sheetName, data: rawData };
+        })
+        .catch(function(){ return { sheet: sheetName, data: [] }; });
+    });
+    Promise.all(promises)
+      .then(function(results){
+        var hasData = false;
+        results.forEach(function(result){
+          if(result.data && result.data.length > 0) hasData = true;
+          allRucuvodsvoData[result.sheet] = result.data;
+        });
+        if(!hasData){
+          rucuvodsvoLoading.style.display = 'none';
+          showRucuvodsvoError('Данные руководства не найдены. Добавьте данные в листы:\n- Руководство\n- Руководство_ОГПС\n- Руководство_ОДДП\n- Руководство_УЦ_ВП');
+          return;
+        }
+        rucuvodsvoLoading.style.display = 'none';
+        rucuvodsvoContent.style.display = 'block';
+        renderRucuvodsvoList();
+      })
+      .catch(function(error){
+        console.error('Ошибка загрузки руководства:', error);
+        showRucuvodsvoError('Не удалось загрузить данные из Google Таблицы.\n\nПроверьте:\n1. Доступ к таблице\n2. Названия листов\n3. Подключение к интернету');
+      });
+  }
+
+  function showRucuvodsvoError(msg){
+    rucuvodsvoLoading.style.display = 'none';
+    rucuvodsvoContent.style.display = 'none';
+    rucuvodsvoDetail.style.display = 'none';
+    rucuvodsvoError.style.display = 'block';
+    rucuvodsvoErrorText.textContent = msg;
+  }
+
+  function renderRucuvodsvoList(){
+    rucuvodsvoList.innerHTML = '';
+    RUCUVODSVO_SHEETS.forEach(function(sheetName){
+      var people = allRucuvodsvoData[sheetName] || [];
+      if(people.length === 0) return;
+      var section = document.createElement('div');
+      section.className = 'rucuvodsvo-section';
+      var title = document.createElement('h2');
+      title.className = 'rucuvodsvo-section-title';
+      title.textContent = SECTION_TITLES[sheetName] || sheetName;
+      section.appendChild(title);
+      for(var i = 0; i < people.length; i++){
+        (function(person, index, sheet){
+          var card = document.createElement('div');
+          card.style.cssText = 'display:flex;gap:20px;padding:18px 20px;margin-bottom:16px;border:1px solid #e8e8e8;border-radius:8px;cursor:pointer;transition:background .2s,transform .15s;align-items:center;background:#fff;';
+          var imgContainer = document.createElement('div');
+          imgContainer.style.cssText = 'flex:0 0 80px;width:80px;height:80px;border-radius:50%;overflow:hidden;background:#f0f0f0;flex-shrink:0;';
+          var img = document.createElement('img');
+          img.src = person.image || ''; img.alt = person.name;
+          img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+          img.onerror = function(){
+            this.style.display = 'none';
+            this.parentElement.textContent = '👤';
+            this.parentElement.style.cssText = 'flex:0 0 80px;width:80px;height:80px;border-radius:50%;overflow:hidden;background:#f0f0f0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;';
+          };
+          imgContainer.appendChild(img);
+          var info = document.createElement('div');
+          info.style.cssText = 'flex:1;min-width:0;';
+          var nameEl = document.createElement('div');
+          nameEl.style.cssText = 'font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:2px;';
+          nameEl.textContent = person.name; info.appendChild(nameEl);
+          var posEl = document.createElement('div');
+          posEl.style.cssText = 'font-size:15px;color:#888;font-weight:500;';
+          posEl.textContent = person.position; info.appendChild(posEl);
+          if(person.bio){
+            var bioPreview = document.createElement('div');
+            bioPreview.style.cssText = 'font-size:14px;color:#666;margin-top:4px;line-height:1.4;';
+            bioPreview.textContent = person.bio.length > 120 ? person.bio.substring(0, 120) + '...' : person.bio;
+            info.appendChild(bioPreview);
+          }
+          card.appendChild(imgContainer); card.appendChild(info);
+          card.addEventListener('mouseenter', function(){ this.style.backgroundColor = '#f8f9fa'; this.style.transform = 'translateX(4px)'; });
+          card.addEventListener('mouseleave', function(){ this.style.backgroundColor = '#fff'; this.style.transform = 'translateX(0)'; });
+          card.addEventListener('click', function(){ openRucuvodsvoDetail(sheet, index); });
+          section.appendChild(card);
+        })(people[i], i, sheetName);
+      }
+      rucuvodsvoList.appendChild(section);
+    });
+  }
+
+  function openRucuvodsvoDetail(sheetName, index){
+    var people = allRucuvodsvoData[sheetName] || [];
+    var person = people[index];
+    if(!person) return;
+    currentDetailSource = sheetName; currentDetailIndex = index;
+    rucuvodsvoContent.style.display = 'none'; rucuvodsvoDetail.style.display = 'block';
+    detailImage.src = person.image || ''; detailImage.alt = person.name;
+    detailImage.onerror = function(){
+      this.style.display = 'none';
+      var wrap = document.getElementById('mil-rucuvodsvo-detail-image-wrap');
+      if(wrap) wrap.innerHTML = '<div style="width:100%;max-width:260px;height:auto;aspect-ratio:3/4;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:48px;color:#ccc;border:1px solid #e0e0e0;">👤</div>';
+    };
+    detailName.textContent = person.name;
+    detailPosition.textContent = person.position;
+    detailBio.textContent = person.bio || 'Информация отсутствует.';
+    detailExtra.textContent = person.extra || '';
+    rucuvodsvoDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeRucuvodsvoDetail(){
+    rucuvodsvoDetail.style.display = 'none';
+    rucuvodsvoContent.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  backToRucuvodsvoBtn.addEventListener('click', closeRucuvodsvoDetail);
+  window.loadRucuvodsvoData = loadRucuvodsvoData;
+
+  // ==================== НАВИГАЦИЯ ПО КНОПКАМ ====================
+  var navBtns = document.querySelectorAll('.mil-wrapper .nav-btn');
+  for(var i = 0; i < navBtns.length; i++){
+    navBtns[i].addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var pageType = this.getAttribute('data-page');
+      if(pageType) showPage(pageType);
+    });
+  }
+
+  // ==================== ЛИЧНЫЙ КАБИНЕТ ====================
+  var accountsCache = null;
+  var accountsLoadingPromise = null;
+
+  var accountLoginBtn = document.getElementById('mil-account-login-btn');
+  var loginModal = document.getElementById('mil-login-modal');
+  var loginModalClose = document.getElementById('mil-login-modal-close');
+  var loginUsername = document.getElementById('mil-login-username');
+  var loginPassword = document.getElementById('mil-login-password');
+  var loginError = document.getElementById('mil-login-error');
+  var loginSubmit = document.getElementById('mil-login-submit');
+  var accountLogoutBtn = document.getElementById('mil-account-logout');
+  var currentUser = null;
+
+  function loadAccountsData(){
+    if(accountsCache) return Promise.resolve(accountsCache);
+    if(accountsLoadingPromise) return accountsLoadingPromise;
+    accountsLoadingPromise = fetch(ACCOUNTS_API_URL)
+      .then(function(r){ if(!r.ok) throw new Error('Ошибка сети: ' + r.status); return r.json(); })
+      .then(function(data){
+        if(!data || data.length === 0) return [];
+        var arr = [];
+        for(var i = 0; i < data.length; i++){
+          var row = data[i];
+          arr.push({
+            login: (row['Логин'] || '').trim(),
+            password: (row['Пароль'] || '').trim(),
+            name: row['ФИО'] || '',
+            position: row['Должность'] || '',
+            rank: row['Звание'] || '',
+            unit: row['Подразделение'] || '',
+            joined: row['Дата вступления'] || '',
+            status: row['Статус'] || ''
+          });
+        }
+        arr = arr.filter(function(a){ return a.login && a.password; });
+        accountsCache = arr;
+        return arr;
+      })
+      .catch(function(err){
+        accountsLoadingPromise = null;
+        throw err;
+      });
+    return accountsLoadingPromise;
+  }
+
+  function openLoginModal(){
+    if(!loginModal) return;
+    loginError.style.display = 'none';
+    loginModal.style.display = 'flex';
+    loginUsername.focus();
+    loadAccountsData().catch(function(){});
+  }
+  function closeLoginModal(){
+    if(!loginModal) return;
+    loginModal.style.display = 'none';
+    loginUsername.value = ''; loginPassword.value = '';
+  }
+  function showLoginError(msg){ loginError.textContent = msg; loginError.style.display = 'block'; }
+
+  function attemptLogin(){
+    var u = (loginUsername.value || '').trim();
+    var p = loginPassword.value || '';
+    if(!u || !p){ showLoginError('Введите логин и пароль.'); return; }
+
+    loginSubmit.disabled = true;
+    loginSubmit.textContent = 'Проверка...';
+    showLoginError('');
+
+    loadAccountsData()
+      .then(function(accounts){
+        var found = null;
+        for(var i = 0; i < accounts.length; i++){
+          if(accounts[i].login === u && accounts[i].password === p){ found = accounts[i]; break; }
+        }
+        if(!found){
+          showLoginError('Неверный логин или пароль.');
+          loginSubmit.disabled = false; loginSubmit.textContent = 'Войти';
+          return;
+        }
+        currentUser = found;
+        try { localStorage.setItem('mil_current_user_login', found.login); } catch(e){}
+        closeLoginModal();
+        renderAccountPage();
+        showPage('account');
+        loginSubmit.disabled = false; loginSubmit.textContent = 'Войти';
+      })
+      .catch(function(err){
+        console.error('Ошибка входа:', err);
+        showLoginError('Не удалось загрузить список аккаунтов. Проверьте лист «Аккаунты» и доступ к таблице.');
+        loginSubmit.disabled = false; loginSubmit.textContent = 'Войти';
+      });
+  }
+
+  function restoreSession(){
+    var saved = null;
+    try { saved = localStorage.getItem('mil_current_user_login'); } catch(e){}
+    if(!saved) return;
+    loadAccountsData()
+      .then(function(accounts){
+        for(var i = 0; i < accounts.length; i++){
+          if(accounts[i].login === saved){
+            currentUser = accounts[i];
+            return;
+          }
+        }
+        try { localStorage.removeItem('mil_current_user_login'); } catch(e){}
+      })
+      .catch(function(){});
+  }
+
+  function renderAccountPage(){
+    if(!currentUser) return;
+    document.getElementById('mil-account-name').textContent = currentUser.name || '—';
+    document.getElementById('mil-account-position').textContent = currentUser.position || '—';
+    document.getElementById('mil-account-login').textContent = 'Логин: ' + (currentUser.login || '—');
+    document.getElementById('mil-account-rank').textContent = currentUser.rank || '—';
+    document.getElementById('mil-account-unit').textContent = currentUser.unit || '—';
+    document.getElementById('mil-account-joined').textContent = currentUser.joined || '—';
+    document.getElementById('mil-account-status').textContent = currentUser.status || '—';
+  }
+
+  function logout(){
+    currentUser = null;
+    try { localStorage.removeItem('mil_current_user_login'); } catch(e){}
+    showPage('news');
+  }
+
+  if(accountLoginBtn){
+    accountLoginBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      if(currentUser){ renderAccountPage(); showPage('account'); }
+      else { openLoginModal(); }
+    });
+    accountLoginBtn.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); this.click(); }
+    });
+  }
+  if(loginModalClose) loginModalClose.addEventListener('click', closeLoginModal);
+  if(loginSubmit) loginSubmit.addEventListener('click', attemptLogin);
+  if(loginPassword) loginPassword.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') attemptLogin();
+  });
+  if(loginModal) loginModal.addEventListener('click', function(e){
+    if(e.target === loginModal) closeLoginModal();
+  });
+  if(accountLogoutBtn) accountLogoutBtn.addEventListener('click', logout);
+
+  // Кнопки ОГиПС / ОДДП
+  var openOgipsBtn = document.getElementById('mil-open-ogips');
+  if(openOgipsBtn) openOgipsBtn.addEventListener('click', function(){ showPage('ogips'); });
+  var openOddpBtn = document.getElementById('mil-open-oddp');
+  if(openOddpBtn) openOddpBtn.addEventListener('click', function(){ showPage('oddp'); });
+  var backToAccountOgips = document.getElementById('mil-back-to-account-ogips');
+  if(backToAccountOgips) backToAccountOgips.addEventListener('click', function(){ showPage('account'); });
+  var backToAccountOddp = document.getElementById('mil-back-to-account-oddp');
+  if(backToAccountOddp) backToAccountOddp.addEventListener('click', function(){ showPage('account'); });
+
+  // ==================== ПРОВЕРКА ПРАВ ====================
+  function rankIndex(rank){
+    if(!rank) return -1;
+    var r = String(rank).toLowerCase();
+    var order = [
+      'рядовой','ефрейтор','младший сержант','сержант','старший сержант','старшина',
+      'прапорщик','старший прапорщик',
+      'младший лейтенант','лейтенант','старший лейтенант','капитан',
+      'майор','подполковник','полковник','генерал-майор','генерал-лейтенант','генерал-полковник','генерал армии','маршал'
+    ];
+    for(var i = order.length - 1; i >= 0; i--){
+      if(r.indexOf(order[i]) !== -1) return i;
+    }
+    return -1;
+  }
+  function canPurge(){
+    if(!currentUser) return false;
+    return rankIndex(currentUser.rank) >= rankIndex('майор');
+  }
+
+  // ==================== РЕЕСТР ВОЕННОСЛУЖАЩИХ ====================
+  var REGISTRY_KEY = 'mil_registry_records';
+  var REGISTRY_LOGS_KEY = 'mil_registry_logs';
+  var registrySearchQuery = '';
+
+  function loadRegistry(){
+    try { var raw = localStorage.getItem(REGISTRY_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; }
+  }
+  function saveRegistry(arr){ try { localStorage.setItem(REGISTRY_KEY, JSON.stringify(arr)); } catch(e){} }
+  function loadRegistryLogs(){
+    try { var raw = localStorage.getItem(REGISTRY_LOGS_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; }
+  }
+  function saveRegistryLogs(arr){ try { localStorage.setItem(REGISTRY_LOGS_KEY, JSON.stringify(arr)); } catch(e){} }
+
+  function recordMatches(rec, q){
+    if(!q) return true;
+    q = q.toLowerCase();
+    var fields = [rec.fio, rec.birth, rec.rank, rec.position, rec.unit, rec.offense, rec.punishment, rec.officer];
+    for(var i = 0; i < fields.length; i++){
+      if(fields[i] && String(fields[i]).toLowerCase().indexOf(q) !== -1) return true;
+    }
+    return false;
+  }
+
+  function renderRegistryTable(){
+    var allRecords = loadRegistry();
+    var records = [];
+    for(var ri = 0; ri < allRecords.length; ri++){
+      if(recordMatches(allRecords[ri], registrySearchQuery)){
+        records.push({ rec: allRecords[ri], origIndex: ri });
+      }
+    }
+    var tbody = document.getElementById('mil-registry-tbody');
+    var countEl = document.getElementById('mil-registry-count');
+    if(countEl) countEl.textContent = allRecords.length;
+    if(!tbody) return;
+    tbody.innerHTML = '';
+    if(records.length === 0){
+      var emptyTr = document.createElement('tr');
+      emptyTr.className = 'empty-row';
+      emptyTr.innerHTML = '<td colspan="10">' + (allRecords.length === 0 ? 'Реестр пуст. Добавьте первую запись.' : 'Ничего не найдено по запросу.') + '</td>';
+      tbody.appendChild(emptyTr);
+      return;
+    }
+    for(var i = 0; i < records.length; i++){
+      (function(item, displayIdx){
+        var rec = item.rec;
+        var idx = item.origIndex;
+        var tr = document.createElement('tr');
+        var cells = [
+          (displayIdx + 1).toString(),
+          rec.fio || '', rec.birth || '', rec.rank || '', rec.position || '',
+          rec.unit || '', rec.offense || '', rec.punishment || '', rec.officer || ''
+        ];
+        for(var c = 0; c < cells.length; c++){
+          var td = document.createElement('td');
+          td.textContent = cells[c];
+          tr.appendChild(td);
+        }
+        var actionTd = document.createElement('td');
+        actionTd.className = 'action-cell';
+        var editBtn = document.createElement('button');
+        editBtn.className = 'registry-edit';
+        editBtn.textContent = 'Изменить';
+        editBtn.addEventListener('click', function(){ openEditRegistryModal(idx, rec); });
+        var delBtn = document.createElement('button');
+        delBtn.className = 'registry-del';
+        delBtn.textContent = 'Удалить';
+        delBtn.addEventListener('click', function(){
+          openDeleteModal({
+            title: 'Удаление записи из реестра',
+            summary: 'ФИО: ' + (rec.fio || '—') + '\nЗвание: ' + (rec.rank || '—') + '\nПодразделение: ' + (rec.unit || '—'),
+            onConfirm: function(reason){
+              var list = loadRegistry();
+              if(idx < 0 || idx >= list.length) return;
+              var removed = list.splice(idx, 1)[0];
+              saveRegistry(list);
+              addRegistryLog({
+                type: 'del',
+                who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость',
+                what: 'Удалена запись: ' + (removed.fio || '—') + ' / ' + (removed.rank || '—') + ' / ' + (removed.unit || '—'),
+                reason: reason, time: new Date().toISOString()
+              });
+              renderRegistryTable();
+              renderRegistryLogs();
+            }
+          });
+        });
+        actionTd.appendChild(editBtn);
+        actionTd.appendChild(delBtn);
+        tr.appendChild(actionTd);
+        tbody.appendChild(tr);
+      })(records[i], i);
+    }
+  }
+
+  function addRegistryLog(entry){
+    var logs = loadRegistryLogs();
+    logs.unshift(entry);
+    saveRegistryLogs(logs);
+  }
+
+  function renderRegistryLogs(){
+    var logs = loadRegistryLogs();
+    var body = document.getElementById('mil-registry-logs-body');
+    var countEl = document.getElementById('mil-registry-logs-count');
+    if(countEl) countEl.textContent = logs.length + ' записей';
+    if(!body) return;
+    body.innerHTML = '';
+    if(logs.length === 0){ body.innerHTML = '<div class="logs-empty">Пока событий не было.</div>'; return; }
+    for(var i = 0; i < logs.length; i++){
+      (function(log, li){
+        var item = document.createElement('div');
+        item.className = 'log-item';
+        var dt = log.time ? new Date(log.time) : new Date();
+        var dateStr = dt.toLocaleString('ru-RU');
+        var typeMap = { 'del':'log-del', 'edit':'log-edit', 'restore':'log-restore', 'purge':'log-purge' };
+        var typeLabel = { 'del':'Удаление', 'edit':'Изменение', 'restore':'Восстановление', 'purge':'Очистка' };
+        var typeClass = typeMap[log.type] || 'log-del';
+        var typeText = typeLabel[log.type] || 'Событие';
+        var meta = document.createElement('div');
+        meta.className = 'log-meta';
+        meta.innerHTML = '<span class="log-who"><span class="log-type ' + typeClass + '">' + typeText + '</span>' + escapeHTML(log.who || '—') + '</span><span class="log-time">' + escapeHTML(dateStr) + '</span>';
+        var what = document.createElement('div'); what.className = 'log-what'; what.textContent = log.what || '';
+        var reason = document.createElement('div'); reason.className = 'log-reason';
+        reason.textContent = (log.type === 'edit' ? 'Изменения: ' : 'Причина: ') + (log.reason || '');
+        var acts = document.createElement('div'); acts.className = 'log-actions';
+        var editBtn = document.createElement('button'); editBtn.className = 'registry-edit'; editBtn.textContent = 'Изменить';
+        editBtn.addEventListener('click', function(){ openEditLogModal('registry', li, log); });
+        acts.appendChild(editBtn);
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        if(!canPurge()){ delBtn.disabled = true; delBtn.title = 'Только со звания майор'; }
+        delBtn.addEventListener('click', function(){
+          if(!canPurge()) return;
+          if(!confirm('Удалить запись из журнала?')) return;
+          var list = loadRegistryLogs(); if(li < 0 || li >= list.length) return;
+          list.splice(li, 1); saveRegistryLogs(list); renderRegistryLogs();
+        });
+        acts.appendChild(delBtn);
+        item.appendChild(meta); item.appendChild(what); item.appendChild(reason); item.appendChild(acts);
+        body.appendChild(item);
+      })(logs[i], i);
+    }
+  }
+
+  function openEditLogModal(kind, li, log){
+    var isRegistry = kind === 'registry';
+    var fields = [
+      { key: 'who', label: 'Кто', type: 'text' },
+      { key: 'what', label: 'Что', type: 'text' },
+      { key: 'reason', label: 'Причина/изменения', type: 'textarea' },
+      { key: 'time', label: 'Время (ISO)', type: 'text' }
+    ];
+    openGenericEditModal('Редактирование записи журнала', fields, log, function(values){
+      if(isRegistry){
+        var list = loadRegistryLogs(); if(li < 0 || li >= list.length) return false;
+        list[li].who = values.who; list[li].what = values.what; list[li].reason = values.reason; list[li].time = values.time;
+        saveRegistryLogs(list); renderRegistryLogs();
+      } else {
+        var list2 = loadRequirementsLogs(); if(li < 0 || li >= list2.length) return false;
+        list2[li].who = values.who; list2[li].what = values.what; list2[li].reason = values.reason; list2[li].time = values.time;
+        saveRequirementsLogs(list2); renderRequirementsLogs();
+      }
+      return true;
+    });
+  }
+
+  function clearRegistryForm(){
+    var ids = ['reg-fio','reg-birth','reg-rank','reg-position','reg-unit','reg-offense','reg-punishment','reg-officer'];
+    for(var i = 0; i < ids.length; i++){ var el = document.getElementById(ids[i]); if(el) el.value = ''; }
+    var msg = document.getElementById('mil-registry-msg');
+    if(msg){ msg.style.display = 'none'; msg.textContent = ''; }
+  }
+
+  function showRegistryMsg(text, ok){
+    var msg = document.getElementById('mil-registry-msg'); if(!msg) return;
+    msg.textContent = text; msg.style.display = 'block';
+    msg.style.color = ok ? '#1e7e34' : '#c0392b'; msg.style.fontWeight = '600';
+    if(ok) setTimeout(function(){ msg.style.display = 'none'; }, 3000);
+  }
+
+  function addRegistryRecord(){
+    var fio = (document.getElementById('reg-fio').value || '').trim();
+    var birth = document.getElementById('reg-birth').value || '';
+    var rank = (document.getElementById('reg-rank').value || '').trim();
+    var position = (document.getElementById('reg-position').value || '').trim();
+    var unit = (document.getElementById('reg-unit').value || '').trim();
+    var offense = (document.getElementById('reg-offense').value || '').trim();
+    var punishment = (document.getElementById('reg-punishment').value || '').trim();
+    var officer = (document.getElementById('reg-officer').value || '').trim();
+
+    if(!fio || !birth || !rank || !position || !unit || !offense || !punishment || !officer){
+      showRegistryMsg('Заполните все обязательные поля, отмеченные *', false); return;
+    }
+    var records = loadRegistry();
+    records.push({ fio: fio, birth: birth, rank: rank, position: position, unit: unit, offense: offense, punishment: punishment, officer: officer, addedAt: new Date().toISOString() });
+    saveRegistry(records);
+    renderRegistryTable();
+    clearRegistryForm();
+    showRegistryMsg('Запись успешно добавлена в реестр', true);
+  }
+
+  function openEditRegistryModal(idx, rec){
+    var fields = [
+      { key: 'fio', label: 'ФИО', type: 'text' },
+      { key: 'birth', label: 'Дата рождения', type: 'date' },
+      { key: 'rank', label: 'Воинское звание', type: 'text' },
+      { key: 'position', label: 'Воинская должность', type: 'text' },
+      { key: 'unit', label: 'Подразделение', type: 'text' },
+      { key: 'offense', label: 'Дисциплинарный проступок', type: 'textarea' },
+      { key: 'punishment', label: 'Мера наказания', type: 'text' },
+      { key: 'officer', label: 'Уполномоченное лицо', type: 'text' }
+    ];
+    openGenericEditModal('Редактирование записи реестра', fields, rec, function(values){
+      var list = loadRegistry(); if(idx < 0 || idx >= list.length) return false;
+      var old = list[idx];
+      list[idx] = { fio: values.fio, birth: values.birth, rank: values.rank, position: values.position, unit: values.unit, offense: values.offense, punishment: values.punishment, officer: values.officer, addedAt: old.addedAt || '' };
+      saveRegistry(list);
+      var changes = [];
+      if((old.fio||'') !== values.fio) changes.push('ФИО');
+      if((old.rank||'') !== values.rank) changes.push('Звание');
+      if((old.unit||'') !== values.unit) changes.push('Подразделение');
+      addRegistryLog({ type: 'edit', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Изменена запись: ' + (old.fio || '—'), reason: changes.length ? changes.join(', ') : 'без изменений', time: new Date().toISOString() });
+      renderRegistryTable(); renderRegistryLogs();
+      return true;
+    });
+  }
+
+  var openRegistryBtn = document.getElementById('mil-open-registry');
+  if(openRegistryBtn) openRegistryBtn.addEventListener('click', function(){ showPage('registry'); });
+  var backToAccountBtn = document.getElementById('mil-back-to-account-btn');
+  if(backToAccountBtn) backToAccountBtn.addEventListener('click', function(){ showPage('oddp'); });
+  var addRegistryBtn = document.getElementById('mil-registry-add');
+  if(addRegistryBtn) addRegistryBtn.addEventListener('click', addRegistryRecord);
+  var clearRegistryBtn = document.getElementById('mil-registry-clear');
+  if(clearRegistryBtn) clearRegistryBtn.addEventListener('click', clearRegistryForm);
+  var registrySearchInput = document.getElementById('mil-registry-search');
+  if(registrySearchInput) registrySearchInput.addEventListener('input', function(){ registrySearchQuery = this.value || ''; renderRegistryTable(); });
+
+  // ==================== ТРЕБОВАНИЯ ====================
+  var REQUIREMENTS_KEY = 'mil_requirements_records';
+  var REQUIREMENTS_LOGS_KEY = 'mil_requirements_logs';
+  var REQUIREMENT_STATUSES = ['', 'Исполнено', 'Не исполнено'];
+  var requirementsSearchQuery = '';
+
+  function loadRequirements(){ try { var raw = localStorage.getItem(REQUIREMENTS_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveRequirements(arr){ try { localStorage.setItem(REQUIREMENTS_KEY, JSON.stringify(arr)); } catch(e){} }
+  function loadRequirementsLogs(){ try { var raw = localStorage.getItem(REQUIREMENTS_LOGS_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveRequirementsLogs(arr){ try { localStorage.setItem(REQUIREMENTS_LOGS_KEY, JSON.stringify(arr)); } catch(e){} }
+  function updateRequirementStatus(index, status){
+    var list = loadRequirements(); if(index < 0 || index >= list.length) return;
+    list[index].status = status; saveRequirements(list);
+  }
+
+  function reqMatches(rec, q){
+    if(!q) return true; q = q.toLowerCase();
+    var fields = [rec.to, rec.violation, rec.purpose, rec.arrivalTime, rec.arrivalDate, rec.issueDate, rec.patrolChief, rec.status];
+    for(var i = 0; i < fields.length; i++){ if(fields[i] && String(fields[i]).toLowerCase().indexOf(q) !== -1) return true; }
+    return false;
+  }
+
+  function renderRequirementsTable(){
+    var allRecords = loadRequirements();
+    var records = [];
+    for(var ri = 0; ri < allRecords.length; ri++){ if(reqMatches(allRecords[ri], requirementsSearchQuery)) records.push({ rec: allRecords[ri], origIndex: ri }); }
+    var tbody = document.getElementById('mil-requirements-tbody');
+    var countEl = document.getElementById('mil-requirements-count');
+    if(countEl) countEl.textContent = allRecords.length;
+    if(!tbody) return; tbody.innerHTML = '';
+    if(records.length === 0){
+      var emptyTr = document.createElement('tr'); emptyTr.className = 'empty-row';
+      emptyTr.innerHTML = '<td colspan="10">' + (allRecords.length === 0 ? 'Требований нет. Выпишите первое.' : 'Ничего не найдено по запросу.') + '</td>';
+      tbody.appendChild(emptyTr); return;
+    }
+    for(var i = 0; i < records.length; i++){
+      (function(item, displayIdx){
+        var rec = item.rec; var idx = item.origIndex;
+        var tr = document.createElement('tr');
+        var cells = [ (displayIdx + 1).toString(), rec.to || '', rec.violation || '', rec.purpose || '', rec.arrivalTime || '', rec.arrivalDate || '', rec.issueDate || '', rec.patrolChief || '', rec.status || '' ];
+        for(var c = 0; c < cells.length; c++){ var td = document.createElement('td'); td.textContent = cells[c]; tr.appendChild(td); }
+        var actionTd = document.createElement('td'); actionTd.className = 'action-cell';
+        var select = document.createElement('select'); select.className = 'status-select';
+        if(rec.status === 'Исполнено') select.classList.add('status-done');
+        else if(rec.status === 'Не исполнено') select.classList.add('status-pending');
+        for(var s = 0; s < REQUIREMENT_STATUSES.length; s++){
+          var opt = document.createElement('option'); opt.value = REQUIREMENT_STATUSES[s];
+          opt.textContent = REQUIREMENT_STATUSES[s] === '' ? '— выберите —' : REQUIREMENT_STATUSES[s];
+          if((rec.status || '') === REQUIREMENT_STATUSES[s]) opt.selected = true;
+          select.appendChild(opt);
+        }
+        select.addEventListener('change', function(){
+          var newStatus = this.value; updateRequirementStatus(idx, newStatus);
+          this.classList.remove('status-done','status-pending');
+          if(newStatus === 'Исполнено') this.classList.add('status-done');
+          else if(newStatus === 'Не исполнено') this.classList.add('status-pending');
+          var statusCell = this.closest('tr').children[8]; if(statusCell) statusCell.textContent = newStatus;
+        });
+        var editBtn = document.createElement('button'); editBtn.className = 'registry-edit'; editBtn.textContent = 'Изменить';
+        editBtn.addEventListener('click', function(){ openEditRequirementModal(idx, rec); });
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        delBtn.addEventListener('click', function(){
+          openDeleteModal({
+            title: 'Удаление требования',
+            summary: 'Кому выписано: ' + (rec.to || '—') + '\nНарушение: ' + (rec.violation || '—'),
+            onConfirm: function(reason){
+              var list = loadRequirements(); if(idx < 0 || idx >= list.length) return;
+              var removed = list.splice(idx, 1)[0]; saveRequirements(list);
+              addRequirementsLog({ type: 'del', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Удалено требование: ' + (removed.to || '—') + ' / ' + (removed.violation || '—'), reason: reason, time: new Date().toISOString() });
+              renderRequirementsTable(); renderRequirementsLogs();
+            }
+          });
+        });
+        actionTd.appendChild(select); actionTd.appendChild(editBtn); actionTd.appendChild(delBtn);
+        tr.appendChild(actionTd); tbody.appendChild(tr);
+      })(records[i], i);
+    }
+  }
+
+  function addRequirementsLog(entry){ var logs = loadRequirementsLogs(); logs.unshift(entry); saveRequirementsLogs(logs); }
+
+  function renderRequirementsLogs(){
+    var logs = loadRequirementsLogs();
+    var body = document.getElementById('mil-requirements-logs-body');
+    var countEl = document.getElementById('mil-requirements-logs-count');
+    if(countEl) countEl.textContent = logs.length + ' записей';
+    if(!body) return; body.innerHTML = '';
+    if(logs.length === 0){ body.innerHTML = '<div class="logs-empty">Пока событий не было.</div>'; return; }
+    for(var i = 0; i < logs.length; i++){
+      (function(log, li){
+        var item = document.createElement('div'); item.className = 'log-item';
+        var dt = log.time ? new Date(log.time) : new Date(); var dateStr = dt.toLocaleString('ru-RU');
+        var typeMap = { 'del':'log-del', 'edit':'log-edit', 'restore':'log-restore', 'purge':'log-purge' };
+        var typeLabel = { 'del':'Удаление', 'edit':'Изменение', 'restore':'Восстановление', 'purge':'Очистка' };
+        var typeClass = typeMap[log.type] || 'log-del'; var typeText = typeLabel[log.type] || 'Событие';
+        var meta = document.createElement('div'); meta.className = 'log-meta';
+        meta.innerHTML = '<span class="log-who"><span class="log-type ' + typeClass + '">' + typeText + '</span>' + escapeHTML(log.who || '—') + '</span><span class="log-time">' + escapeHTML(dateStr) + '</span>';
+        var what = document.createElement('div'); what.className = 'log-what'; what.textContent = log.what || '';
+        var reason = document.createElement('div'); reason.className = 'log-reason'; reason.textContent = (log.type === 'edit' ? 'Изменения: ' : 'Причина: ') + (log.reason || '');
+        var acts = document.createElement('div'); acts.className = 'log-actions';
+        var editBtn = document.createElement('button'); editBtn.className = 'registry-edit'; editBtn.textContent = 'Изменить';
+        editBtn.addEventListener('click', function(){ openEditLogModal('requirements', li, log); });
+        acts.appendChild(editBtn);
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        if(!canPurge()){ delBtn.disabled = true; delBtn.title = 'Только со звания майор'; }
+        delBtn.addEventListener('click', function(){
+          if(!canPurge()) return; if(!confirm('Удалить запись из журнала?')) return;
+          var list = loadRequirementsLogs(); if(li < 0 || li >= list.length) return;
+          list.splice(li, 1); saveRequirementsLogs(list); renderRequirementsLogs();
+        });
+        acts.appendChild(delBtn);
+        item.appendChild(meta); item.appendChild(what); item.appendChild(reason); item.appendChild(acts);
+        body.appendChild(item);
+      })(logs[i], i);
+    }
+  }
+
+  function clearRequirementsForm(){
+    var ids = ['req-to','req-violation','req-purpose','req-arrival-time','req-arrival-date','req-issue-date','req-patrol-chief'];
+    for(var i = 0; i < ids.length; i++){ var el = document.getElementById(ids[i]); if(el) el.value = ''; }
+    var msg = document.getElementById('mil-requirements-msg'); if(msg){ msg.style.display = 'none'; msg.textContent = ''; }
+  }
+
+  function showRequirementsMsg(text, ok){
+    var msg = document.getElementById('mil-requirements-msg'); if(!msg) return;
+    msg.textContent = text; msg.style.display = 'block';
+    msg.style.color = ok ? '#1e7e34' : '#c0392b'; msg.style.fontWeight = '600';
+    if(ok) setTimeout(function(){ msg.style.display = 'none'; }, 3000);
+  }
+
+  function addRequirementRecord(){
+    var to = (document.getElementById('req-to').value || '').trim();
+    var violation = (document.getElementById('req-violation').value || '').trim();
+    var purpose = (document.getElementById('req-purpose').value || '').trim();
+    var arrivalTime = document.getElementById('req-arrival-time').value || '';
+    var arrivalDate = document.getElementById('req-arrival-date').value || '';
+    var issueDate = document.getElementById('req-issue-date').value || '';
+    var patrolChief = (document.getElementById('req-patrol-chief').value || '').trim();
+    if(!to || !violation || !purpose || !arrivalTime || !arrivalDate || !issueDate || !patrolChief){
+      showRequirementsMsg('Заполните все обязательные поля, отмеченные *', false); return;
+    }
+    var records = loadRequirements();
+    records.push({ to: to, violation: violation, purpose: purpose, arrivalTime: arrivalTime, arrivalDate: arrivalDate, issueDate: issueDate, patrolChief: patrolChief, status: '', addedAt: new Date().toISOString() });
+    saveRequirements(records); renderRequirementsTable(); clearRequirementsForm();
+    showRequirementsMsg('Требование успешно выписано', true);
+  }
+
+  function openEditRequirementModal(idx, rec){
+    var fields = [
+      { key: 'to', label: 'Кому выписано', type: 'text' },
+      { key: 'violation', label: 'Нарушения УВС или иное', type: 'textarea' },
+      { key: 'purpose', label: 'Цель прибытия', type: 'text' },
+      { key: 'arrivalTime', label: 'Время прибытия', type: 'time' },
+      { key: 'arrivalDate', label: 'Дата прибытия', type: 'date' },
+      { key: 'issueDate', label: 'Дата выписывания требования', type: 'date' },
+      { key: 'patrolChief', label: 'Начальник патруля', type: 'text' }
+    ];
+    openGenericEditModal('Редактирование требования', fields, rec, function(values){
+      var list = loadRequirements(); if(idx < 0 || idx >= list.length) return false;
+      var old = list[idx];
+      list[idx] = { to: values.to, violation: values.violation, purpose: values.purpose, arrivalTime: values.arrivalTime, arrivalDate: values.arrivalDate, issueDate: values.issueDate, patrolChief: values.patrolChief, status: old.status || '', addedAt: old.addedAt || '' };
+      saveRequirements(list);
+      var changes = [];
+      if((old.to||'') !== values.to) changes.push('Кому выписано');
+      if((old.violation||'') !== values.violation) changes.push('Нарушение');
+      addRequirementsLog({ type: 'edit', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Изменено требование: ' + (old.to || '—'), reason: changes.length ? changes.join(', ') : 'без изменений', time: new Date().toISOString() });
+      renderRequirementsTable(); renderRequirementsLogs();
+      return true;
+    });
+  }
+
+  var openRequirementsBtn = document.getElementById('mil-open-requirements');
+  if(openRequirementsBtn) openRequirementsBtn.addEventListener('click', function(){ showPage('requirements'); });
+  var backToAccountFromReqBtn = document.getElementById('mil-back-to-account-from-req-btn');
+  if(backToAccountFromReqBtn) backToAccountFromReqBtn.addEventListener('click', function(){ showPage('oddp'); });
+  var addRequirementBtn = document.getElementById('mil-requirements-add');
+  if(addRequirementBtn) addRequirementBtn.addEventListener('click', addRequirementRecord);
+  var clearRequirementsBtn = document.getElementById('mil-requirements-clear');
+  if(clearRequirementsBtn) clearRequirementsBtn.addEventListener('click', clearRequirementsForm);
+  var requirementsSearchInput = document.getElementById('mil-requirements-search');
+  if(requirementsSearchInput) requirementsSearchInput.addEventListener('input', function(){ requirementsSearchQuery = this.value || ''; renderRequirementsTable(); });
+
+  // ==================== ГАУПТВАХТА ====================
+  var GUARD_KEY = 'mil_guards_records';
+  var GUARD_LOGS_KEY = 'mil_guards_logs';
+  var GUARD_STATUSES = ['', 'АРЕСТ', 'ОСВОБОЖДЕН', 'ДОСРОЧНО ОСВОБОЖДЕН'];
+  var guardSearchQuery = '';
+
+  function loadGuardRecords(){ try { var raw = localStorage.getItem(GUARD_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveGuardRecords(arr){ try { localStorage.setItem(GUARD_KEY, JSON.stringify(arr)); } catch(e){} }
+  function loadGuardLogs(){ try { var raw = localStorage.getItem(GUARD_LOGS_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveGuardLogs(arr){ try { localStorage.setItem(GUARD_LOGS_KEY, JSON.stringify(arr)); } catch(e){} }
+
+  function updateGuardStatus(index, status){
+    var list = loadGuardRecords();
+    if(index < 0 || index >= list.length) return;
+    list[index].status = status;
+    saveGuardRecords(list);
+  }
+
+  function guardMatches(rec, q){
+    if(!q) return true; q = q.toLowerCase();
+    var fields = [rec.fio, rec.unit, rec.acceptTime, rec.acceptDate, rec.putDate, rec.releaseDate, rec.cell, rec.handed, rec.chief, rec.status];
+    for(var i = 0; i < fields.length; i++){ if(fields[i] && String(fields[i]).toLowerCase().indexOf(q) !== -1) return true; }
+    return false;
+  }
+
+  function formatTimer(rec){
+    if(!rec.releaseDate) return '<span class="timer-done">—</span>';
+    var end = new Date(rec.releaseDate + 'T' + (rec.acceptTime || '23:59') + ':00');
+    var now = new Date();
+    var diff = end - now;
+    if(diff <= 0) return '<span class="timer-done">Освобождён</span>';
+    var totalSec = Math.floor(diff / 1000);
+    var d = Math.floor(totalSec / 86400); totalSec %= 86400;
+    var h = Math.floor(totalSec / 3600); totalSec %= 3600;
+    var m = Math.floor(totalSec / 60);
+    var s = totalSec % 60;
+    var txt = '';
+    if(d > 0) txt += d + 'д ';
+    txt += h + 'ч ' + m + 'м ' + s + 'с';
+    var cls = 'timer-ok';
+    if(diff < 3600*1000) cls = 'timer-warn';
+    if(diff < 0) cls = 'timer-danger';
+    return '<span class="' + cls + '">' + txt + '</span>';
+  }
+
+  function renderGuardTable(){
+    var allRecords = loadGuardRecords();
+    var records = [];
+    for(var ri = 0; ri < allRecords.length; ri++){ if(guardMatches(allRecords[ri], guardSearchQuery)) records.push({ rec: allRecords[ri], origIndex: ri }); }
+    var tbody = document.getElementById('mil-guard-tbody');
+    var countEl = document.getElementById('mil-guard-count');
+    if(countEl) countEl.textContent = allRecords.length;
+    if(!tbody) return; tbody.innerHTML = '';
+    if(records.length === 0){
+      var emptyTr = document.createElement('tr'); emptyTr.className = 'empty-row';
+      emptyTr.innerHTML = '<td colspan="13">' + (allRecords.length === 0 ? 'Записей нет.' : 'Ничего не найдено по запросу.') + '</td>';
+      tbody.appendChild(emptyTr); return;
+    }
+    for(var i = 0; i < records.length; i++){
+      (function(item, displayIdx){
+        var rec = item.rec; var idx = item.origIndex;
+        var tr = document.createElement('tr');
+        var cells = [
+          (displayIdx + 1).toString(),
+          rec.fio || '', rec.unit || '',
+          (rec.acceptDate || '') + ' ' + (rec.acceptTime || ''),
+          rec.putDate || '', rec.releaseDate || '',
+          rec.cell || '', rec.handed || '', rec.chief || '',
+          rec.addedAt ? new Date(rec.addedAt).toLocaleString('ru-RU') : '',
+          rec.status || ''
+        ];
+        for(var c = 0; c < cells.length; c++){ var td = document.createElement('td'); td.textContent = cells[c]; tr.appendChild(td); }
+        var timerTd = document.createElement('td'); timerTd.className = 'timer-cell';
+        timerTd.innerHTML = formatTimer(rec);
+        timerTd.setAttribute('data-guard-idx', idx);
+        tr.appendChild(timerTd);
+        var actionTd = document.createElement('td'); actionTd.className = 'action-cell';
+
+        var select = document.createElement('select');
+        select.className = 'status-select';
+        if(rec.status === 'АРЕСТ') select.classList.add('status-arrest');
+        else if(rec.status === 'ОСВОБОЖДЕН') select.classList.add('status-released');
+        else if(rec.status === 'ДОСРОЧНО ОСВОБОЖДЕН') select.classList.add('status-early');
+        for(var s = 0; s < GUARD_STATUSES.length; s++){
+          var opt = document.createElement('option');
+          opt.value = GUARD_STATUSES[s];
+          opt.textContent = GUARD_STATUSES[s] === '' ? '— выберите —' : GUARD_STATUSES[s];
+          if((rec.status || '') === GUARD_STATUSES[s]) opt.selected = true;
+          select.appendChild(opt);
+        }
+        select.addEventListener('change', function(){
+          var newStatus = this.value;
+          updateGuardStatus(idx, newStatus);
+          this.classList.remove('status-arrest','status-released','status-early');
+          if(newStatus === 'АРЕСТ') this.classList.add('status-arrest');
+          else if(newStatus === 'ОСВОБОЖДЕН') this.classList.add('status-released');
+          else if(newStatus === 'ДОСРОЧНО ОСВОБОЖДЕН') this.classList.add('status-early');
+          var statusCell = this.closest('tr').children[10];
+          if(statusCell) statusCell.textContent = newStatus;
+        });
+
+        var editBtn = document.createElement('button'); editBtn.className = 'registry-edit'; editBtn.textContent = 'Изменить';
+        editBtn.addEventListener('click', function(){ openEditGuardModal(idx, rec); });
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        delBtn.addEventListener('click', function(){
+          openDeleteModal({
+            title: 'Удаление записи с гауптвахты',
+            summary: 'ФИО: ' + (rec.fio || '—') + '\nКамера: ' + (rec.cell || '—'),
+            onConfirm: function(reason){
+              var list = loadGuardRecords(); if(idx < 0 || idx >= list.length) return;
+              var removed = list.splice(idx, 1)[0]; saveGuardRecords(list);
+              addGuardLog({ type: 'del', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Удалена запись: ' + (removed.fio || '—'), reason: reason, time: new Date().toISOString() });
+              renderGuardTable(); renderGuardLogs();
+            }
+          });
+        });
+        actionTd.appendChild(select); actionTd.appendChild(editBtn); actionTd.appendChild(delBtn);
+        tr.appendChild(actionTd);
+        tbody.appendChild(tr);
+      })(records[i], i);
+    }
+  }
+
+  function addGuardLog(entry){ var logs = loadGuardLogs(); logs.unshift(entry); saveGuardLogs(logs); }
+
+  function renderGuardLogs(){
+    var logs = loadGuardLogs();
+    var body = document.getElementById('mil-guard-logs-body');
+    var countEl = document.getElementById('mil-guard-logs-count');
+    if(countEl) countEl.textContent = logs.length + ' записей';
+    if(!body) return; body.innerHTML = '';
+    if(logs.length === 0){ body.innerHTML = '<div class="logs-empty">Пока событий не было.</div>'; return; }
+    for(var i = 0; i < logs.length; i++){
+      (function(log, li){
+        var item = document.createElement('div'); item.className = 'log-item';
+        var dt = log.time ? new Date(log.time) : new Date(); var dateStr = dt.toLocaleString('ru-RU');
+        var typeMap = { 'del':'log-del', 'edit':'log-edit', 'restore':'log-restore', 'purge':'log-purge' };
+        var typeLabel = { 'del':'Удаление', 'edit':'Изменение', 'restore':'Восстановление', 'purge':'Очистка' };
+        var typeClass = typeMap[log.type] || 'log-del'; var typeText = typeLabel[log.type] || 'Событие';
+        var meta = document.createElement('div'); meta.className = 'log-meta';
+        meta.innerHTML = '<span class="log-who"><span class="log-type ' + typeClass + '">' + typeText + '</span>' + escapeHTML(log.who || '—') + '</span><span class="log-time">' + escapeHTML(dateStr) + '</span>';
+        var what = document.createElement('div'); what.className = 'log-what'; what.textContent = log.what || '';
+        var reason = document.createElement('div'); reason.className = 'log-reason'; reason.textContent = (log.type === 'edit' ? 'Изменения: ' : 'Причина: ') + (log.reason || '');
+        var acts = document.createElement('div'); acts.className = 'log-actions';
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        if(!canPurge()){ delBtn.disabled = true; delBtn.title = 'Только со звания майор'; }
+        delBtn.addEventListener('click', function(){
+          if(!canPurge()) return; if(!confirm('Удалить запись из журнала?')) return;
+          var list = loadGuardLogs(); if(li < 0 || li >= list.length) return;
+          list.splice(li, 1); saveGuardLogs(list); renderGuardLogs();
+        });
+        acts.appendChild(delBtn);
+        item.appendChild(meta); item.appendChild(what); item.appendChild(reason); item.appendChild(acts);
+        body.appendChild(item);
+      })(logs[i], i);
+    }
+  }
+
+  function clearGuardForm(){
+    var ids = ['guard-fio','guard-unit','guard-cell','guard-accept-time','guard-accept-date','guard-put-date','guard-release-date','guard-handed','guard-chief'];
+    for(var i = 0; i < ids.length; i++){ var el = document.getElementById(ids[i]); if(el) el.value = ''; }
+    var msg = document.getElementById('mil-guard-msg'); if(msg){ msg.style.display = 'none'; msg.textContent = ''; }
+  }
+
+  function showGuardMsg(text, ok){
+    var msg = document.getElementById('mil-guard-msg'); if(!msg) return;
+    msg.textContent = text; msg.style.display = 'block';
+    msg.style.color = ok ? '#1e7e34' : '#c0392b'; msg.style.fontWeight = '600';
+    if(ok) setTimeout(function(){ msg.style.display = 'none'; }, 3000);
+  }
+
+  function addGuardRecord(){
+    var fio = (document.getElementById('guard-fio').value || '').trim();
+    var unit = (document.getElementById('guard-unit').value || '').trim();
+    var cell = (document.getElementById('guard-cell').value || '').trim();
+    var acceptTime = document.getElementById('guard-accept-time').value || '';
+    var acceptDate = document.getElementById('guard-accept-date').value || '';
+    var putDate = document.getElementById('guard-put-date').value || '';
+    var releaseDate = document.getElementById('guard-release-date').value || '';
+    var handed = (document.getElementById('guard-handed').value || '').trim();
+    var chief = (document.getElementById('guard-chief').value || '').trim();
+    if(!fio || !unit || !cell || !acceptTime || !acceptDate || !putDate || !releaseDate || !handed || !chief){
+      showGuardMsg('Заполните все обязательные поля, отмеченные *', false); return;
+    }
+    var records = loadGuardRecords();
+    records.push({ fio: fio, unit: unit, cell: cell, acceptTime: acceptTime, acceptDate: acceptDate, putDate: putDate, releaseDate: releaseDate, handed: handed, chief: chief, status: '', addedAt: new Date().toISOString() });
+    saveGuardRecords(records); renderGuardTable(); clearGuardForm();
+    showGuardMsg('Запись успешно добавлена', true);
+    openGuardReceipt(fio, unit, acceptTime, acceptDate, putDate, releaseDate, cell, chief, handed);
+  }
+
+  function openEditGuardModal(idx, rec){
+    var fields = [
+      { key: 'fio', label: 'ФИО', type: 'text' },
+      { key: 'unit', label: 'Воинская часть', type: 'text' },
+      { key: 'cell', label: 'Номер камеры', type: 'text' },
+      { key: 'acceptTime', label: 'Время принятия', type: 'time' },
+      { key: 'acceptDate', label: 'Дата принятия', type: 'date' },
+      { key: 'putDate', label: 'Дата посадки', type: 'date' },
+      { key: 'releaseDate', label: 'Дата освобождения', type: 'date' },
+      { key: 'handed', label: 'Кто передал', type: 'text' },
+      { key: 'chief', label: 'Начальник гауптвахты', type: 'text' }
+    ];
+    openGenericEditModal('Редактирование записи гауптвахты', fields, rec, function(values){
+      var list = loadGuardRecords(); if(idx < 0 || idx >= list.length) return false;
+      var old = list[idx];
+      list[idx] = { fio: values.fio, unit: values.unit, cell: values.cell, acceptTime: values.acceptTime, acceptDate: values.acceptDate, putDate: values.putDate, releaseDate: values.releaseDate, handed: values.handed, chief: values.chief, status: old.status || '', addedAt: old.addedAt || '' };
+      saveGuardRecords(list);
+      var changes = [];
+      if((old.fio||'') !== values.fio) changes.push('ФИО');
+      if((old.cell||'') !== values.cell) changes.push('Камера');
+      if((old.releaseDate||'') !== values.releaseDate) changes.push('Дата освобождения');
+      addGuardLog({ type: 'edit', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Изменена запись: ' + (old.fio || '—'), reason: changes.length ? changes.join(', ') : 'без изменений', time: new Date().toISOString() });
+      renderGuardTable(); renderGuardLogs();
+      return true;
+    });
+  }
+
+  function openGuardReceipt(fio, unit, acceptTime, acceptDate, putDate, releaseDate, cell, chief, handed){
+    var body = document.createElement('div');
+    body.className = 'del-modal-body';
+    var paper = document.createElement('div');
+    paper.className = 'paper';
+    paper.innerHTML = ''
+      + '<div class="p-title">Расписка в приёме военнослужащего для содержания<br>на гауптвахте</div>'
+      + '<div class="p-line"><span class="p-val">' + escapeHTML(fio) + '</span></div>'
+      + '<div style="text-align:center;font-size:12px;color:#555;margin-bottom:14px;">(воинское звание, фамилия, имя, отчество)</div>'
+      + '<div class="p-line"><span class="p-val">Воинская часть № ' + escapeHTML(unit) + '</span></div>'
+      + '<div style="text-align:center;font-size:12px;color:#555;margin-bottom:14px;">(воинская часть военнослужащего)</div>'
+      + '<div class="p-line"><span>принят на гауптвахту</span><span class="p-val">' + escapeHTML(acceptTime) + ', ' + escapeHTML(acceptDate) + '</span></div>'
+      + '<div style="text-align:center;font-size:12px;color:#555;margin-bottom:14px;">(время, число, месяц, год)</div>'
+      + '<div class="p-line"><span>На срок</span><span class="p-val">с ' + escapeHTML(putDate) + '</span><span>по</span><span class="p-val">' + escapeHTML(releaseDate) + '</span></div>'
+      + '<div class="p-line"><span>с содержанием в камере</span><span class="p-val">' + escapeHTML(cell) + '</span></div>'
+      + '<div class="p-line"><span>Начальник гауптвахты</span><span class="p-val">' + escapeHTML(chief) + '</span></div>'
+      + '<div class="p-note">Передал: ' + escapeHTML(handed) + '</div>'
+      + '<div class="p-stamp">М.П.</div>';
+    body.appendChild(paper);
+
+    var actions = document.createElement('div');
+    actions.className = 'del-modal-actions';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'btn-neutral';
+    closeBtn.textContent = 'Закрыть';
+    closeBtn.addEventListener('click', closeDeleteModal);
+    var printBtn = document.createElement('button');
+    printBtn.className = 'btn-blue';
+    printBtn.textContent = 'Печать';
+    printBtn.addEventListener('click', function(){
+      var w = window.open('', '_blank');
+      if(!w) return;
+      w.document.write('<html><head><title>Расписка</title><style>body{font-family:"Times New Roman",serif;padding:30px;color:#111;} .p-title{text-align:center;font-size:20px;font-weight:700;margin:16px 0} .p-line{display:flex;justify-content:space-between;gap:14px;margin-bottom:8px;font-size:14px} .p-val{border-bottom:1px solid #333;flex:1;text-align:center;min-width:80px;padding:0 6px} .p-note{margin-top:14px;font-size:13px;color:#444;line-height:1.6} .p-stamp{margin-top:20px;text-align:right;font-size:13px;color:#1f4e79}</style></head><body>' + paper.innerHTML + '</body></html>');
+      w.document.close();
+      w.focus();
+      setTimeout(function(){ w.print(); }, 300);
+    });
+    actions.appendChild(closeBtn);
+    actions.appendChild(printBtn);
+    body.appendChild(actions);
+
+    buildModal('Расписка в приёме военнослужащего', body, 'edit-mode');
+  }
+
+  var openGuardBtn = document.getElementById('mil-open-guard');
+  if(openGuardBtn) openGuardBtn.addEventListener('click', function(){ showPage('guard'); });
+  var backToAccountGuard = document.getElementById('mil-back-to-account-guard');
+  if(backToAccountGuard) backToAccountGuard.addEventListener('click', function(){ showPage('oddp'); });
+  var addGuardBtn = document.getElementById('mil-guard-add');
+  if(addGuardBtn) addGuardBtn.addEventListener('click', addGuardRecord);
+  var clearGuardBtn = document.getElementById('mil-guard-clear');
+  if(clearGuardBtn) clearGuardBtn.addEventListener('click', clearGuardForm);
+  var guardSearchInput = document.getElementById('mil-guard-search');
+  if(guardSearchInput) guardSearchInput.addEventListener('input', function(){ guardSearchQuery = this.value || ''; renderGuardTable(); });
+
+  // ==================== КУПО ====================
+  var KUPO_KEY = 'mil_kupo_records';
+  var KUPO_LOGS_KEY = 'mil_kupo_logs';
+  var kupoSearchQuery = '';
+  var KUPO_YEAR = '26';
+
+  function loadKupoRecords(){ try { var raw = localStorage.getItem(KUPO_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveKupoRecords(arr){ try { localStorage.setItem(KUPO_KEY, JSON.stringify(arr)); } catch(e){} }
+  function loadKupoLogs(){ try { var raw = localStorage.getItem(KUPO_LOGS_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveKupoLogs(arr){ try { localStorage.setItem(KUPO_LOGS_KEY, JSON.stringify(arr)); } catch(e){} }
+
+  function getNextKupoNumber(){
+    var records = loadKupoRecords();
+    var used = {};
+    for(var i = 0; i < records.length; i++){
+      if(records[i].number) used[records[i].number] = true;
+    }
+    var n = 1;
+    while(used['КУПО-' + KUPO_YEAR + '-' + n]) n++;
+    return 'КУПО-' + KUPO_YEAR + '-' + n;
+  }
+
+  function kupoMatches(rec, q){
+    if(!q) return true; q = q.toLowerCase();
+    var fields = [rec.number, rec.to, rec.date, rec.time, rec.explanation, rec.writtenDate, rec.position, rec.rank, rec.fio];
+    for(var i = 0; i < fields.length; i++){ if(fields[i] && String(fields[i]).toLowerCase().indexOf(q) !== -1) return true; }
+    return false;
+  }
+
+  function renderKupoTable(){
+    var allRecords = loadKupoRecords();
+    var records = [];
+    for(var ri = 0; ri < allRecords.length; ri++){ if(kupoMatches(allRecords[ri], kupoSearchQuery)) records.push({ rec: allRecords[ri], origIndex: ri }); }
+    var tbody = document.getElementById('mil-kupo-tbody');
+    var countEl = document.getElementById('mil-kupo-count');
+    if(countEl) countEl.textContent = allRecords.length;
+    if(!tbody) return; tbody.innerHTML = '';
+    if(records.length === 0){
+      var emptyTr = document.createElement('tr'); emptyTr.className = 'empty-row';
+      emptyTr.innerHTML = '<td colspan="9">' + (allRecords.length === 0 ? 'Обращений нет.' : 'Ничего не найдено по запросу.') + '</td>';
+      tbody.appendChild(emptyTr); return;
+    }
+    for(var i = 0; i < records.length; i++){
+      (function(item, displayIdx){
+        var rec = item.rec; var idx = item.origIndex;
+        var tr = document.createElement('tr');
+        var cells = [
+          rec.number || '', rec.to || '',
+          (rec.date || '') + ' ' + (rec.time || ''),
+          rec.explanation || '', rec.writtenDate || '',
+          rec.position || '', rec.rank || '', rec.fio || ''
+        ];
+        for(var c = 0; c < cells.length; c++){ var td = document.createElement('td'); td.textContent = cells[c]; tr.appendChild(td); }
+        var actionTd = document.createElement('td'); actionTd.className = 'action-cell';
+        var viewBtn = document.createElement('button'); viewBtn.className = 'registry-edit'; viewBtn.textContent = 'Бумага';
+        viewBtn.addEventListener('click', function(){ openKupoPaper(idx, rec); });
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        delBtn.addEventListener('click', function(){
+          openDeleteModal({
+            title: 'Удаление записи КУПО',
+            summary: 'Номер: ' + (rec.number || '—') + '\nНа имя: ' + (rec.to || '—'),
+            onConfirm: function(reason){
+              var list = loadKupoRecords(); if(idx < 0 || idx >= list.length) return;
+              var removed = list.splice(idx, 1)[0]; saveKupoRecords(list);
+              addKupoLog({ type: 'del', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Удалено обращение: ' + (removed.number || '—'), reason: reason, time: new Date().toISOString() });
+              renderKupoTable(); renderKupoLogs();
+            }
+          });
+        });
+        actionTd.appendChild(viewBtn); actionTd.appendChild(delBtn);
+        tr.appendChild(actionTd);
+        tbody.appendChild(tr);
+      })(records[i], i);
+    }
+  }
+
+  function addKupoLog(entry){ var logs = loadKupoLogs(); logs.unshift(entry); saveKupoLogs(logs); }
+
+  function renderKupoLogs(){
+    var logs = loadKupoLogs();
+    var body = document.getElementById('mil-kupo-logs-body');
+    var countEl = document.getElementById('mil-kupo-logs-count');
+    if(countEl) countEl.textContent = logs.length + ' записей';
+    if(!body) return; body.innerHTML = '';
+    if(logs.length === 0){ body.innerHTML = '<div class="logs-empty">Пока событий не было.</div>'; return; }
+    for(var i = 0; i < logs.length; i++){
+      (function(log, li){
+        var item = document.createElement('div'); item.className = 'log-item';
+        var dt = log.time ? new Date(log.time) : new Date(); var dateStr = dt.toLocaleString('ru-RU');
+        var typeMap = { 'del':'log-del', 'edit':'log-edit', 'restore':'log-restore', 'purge':'log-purge' };
+        var typeLabel = { 'del':'Удаление', 'edit':'Изменение', 'restore':'Восстановление', 'purge':'Очистка' };
+        var typeClass = typeMap[log.type] || 'log-del'; var typeText = typeLabel[log.type] || 'Событие';
+        var meta = document.createElement('div'); meta.className = 'log-meta';
+        meta.innerHTML = '<span class="log-who"><span class="log-type ' + typeClass + '">' + typeText + '</span>' + escapeHTML(log.who || '—') + '</span><span class="log-time">' + escapeHTML(dateStr) + '</span>';
+        var what = document.createElement('div'); what.className = 'log-what'; what.textContent = log.what || '';
+        var reason = document.createElement('div'); reason.className = 'log-reason'; reason.textContent = (log.type === 'edit' ? 'Изменения: ' : 'Причина: ') + (log.reason || '');
+        var acts = document.createElement('div'); acts.className = 'log-actions';
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        if(!canPurge()){ delBtn.disabled = true; delBtn.title = 'Только со звания майор'; }
+        delBtn.addEventListener('click', function(){
+          if(!canPurge()) return; if(!confirm('Удалить запись из журнала?')) return;
+          var list = loadKupoLogs(); if(li < 0 || li >= list.length) return;
+          list.splice(li, 1); saveKupoLogs(list); renderKupoLogs();
+        });
+        acts.appendChild(delBtn);
+        item.appendChild(meta); item.appendChild(what); item.appendChild(reason); item.appendChild(acts);
+        body.appendChild(item);
+      })(logs[i], i);
+    }
+  }
+
+  function clearKupoForm(){
+    var ids = ['kupo-to','kupo-date','kupo-time','kupo-explanation','kupo-written-date','kupo-position','kupo-rank','kupo-fio'];
+    for(var i = 0; i < ids.length; i++){ var el = document.getElementById(ids[i]); if(el) el.value = ''; }
+    var msg = document.getElementById('mil-kupo-msg'); if(msg){ msg.style.display = 'none'; msg.textContent = ''; }
+  }
+
+  function showKupoMsg(text, ok){
+    var msg = document.getElementById('mil-kupo-msg'); if(!msg) return;
+    msg.textContent = text; msg.style.display = 'block';
+    msg.style.color = ok ? '#1e7e34' : '#c0392b'; msg.style.fontWeight = '600';
+    if(ok) setTimeout(function(){ msg.style.display = 'none'; }, 3000);
+  }
+
+  function addKupoRecord(){
+    var type = (document.getElementById('kupo-type').value || 'report');
+    var to = (document.getElementById('kupo-to').value || '').trim();
+    var date = document.getElementById('kupo-date').value || '';
+    var time = document.getElementById('kupo-time').value || '';
+    var explanation = (document.getElementById('kupo-explanation').value || '').trim();
+    var writtenDate = document.getElementById('kupo-written-date').value || '';
+    var position = (document.getElementById('kupo-position').value || '').trim();
+    var rank = (document.getElementById('kupo-rank').value || '').trim();
+    var fio = (document.getElementById('kupo-fio').value || '').trim();
+    if(!to || !date || !time || !explanation || !writtenDate || !position || !rank || !fio){
+      showKupoMsg('Заполните все обязательные поля, отмеченные *', false); return;
+    }
+    var records = loadKupoRecords();
+    var number = getNextKupoNumber();
+    var rec = { type: type, number: number, to: to, date: date, time: time, explanation: explanation, writtenDate: writtenDate, position: position, rank: rank, fio: fio, addedAt: new Date().toISOString() };
+    records.push(rec);
+    saveKupoRecords(records);
+    addKupoLog({ type: 'edit', who: currentUser ? ((currentUser.name || 'Без имени') + ' (' + (currentUser.login || '—') + ')') : 'Гость', what: 'Зарегистрировано обращение: ' + number, reason: 'Регистрация КУПО', time: new Date().toISOString() });
+    renderKupoTable(); renderKupoLogs(); clearKupoForm();
+    showKupoMsg('Обращение зарегистрировано под номером ' + number, true);
+    openKupoPaper(records.length - 1, rec);
+  }
+
+  function openKupoPaper(idx, rec){
+    var body = document.createElement('div');
+    body.className = 'del-modal-body';
+    var paper = document.createElement('div');
+    paper.className = 'paper';
+
+    var title = rec.type === 'protocol' ? 'ПРОТОКОЛ принятия устного заявления о преступлении' : 'РАПОРТ';
+    var headDate = rec.date ? (function(){
+      var p = rec.date.split('-');
+      if(p.length === 3) return '«' + p[2] + '» ' + monthName(parseInt(p[1],10)) + ' ' + p[0] + ' г.';
+      return rec.date;
+    })() : '';
+    var bodyText;
+    if(rec.type === 'protocol'){
+      bodyText = '«' + (headDate || '') + '»<br>пгт. Бусаево<br><br>'
+        + 'Я, ' + escapeHTML(rec.position) + ' ' + escapeHTML(rec.rank) + ' ' + escapeHTML(rec.fio) + ', '
+        + 'принял устное заявление от гражданина (военнослужащего):<br>'
+        + '<strong>' + escapeHTML(rec.to) + '</strong><br>'
+        + 'Об ответственности за заведомо ложный донос по ст. 306 УК РФ предупреждён.<br><br>'
+        + 'Сообщаю следующее: ' + escapeHTML(rec.explanation);
+    } else {
+      bodyText = escapeHTML(rec.explanation);
+    }
+
+    paper.innerHTML = ''
+      + '<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">'
+      +   '<div style="width:70px;height:70px;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;">'
+      +     '<img src="https://psv4.vkuserphoto.ru/s/v1/d2/3mi-8d4X9mKt3DotGc7hhwiYmcirOOTdSwLUqCJTTSl7kUY1rxifq1JOPyzgaTCIiTrWaQjXvPoLmsg7Lek62BSsdYvp0ZNmYFhCun5c-lBLcuMDzI9IBv9XtilXvYlfVFD7YTaZzZCJ/image-Photoroom.png" style="width:60px;height:60px;object-fit:contain;" alt="">'
+      +   '</div>'
+      +   '<div style="text-align:center;flex:1;font-weight:700;font-size:13px;line-height:1.4;">'
+      +     'МИНИСТЕРСТВО ОБОРОНЫ<br>РОССИЙСКОЙ ФЕДЕРАЦИИ<br>(Минобороны России)<br><br>'
+      +     'ВОЕННАЯ КОМЕНДАТУРА<br>(гарнизона, 1 разряда) (г. Нижегородск)<br>'
+      +     '603005, РФ, Нижегородская обл, г. Нижегородск, ул. Ленина, д. 55'
+      +   '</div>'
+      + '</div>'
+      + '<div style="display:flex;justify-content:space-between;border-top:1px solid #333;border-bottom:1px solid #333;padding:6px 0;margin-bottom:14px;font-size:13px;font-weight:700;">'
+      +   '<span>' + (headDate || '') + '</span><span>№ ' + escapeHTML(rec.number || '') + '</span>'
+      + '</div>'
+      + '<div class="p-title" style="font-size:16px;letter-spacing:1px;">' + title + '</div>'
+      + '<div class="p-body">' + bodyText + '</div>'
+      + '<div class="p-sign">'
+      +   '<div class="p-sign-left">' + escapeHTML(rec.writtenDate || '') + '</div>'
+      +   '<div class="p-sign-right">' + escapeHTML(rec.position || '') + '<br>' + escapeHTML(rec.rank || '') + '<br><span class="p-underline">' + escapeHTML(rec.fio || '') + '</span></div>'
+      + '</div>'
+      + '<div class="p-stamp" style="margin-top:18px;border:2px solid #1f4e79;display:inline-block;padding:8px 12px;transform:rotate(-4deg);color:#1f4e79;font-weight:700;">'
+      +   'ЗАРЕГИСТРИРОВАНО В КНИГЕ УЧЁТА<br>ПИСЬМЕННЫХ ОБРАЩЕНИЙ<br>Военная комендатура 1-го разряда<br>Нижегородского гарнизона<br>«' + (rec.date || '') + '»<br><strong>' + escapeHTML(rec.number || '') + '</strong>'
+      + '</div>';
+    body.appendChild(paper);
+
+    var actions = document.createElement('div');
+    actions.className = 'del-modal-actions';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'btn-neutral';
+    closeBtn.textContent = 'Закрыть';
+    closeBtn.addEventListener('click', closeDeleteModal);
+    var printBtn = document.createElement('button');
+    printBtn.className = 'btn-blue';
+    printBtn.textContent = 'Печать';
+    printBtn.addEventListener('click', function(){
+      var w = window.open('', '_blank');
+      if(!w) return;
+      w.document.write('<html><head><title>' + escapeHTML(rec.number || 'КУПО') + '</title><style>body{font-family:"Times New Roman",serif;padding:30px;color:#111;} .p-title{text-align:center;font-size:20px;font-weight:700;letter-spacing:4px;margin:16px 0} .p-body{text-indent:30px;text-align:justify;font-size:15px;line-height:1.7;margin-bottom:16px;white-space:pre-line} .p-sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:30px;gap:14px} .p-sign-left{font-size:14px;line-height:1.5} .p-sign-right{text-align:right;font-size:14px;line-height:1.5} .p-underline{border-bottom:1px solid #333;display:inline-block;min-width:80px;text-align:center} .p-stamp{margin-top:18px;border:2px solid #1f4e79;display:inline-block;padding:8px 12px;transform:rotate(-4deg);color:#1f4e79;font-weight:700;}</style></head><body>' + paper.innerHTML + '</body></html>');
+      w.document.close();
+      w.focus();
+      setTimeout(function(){ w.print(); }, 300);
+    });
+    actions.appendChild(closeBtn);
+    actions.appendChild(printBtn);
+    body.appendChild(actions);
+
+    buildModal((rec.type === 'protocol' ? 'Протокол' : 'Рапорт') + ' — ' + (rec.number || ''), body, 'edit-mode');
+  }
+
+  function monthName(m){
+    var months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    return months[m-1] || '';
+  }
+
+  var openKupoBtn = document.getElementById('mil-open-kupo');
+  if(openKupoBtn) openKupoBtn.addEventListener('click', function(){ showPage('kupo'); });
+  var backToAccountKupo = document.getElementById('mil-back-to-account-kupo');
+  if(backToAccountKupo) backToAccountKupo.addEventListener('click', function(){ showPage('oddp'); });
+  var addKupoBtn = document.getElementById('mil-kupo-add');
+  if(addKupoBtn) addKupoBtn.addEventListener('click', addKupoRecord);
+  var clearKupoBtn = document.getElementById('mil-kupo-clear');
+  if(clearKupoBtn) clearKupoBtn.addEventListener('click', clearKupoForm);
+  var kupoSearchInput = document.getElementById('mil-kupo-search');
+  if(kupoSearchInput) kupoSearchInput.addEventListener('input', function(){ kupoSearchQuery = this.value || ''; renderKupoTable(); });
+
+  // ==================== КАРТОЧКА ПАТРУЛЯ ====================
+  var PATROL_KEY = 'mil_patrol_records';
+  var patrolRecords = [];
+
+  function loadPatrolRecords(){ try { var raw = localStorage.getItem(PATROL_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function savePatrolRecords(arr){ try { localStorage.setItem(PATROL_KEY, JSON.stringify(arr)); } catch(e){} }
+
+  function renderPatrolTable(){
+    var records = loadPatrolRecords();
+    patrolRecords = records;
+    var tbody = document.getElementById('mil-patrol-tbody');
+    var countEl = document.getElementById('mil-patrol-count');
+    if(countEl) countEl.textContent = records.length;
+    if(!tbody) return; tbody.innerHTML = '';
+    if(records.length === 0){
+      var emptyTr = document.createElement('tr'); emptyTr.className = 'empty-row';
+      emptyTr.innerHTML = '<td colspan="9">Карточек нет.</td>';
+      tbody.appendChild(emptyTr); return;
+    }
+    for(var i = 0; i < records.length; i++){
+      (function(rec, idx){
+        var tr = document.createElement('tr');
+        var cells = [
+          rec.number || '',
+          (rec.timeFrom || '') + '–' + (rec.timeTo || ''),
+          rec.date || '', rec.place || '', rec.type || '',
+          rec.chief || '', rec.car || '', rec.issued || ''
+        ];
+        for(var c = 0; c < cells.length; c++){ var td = document.createElement('td'); td.textContent = cells[c]; tr.appendChild(td); }
+        var actionTd = document.createElement('td'); actionTd.className = 'action-cell';
+        var viewBtn = document.createElement('button'); viewBtn.className = 'registry-edit'; viewBtn.textContent = 'Карточка';
+        viewBtn.addEventListener('click', function(){ openPatrolPaper(rec); });
+        var delBtn = document.createElement('button'); delBtn.className = 'registry-del'; delBtn.textContent = 'Удалить';
+        delBtn.addEventListener('click', function(){
+          openDeleteModal({
+            title: 'Удаление карточки патруля',
+            summary: 'Карточка № ' + (rec.number || '—'),
+            onConfirm: function(reason){
+              var list = loadPatrolRecords();
+              if(idx < 0 || idx >= list.length) return;
+              list.splice(idx, 1); savePatrolRecords(list);
+              renderPatrolTable();
+            }
+          });
+        });
+        actionTd.appendChild(viewBtn); actionTd.appendChild(delBtn);
+        tr.appendChild(actionTd);
+        tbody.appendChild(tr);
+      })(records[i], i);
+    }
+  }
+
+  function addPatrolRecord(){
+    var timeFrom = document.getElementById('patrol-time-from').value || '';
+    var timeTo = document.getElementById('patrol-time-to').value || '';
+    var date = document.getElementById('patrol-date').value || '';
+    var place = (document.getElementById('patrol-place').value || '').trim();
+    var type = (document.getElementById('patrol-type').value || '').trim();
+    var chief = (document.getElementById('patrol-chief').value || '').trim();
+    var officer = (document.getElementById('patrol-officer').value || '').trim();
+    var car = (document.getElementById('patrol-car').value || '').trim();
+    var issued = (document.getElementById('patrol-issued').value || '').trim();
+    if(!timeFrom || !timeTo || !date || !place || !type || !chief || !officer || !car || !issued){
+      alert('Заполните все обязательные поля'); return;
+    }
+    var list = loadPatrolRecords();
+    var number = 195 + list.length;
+    var rec = { number: number, timeFrom: timeFrom, timeTo: timeTo, date: date, place: place, type: type, chief: chief, officer: officer, car: car, issued: issued, addedAt: new Date().toISOString() };
+    list.push(rec);
+    savePatrolRecords(list);
+    renderPatrolTable();
+    openPatrolPaper(rec);
+  }
+
+  function clearPatrolForm(){
+    var ids = ['patrol-time-from','patrol-time-to','patrol-date','patrol-place','patrol-type','patrol-chief','patrol-officer','patrol-car','patrol-issued'];
+    for(var i = 0; i < ids.length; i++){ var el = document.getElementById(ids[i]); if(el) el.value = ''; }
+  }
+
+  function openPatrolPaper(rec){
+    var body = document.createElement('div');
+    body.className = 'del-modal-body';
+    var paper = document.createElement('div');
+    paper.className = 'paper';
+
+    var dateHuman = rec.date ? (function(){
+      var p = rec.date.split('-');
+      if(p.length === 3) return '"' + p[2] + '" ' + monthName(parseInt(p[1],10)) + ' ' + p[0] + ' г.';
+      return rec.date;
+    })() : '';
+
+    paper.innerHTML = ''
+      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #333;padding-bottom:10px;margin-bottom:10px;">'
+      +   '<div style="font-size:12px;line-height:1.3;">'
+      +     '<strong>GreenTech</strong><br>Role Play<br>Military Police
+      +   '</div>'
+      +   '<div style="text-align:center;flex:1;font-size:16px;font-weight:700;line-height:1.4;">'
+      +     'Карточка<br>маршрута патрулирования № ' + escapeHTML(String(rec.number || ''))
+      +   '</div>'
+      + '</div>'
+      + '<div style="display:flex;gap:0;border:1px solid #333;">'
+      +   '<div style="flex:1;border-right:1px solid #333;padding:10px;font-size:13px;line-height:1.6;">'
+      +     '<div>Время несения службы с "' + escapeHTML(rec.timeFrom) + '" часов по "' + escapeHTML(rec.timeTo) + '" часов ' + escapeHTML(dateHuman) + '.</div>'
+      +     '<div style="margin-top:4px;">(время и дата несения службы нарядом)</div>'
+      +     '<div style="margin-top:10px;"><strong>Место несения службы:</strong> ' + escapeHTML(rec.place) + '</div>'
+      +     '<div style="margin-top:6px;"><strong>Вид несения службы:</strong> ' + escapeHTML(rec.type) + '</div>'
+      +     '<div style="margin-top:10px;"><strong>Состав патруля:</strong></div>'
+      +     '<div>Начальник патруля: ' + escapeHTML(rec.chief) + '</div>'
+      +     '<div>Патрульный: ' + escapeHTML(rec.officer) + '</div>'
+      +     '<div>Патрульный автомобиль: ' + escapeHTML(rec.car) + '</div>'
+      +     '<div style="margin-top:10px;">ВЫДАНО: ' + escapeHTML(rec.issued) + '</div>'
+      +     '<div>' + escapeHTML(dateHuman) + '</div>'
+      +   '</div>'
+      +   '<div style="flex:1;padding:10px;font-size:12px;line-height:1.5;">'
+      +     '<div style="font-weight:700;">ПРИМЕЧАНИЕ:</div>'
+      +     '<div>При несении службы проявлять вежливость и соблюдать культуру к гражданам и к военнослужащим.</div>'
+      +     '<div>Выполнять все требования устава военной полиции и общевойсковых уставов вооружённых сил, действующего законодательства Российской Федерации, приказов министра обороны.</div>'
+      +     '<div>Соблюдать технику безопасности в обращении с транспортом и с табельным оружием. Выходить во время в эфир и держать связь с ОВДК.</div>'
+      +     '<div>Руководствоваться действующей инструкцией и положениями гласности и законности.</div>'
+      +     '<div style="margin-top:14px;text-align:center;">'
+      +       '<div style="width:90px;height:90px;border:2px solid #1f4e79;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#1f4e79;font-size:10px;text-align:center;line-height:1.1;">ВОЕННАЯ<br>ПОЛИЦИЯ<br>★</div>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>';
+    body.appendChild(paper);
+
+    var actions = document.createElement('div');
+    actions.className = 'del-modal-actions';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'btn-neutral';
+    closeBtn.textContent = 'Закрыть';
+    closeBtn.addEventListener('click', closeDeleteModal);
+    var printBtn = document.createElement('button');
+    printBtn.className = 'btn-blue';
+    printBtn.textContent = 'Печать';
+    printBtn.addEventListener('click', function(){
+      var w = window.open('', '_blank');
+      if(!w) return;
+      w.document.write('<html><head><title>Карточка патруля № ' + escapeHTML(String(rec.number)) + '</title><style>body{font-family:"Times New Roman",serif;padding:30px;color:#111;}</style></head><body>' + paper.innerHTML + '</body></html>');
+      w.document.close(); w.focus();
+      setTimeout(function(){ w.print(); }, 300);
+    });
+    actions.appendChild(closeBtn);
+    actions.appendChild(printBtn);
+    body.appendChild(actions);
+
+    buildModal('Карточка патруля № ' + (rec.number || ''), body, 'edit-mode');
+  }
+
+  var openPatrolBtn = document.getElementById('mil-open-patrol');
+  if(openPatrolBtn) openPatrolBtn.addEventListener('click', function(){ showPage('patrol'); });
+  var backToAccountPatrol = document.getElementById('mil-back-to-account-patrol');
+  if(backToAccountPatrol) backToAccountPatrol.addEventListener('click', function(){ showPage('ogips'); });
+  var addPatrolBtn = document.getElementById('mil-patrol-add');
+  if(addPatrolBtn) addPatrolBtn.addEventListener('click', addPatrolRecord);
+  var clearPatrolBtn = document.getElementById('mil-patrol-clear');
+  if(clearPatrolBtn) clearPatrolBtn.addEventListener('click', clearPatrolForm);
+
+  // ==================== УВЕДОМЛЕНИЯ ====================
+  var NOTIF_KEY = 'mil_notifications';
+  var notifiedGuards = {};
+
+  function loadNotifications(){ try { var raw = localStorage.getItem(NOTIF_KEY); if(!raw) return []; var arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch(e){ return []; } }
+  function saveNotifications(arr){ try { localStorage.setItem(NOTIF_KEY, JSON.stringify(arr)); } catch(e){} }
+
+  function pushNotification(text){
+    var list = loadNotifications();
+    list.unshift({ text: text, time: new Date().toISOString(), read: false });
+    if(list.length > 100) list = list.slice(0, 100);
+    saveNotifications(list);
+    renderNotifications();
+  }
+
+  function renderNotifications(){
+    var list = loadNotifications();
+    var unread = 0;
+    for(var i = 0; i < list.length; i++){ if(!list[i].read) unread++; }
+    var badge = document.getElementById('mil-notif-badge');
+    if(badge){
+      if(unread > 0){ badge.textContent = unread; badge.style.display = 'inline-block'; }
+      else { badge.style.display = 'none'; }
+    }
+    var body = document.getElementById('mil-notif-list');
+    if(!body) return;
+    body.innerHTML = '';
+    if(list.length === 0){ body.innerHTML = '<div class="notif-empty">Пока уведомлений нет.</div>'; return; }
+    for(var j = 0; j < list.length; j++){
+      var n = list[j];
+      var el = document.createElement('div'); el.className = 'notif-item';
+      var t = document.createElement('div'); t.className = 'notif-text'; t.textContent = n.text || '';
+      var tm = document.createElement('div'); tm.className = 'notif-time';
+      var dt = n.time ? new Date(n.time) : new Date();
+      tm.textContent = dt.toLocaleString('ru-RU');
+      el.appendChild(t); el.appendChild(tm);
+      body.appendChild(el);
+    }
+  }
+
+  var notifBtn = document.getElementById('mil-notif-btn');
+  var notifPanel = document.getElementById('mil-notif-panel');
+  if(notifBtn){
+    notifBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(notifPanel.classList.contains('open')){
+        notifPanel.classList.remove('open');
+      } else {
+        notifPanel.classList.add('open');
+        var list = loadNotifications();
+        for(var i = 0; i < list.length; i++) list[i].read = true;
+        saveNotifications(list);
+        renderNotifications();
+      }
+    });
+  }
+  document.addEventListener('click', function(e){
+    if(notifPanel && notifPanel.classList.contains('open')){
+      if(!notifPanel.contains(e.target) && e.target !== notifBtn){ notifPanel.classList.remove('open'); }
+    }
+  });
+  var notifClear = document.getElementById('mil-notif-clear');
+  if(notifClear) notifClear.addEventListener('click', function(){
+    saveNotifications([]); renderNotifications();
+  });
+
+  function checkGuardTimers(){
+    var records = loadGuardRecords();
+    for(var i = 0; i < records.length; i++){
+      var rec = records[i];
+      if(!rec.releaseDate) continue;
+      var key = (rec.fio || '') + '|' + (rec.unit || '') + '|' + (rec.cell || '') + '|' + (rec.releaseDate || '');
+      if(notifiedGuards[key]) continue;
+      var end = new Date(rec.releaseDate + 'T' + (rec.acceptTime || '23:59') + ':00');
+      if(new Date() >= end){
+        notifiedGuards[key] = true;
+        pushNotification('Гауптвахта: ' + (rec.fio || '—') + ' (в/ч ' + (rec.unit || '—') + ', камера ' + (rec.cell || '—') + ') — время освобождения наступило (' + (rec.releaseDate || '') + ').');
+      }
+    }
+  }
+
+  // ==================== УНИВЕРСАЛЬНАЯ МОДАЛКА ====================
+  function openGenericEditModal(title, fields, rec, onSave){
+    var body = document.createElement('div'); body.className = 'del-modal-body';
+    var inputs = {}; var grid = document.createElement('div');
+    grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:12px;';
+    for(var i = 0; i < fields.length; i++){
+      var f = fields[i];
+      var wrap = document.createElement('div');
+      wrap.style.cssText = (f.type === 'textarea' ? 'grid-column:1/-1;' : '') + 'margin-bottom:0;';
+      var lab = document.createElement('label'); lab.textContent = f.label; wrap.appendChild(lab);
+      var inp;
+      if(f.type === 'textarea'){ inp = document.createElement('textarea'); }
+      else { inp = document.createElement('input'); inp.type = f.type; }
+      inp.value = rec[f.key] || '';
+      wrap.appendChild(inp); inputs[f.key] = inp; grid.appendChild(wrap);
+    }
+    body.appendChild(grid);
+    var err = document.createElement('div'); err.className = 'del-error'; body.appendChild(err);
+    var actions = document.createElement('div'); actions.className = 'del-modal-actions';
+    var cancelBtn = document.createElement('button'); cancelBtn.className = 'btn-neutral'; cancelBtn.textContent = 'Отмена';
+    cancelBtn.addEventListener('click', closeDeleteModal);
+    var saveBtn = document.createElement('button'); saveBtn.className = 'btn-blue'; saveBtn.textContent = 'Сохранить';
+    saveBtn.addEventListener('click', function(){
+      var values = {};
+      for(var k in inputs){ values[k] = inputs[k].value || ''; }
+      var required = false;
+      for(var r = 0; r < fields.length; r++){ if(!values[fields[r].key]){ required = true; break; } }
+      if(required){ err.textContent = 'Заполните все поля.'; err.style.display = 'block'; return; }
+      var ok = onSave(values);
+      if(ok) closeDeleteModal();
+      else { err.textContent = 'Не удалось сохранить.'; err.style.display = 'block'; }
+    });
+    actions.appendChild(cancelBtn); actions.appendChild(saveBtn); body.appendChild(actions);
+    buildModal(title, body, 'edit-mode');
+  }
+
+  function buildModal(title, bodyEl, headerClass){
+    closeDeleteModal();
+    var overlay = document.createElement('div');
+    overlay.className = 'del-modal-overlay'; overlay.id = 'mil-del-modal-overlay';
+    var modal = document.createElement('div'); modal.className = 'del-modal';
+    var header = document.createElement('div');
+    header.className = 'del-modal-header' + (headerClass ? ' ' + headerClass : '');
+    header.textContent = title;
+    modal.appendChild(header); modal.appendChild(bodyEl); overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeDeleteModal(); });
+    return overlay;
+  }
+
+  function openDeleteModal(opts){
+    var body = document.createElement('div'); body.className = 'del-modal-body';
+    if(opts.summary){
+      var summary = document.createElement('div'); summary.className = 'del-summary'; summary.textContent = opts.summary; body.appendChild(summary);
+    }
+    var label = document.createElement('label'); label.innerHTML = 'Причина удаления <span class="req">*</span>'; body.appendChild(label);
+    var textarea = document.createElement('textarea'); textarea.placeholder = 'Укажите причину удаления (обязательно)'; body.appendChild(textarea);
+    var err = document.createElement('div'); err.className = 'del-error'; body.appendChild(err);
+    var actions = document.createElement('div'); actions.className = 'del-modal-actions';
+    var cancelBtn = document.createElement('button'); cancelBtn.className = 'btn-neutral'; cancelBtn.textContent = 'Отмена';
+    cancelBtn.addEventListener('click', closeDeleteModal);
+    var confirmBtn = document.createElement('button'); confirmBtn.className = 'btn-danger'; confirmBtn.textContent = 'Подтвердить удаление';
+    confirmBtn.addEventListener('click', function(){
+      var reason = (textarea.value || '').trim();
+      if(!reason){ err.textContent = 'Причина удаления обязательна.'; err.style.display = 'block'; textarea.focus(); return; }
+      if(typeof opts.onConfirm === 'function') opts.onConfirm(reason);
+      closeDeleteModal();
+    });
+    actions.appendChild(cancelBtn); actions.appendChild(confirmBtn); body.appendChild(actions);
+    buildModal(opts.title || 'Подтверждение удаления', body, '');
+    textarea.focus();
+  }
+
+  function closeDeleteModal(){
+    var ex = document.getElementById('mil-del-modal-overlay');
+    if(ex) ex.parentNode.removeChild(ex);
+  }
+
+  // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+  restoreSession();
+  loadNewsData();
+  renderRegistryTable();
+  renderRegistryLogs();
+  renderRequirementsTable();
+  renderRequirementsLogs();
+  renderGuardTable();
+  renderGuardLogs();
+  renderKupoTable();
+  renderKupoLogs();
+  renderNotifications();
+  checkGuardTimers();
+  setInterval(function(){ renderGuardTable(); checkGuardTimers(); }, 1000);
+  setInterval(function(){ renderNotifications(); }, 5000);
+})();
+</script>
+
+</body>
+</html>
