@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Военная комендатура — GreenTech RP</title>
+<style>
+.mil-wrapper,.mil-wrapper *,.mil-wrapper *::before,.mil-wrapper *::after{box-sizing:border-box;margin:0;padding:0}
+.mil-wrapper{font-family:'PT Sans',Arial,Helvetica,sans-serif;background:#fff;color:#222;font-size:16px;line-height:1.5;width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;overflow:hidden}
+.mil-wrapper *{margin:0;padding:0;box-sizing:border-box}
+.mil-wrapper .container{max-width:1060px;margin:0 auto;padding:0 20px;width:100%}
+.mil-wrapper a{text-decoration:none;color:inherit;transition:color .15s,background .15s}
+.mil-wrapper .loading-spinner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;gap:20px}
+.mil-wrapper .spinner{width:48px;height:48px;border:4px solid #e3e3e3;border-top-color:#9f0000;border-radius:50%;animation:mil-spin .8s linear infinite}
+@keyframes mil-spin{to{transform:rotate(360deg)}}
+.mil-wrapper .loading-text{font-size:16px;color:#666}
+.mil-wrapper .error-message{padding:60px 0;text-align:center}
+.mil-wrapper .error-title{font-size:20px;font-weight:700;color:#c0392b;margin-bottom:8px}
+.mil-wrapper .error-text{font-size:15px;color:#666;line-height:1.6}
+.mil-wrapper .main-header{background:#1f2025;color:#fff;min-height:88px;display:flex;align-items:center;width:100%}
+.mil-wrapper .main-header .container{display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px}
+.mil-wrapper .header-left{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.mil-wrapper .header-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap}
+.mil-wrapper .logo-wrapper{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mil-wrapper .org-title{font-size:16px;font-weight:700;line-height:1.2}
+.mil-wrapper .org-sub{font-size:13px;color:#ddd}
+.mil-wrapper .account-login-btn{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;padding:8px 14px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);transition:background .18s,border-color .18s,transform .12s;white-space:nowrap;line-height:1;margin-left:auto;order:999}
+.mil-wrapper .account-login-btn:hover{background:rgba(159,0,0,.35);border-color:rgba(255,255,255,.45)}
+.mil-wrapper .account-login-btn:active{transform:scale(.97)}
+.mil-wrapper .account-login-btn svg{width:18px;height:18px;flex-shrink:0;fill:currentColor}
+.mil-wrapper .electronic-reception{position:relative;display:flex;align-items:center;gap:6px;color:#ddd;font-size:13px;cursor:pointer;padding:4px 8px;transition:color .15s;white-space:nowrap}
+.mil-wrapper .electronic-reception:hover{color:#fff}
+.mil-wrapper .electronic-reception svg{fill:currentColor;width:18px;height:18px;flex-shrink:0}
+.mil-wrapper .electronic-reception .dropdown-arrow{font-size:8px;color:#888;margin-left:2px;transition:transform .2s}
+.mil-wrapper .electronic-reception:hover .dropdown-arrow{transform:rotate(180deg)}
+.mil-wrapper .electronic-reception .dropdown-menu{display:none;position:absolute;top:100%;left:0;min-width:280px;background:#2a2b32;border-radius:4px;padding:6px 0;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:1000;margin-top:-2px;border:1px solid rgba(255,255,255,.08)}
+.mil-wrapper .electronic-reception:hover .dropdown-menu,.mil-wrapper .electronic-reception .dropdown-menu:hover{display:block}
+.mil-wrapper .electronic-reception .dropdown-menu .dropdown-item{display:block;padding:8px 18px;font-size:13px;color:#ddd;cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;background:transparent;border:none;width:100%;text-align:left}
+.mil-wrapper .electronic-reception .dropdown-menu .dropdown-item:hover{background:rgba(30,126,52,.25);color:#fff}
+.mil-wrapper .electronic-reception .dropdown-menu .dropdown-divider{height:1px;background:rgba(255,255,255,.12);margin:4px 12px}
+.mil-wrapper .green-menu{background:#9f0000;min-height:38px;display:flex;align-items:center;width:100%}
+.mil-wrapper .green-menu .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;width:100%}
+.mil-wrapper .menu-left{display:flex;gap:22px;list-style:none;height:100%;align-items:center;flex-wrap:wrap;margin:0;padding:0;justify-content:flex-start}
+.mil-wrapper .menu-left li{font-size:15px;font-weight:600;color:#fff;cursor:default;transition:background .15s;padding:0 2px;height:100%;display:flex;align-items:center}
+.mil-wrapper .menu-left li:hover{background:rgba(255,255,255,.15)}
+.mil-wrapper .menu-left li a{color:#fff;display:block;padding:0 2px}
+.mil-wrapper .menu-social{display:flex;align-items:center;gap:14px;margin-left:auto}
+.mil-wrapper .menu-social a{display:flex;align-items:center;justify-content:center;opacity:.8;transition:opacity .15s}
+.mil-wrapper .menu-social a:hover{opacity:1}
+.mil-wrapper .menu-social a img{display:block;width:18px;height:18px;object-fit:contain}
+.mil-wrapper .main-grid{padding:32px 0 50px;background-color:#fff;width:100%}
+.mil-wrapper .left-col{max-width:100%}
+.mil-wrapper .page-title{font-size:24px;font-weight:700;line-height:1.2;margin-bottom:4px;text-align:left}
+.mil-wrapper .title-underline{width:100%;height:1px;background:#d7d7d7;margin-bottom:32px}
+.mil-wrapper .news-list{display:flex;flex-direction:column;gap:54px}
+.mil-wrapper .news-card{display:flex;gap:28px;transition:transform .15s;cursor:pointer;min-height:145px}
+.mil-wrapper .news-card:hover{transform:translateY(-2px)}
+.mil-wrapper .news-card:hover .news-title{color:#1e7e34}
+.mil-wrapper .news-img{width:230px;height:130px;flex-shrink:0;background:#eef1f4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;overflow:hidden}
+.mil-wrapper .news-img img{width:100%;height:100%;object-fit:cover;display:block}
+.mil-wrapper .news-content{flex:1;display:flex;flex-direction:column;min-width:0}
+.mil-wrapper .news-title{font-size:17px;font-weight:700;line-height:1.35;margin-bottom:4px;transition:color .15s;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-desc{font-size:14px;line-height:1.6;color:#333;margin-bottom:6px;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-date{font-size:13px;color:#8d8d8d;margin-top:auto}
+.mil-wrapper .pagination{display:flex;align-items:center;gap:18px;margin-top:44px;flex-wrap:wrap;justify-content:flex-start}
+.mil-wrapper .pagination .page{font-size:16px;font-weight:700;color:#aaa;cursor:pointer;transition:color .15s;line-height:1}
+.mil-wrapper .pagination .page.active{color:#1e7e34}
+.mil-wrapper .pagination .page:hover:not(.active){color:#555}
+.mil-wrapper .pagination .arrow-right,.mil-wrapper .pagination .arrow-left{font-size:20px;color:#aaa;cursor:pointer;margin:0 4px}
+.mil-wrapper .pagination .arrow-right:hover,.mil-wrapper .pagination .arrow-left:hover{color:#1e7e34}
+.mil-wrapper .news-detail{display:none}
+.mil-wrapper .back-to-news{display:inline-flex;align-items:center;gap:8px;color:#1f2025;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:24px;transition:color .15s}
+.mil-wrapper .back-to-news:hover{color:#000}
+.mil-wrapper .back-to-news svg{width:18px;height:18px;fill:currentColor}
+.mil-wrapper .news-detail-title{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:16px;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-detail-date{font-size:14px;color:#8d8d8d;margin-bottom:24px}
+.mil-wrapper .news-detail-text{font-size:16px;line-height:1.8;color:#333;margin-bottom:32px;text-align:justify;white-space:pre-line;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .news-detail-author{font-size:14px;color:#1f2025;font-weight:600;border-top:1px solid #e3e3e3;padding-top:20px}
+.mil-wrapper .rucuvodsvo-section{margin-bottom:40px}
+.mil-wrapper .rucuvodsvo-section-title{font-size:20px;font-weight:700;color:#9f0000;padding-bottom:8px;border-bottom:2px solid #9f0000;margin-bottom:16px}
+.mil-wrapper .account-card{display:flex;align-items:center;gap:20px;padding:22px;background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;margin-bottom:28px}
+.mil-wrapper .account-avatar{width:80px;height:80px;border-radius:50%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-size:36px;color:#999;flex-shrink:0}
+.mil-wrapper .account-info h2{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.mil-wrapper .account-position{font-size:15px;color:#666;font-weight:600;margin-bottom:4px}
+.mil-wrapper .account-login{font-size:13px;color:#888}
+.mil-wrapper .account-section{margin-bottom:28px;padding:18px 20px;border:1px solid #e8e8e8;border-radius:8px;background:#fff}
+.mil-wrapper .account-section h3{font-size:17px;font-weight:700;color:#9f0000;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #9f0000}
+.mil-wrapper .account-row{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px dashed #eee;font-size:15px}
+.mil-wrapper .account-row:last-child{border-bottom:none}
+.mil-wrapper .account-row span{color:#777}
+.mil-wrapper .account-row strong{color:#222;font-weight:600;text-align:right}
+.mil-wrapper .notif-wrap{position:relative;display:inline-block}
+.mil-wrapper .notif-btn{background:rgba(159,0,0,.1);color:#9f0000;border:1px solid #e0c0c0;border-radius:8px;padding:8px 12px;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s}
+.mil-wrapper .notif-btn:hover{background:rgba(159,0,0,.2)}
+.mil-wrapper .notif-btn svg{width:20px;height:20px;fill:currentColor}
+.mil-wrapper .notif-badge{background:#c0392b;color:#fff;border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px;margin-left:4px;min-width:20px;text-align:center}
+.mil-wrapper .notif-panel{display:none;position:absolute;right:0;top:110%;background:#fff;border:1px solid #e3e3e3;border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.2);min-width:340px;max-width:420px;z-index:2000;max-height:400px;overflow-y:auto}
+.mil-wrapper .notif-panel.open{display:block}
+.mil-wrapper .notif-header{background:#1f2025;color:#fff;padding:10px 14px;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center;border-radius:8px 8px 0 0}
+.mil-wrapper .notif-list{padding:8px}
+.mil-wrapper .notif-empty{padding:20px;text-align:center;color:#888;font-size:13px;font-style:italic}
+.mil-wrapper .notif-item{background:#f8f9fa;border:1px solid #e8e8e8;border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:13px;line-height:1.5}
+.mil-wrapper .notif-item:last-child{margin-bottom:0}
+.mil-wrapper .notif-item .notif-time{color:#888;font-size:11px;margin-top:4px}
+.mil-wrapper .notif-item .notif-text{color:#333;font-weight:600}
+.mil-wrapper .registry-btn{display:inline-flex;align-items:center;gap:10px;background:#9f0000;color:#fff;border:none;border-radius:6px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s}
+.mil-wrapper .registry-btn:hover{background:#7d0000}
+.mil-wrapper .registry-btn svg{width:20px;height:20px;fill:currentColor}
+.mil-wrapper .registry-btn.requirements-btn{background:#1f2025}
+.mil-wrapper .registry-btn.requirements-btn:hover{background:#33353d}
+.mil-wrapper .registry-btn.guard-btn{background:#6b1d1d}
+.mil-wrapper .registry-btn.guard-btn:hover{background:#8a2626}
+.mil-wrapper .registry-btn.kupo-btn{background:#1f4e79}
+.mil-wrapper .registry-btn.kupo-btn:hover{background:#163a5a}
+.mil-wrapper .registry-btn.patrol-btn{background:#4a6b1d}
+.mil-wrapper .registry-btn.patrol-btn:hover{background:#3a5517}
+.mil-wrapper .account-actions-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.mil-wrapper .registry-form{background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;padding:24px;margin-bottom:28px}
+.mil-wrapper .registry-form h3{font-size:18px;font-weight:700;color:#9f0000;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #9f0000}
+.mil-wrapper .registry-field{margin-bottom:16px}
+.mil-wrapper .registry-field label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .registry-field label .req{color:#c0392b}
+.mil-wrapper .registry-field input,.mil-wrapper .registry-field textarea,.mil-wrapper .registry-field select{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;font-size:14px;outline:none;transition:border-color .15s;background:#fff}
+.mil-wrapper .registry-field input:focus,.mil-wrapper .registry-field textarea:focus,.mil-wrapper .registry-field select:focus{border-color:#9f0000}
+.mil-wrapper .registry-field textarea{resize:vertical;min-height:60px}
+.mil-wrapper .registry-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.mil-wrapper .btn-add{background:#1e7e34;color:#fff;border:none;border-radius:4px;padding:11px 24px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.mil-wrapper .btn-add:hover{background:#145a24}
+.mil-wrapper .btn-cancel{background:#e9ecef;color:#333;border:none;border-radius:4px;padding:11px 24px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.mil-wrapper .btn-cancel:hover{background:#d6d9dd}
+.mil-wrapper .search-wrap{margin-bottom:16px}
+.mil-wrapper .search-input{width:100%;padding:11px 14px;border:1px solid #ccc;border-radius:6px;font-size:14px;outline:none;transition:border-color .15s;background:#fff}
+.mil-wrapper .search-input:focus{border-color:#9f0000}
+.mil-wrapper .search-hint{font-size:12px;color:#888;margin-top:4px}
+.mil-wrapper .registry-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #e3e3e3;border-radius:8px}
+.mil-wrapper .registry-table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+.mil-wrapper .registry-table th{background:#1f2025;color:#fff;font-weight:700;padding:12px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;font-size:12px;letter-spacing:.3px}
+.mil-wrapper .registry-table td{padding:10px;border-bottom:1px solid #eee;vertical-align:top;color:#333}
+.mil-wrapper .registry-table tbody tr:nth-child(even){background:#fafafa}
+.mil-wrapper .registry-table tbody tr:hover{background:#f0f4f8}
+.mil-wrapper .registry-table .empty-row td{text-align:center;color:#999;padding:40px 10px;font-style:italic}
+.mil-wrapper .registry-del{background:#fef0f0;color:#c0392b;border:1px solid #f5c6c6;border-radius:4px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;white-space:nowrap}
+.mil-wrapper .registry-del:hover{background:#c0392b;color:#fff;border-color:#c0392b}
+.mil-wrapper .registry-edit{background:#eef4fb;color:#1f4e79;border:1px solid #c5d8ef;border-radius:4px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;white-space:nowrap}
+.mil-wrapper .registry-edit:hover{background:#1f4e79;color:#fff;border-color:#1f4e79}
+.mil-wrapper .registry-stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.mil-wrapper .registry-stat{background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;padding:14px 20px;flex:1;min-width:160px}
+.mil-wrapper .registry-stat .num{font-size:24px;font-weight:700;color:#9f0000}
+.mil-wrapper .registry-stat .lbl{font-size:13px;color:#666;margin-top:2px}
+.mil-wrapper .action-cell{display:flex;flex-direction:column;gap:6px;min-width:140px}
+.mil-wrapper .status-select{padding:6px 8px;border:1px solid #ccc;border-radius:4px;font-size:12px;background:#fff;cursor:pointer;outline:none;transition:border-color .15s;max-width:180px}
+.mil-wrapper .status-select:focus{border-color:#9f0000}
+.mil-wrapper .status-select.status-done{border-color:#1e7e34;color:#1e7e34;font-weight:700;background:#f0f9f2}
+.mil-wrapper .status-select.status-pending{border-color:#c0392b;color:#c0392b;font-weight:700;background:#fef0f0}
+.mil-wrapper .status-select.status-arrest{border-color:#c0392b;color:#c0392b;font-weight:700;background:#fef0f0}
+.mil-wrapper .status-select.status-released{border-color:#1e7e34;color:#1e7e34;font-weight:700;background:#f0f9f2}
+.mil-wrapper .status-select.status-early{border-color:#b8860b;color:#8a6508;font-weight:700;background:#fff8e1}
+.mil-wrapper .timer-cell{font-weight:700;font-size:13px;white-space:nowrap}
+.mil-wrapper .timer-cell .timer-ok{color:#1e7e34}
+.mil-wrapper .timer-cell .timer-warn{color:#b8860b}
+.mil-wrapper .timer-cell .timer-danger{color:#c0392b}
+.mil-wrapper .timer-cell .timer-done{color:#888;font-style:italic}
+.mil-wrapper .logs-block{margin-top:28px;border:1px solid #e3e3e3;border-radius:8px;overflow:hidden;background:#fff}
+.mil-wrapper .logs-header{background:#1f2025;color:#fff;padding:14px 18px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.mil-wrapper .logs-header .logs-count{font-size:13px;color:#bbb;font-weight:400}
+.mil-wrapper .logs-body{max-height:420px;overflow-y:auto;padding:12px;background:#f8f9fa}
+.mil-wrapper .logs-empty{padding:24px;text-align:center;color:#888;font-style:italic;font-size:14px}
+.mil-wrapper .log-item{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:10px 12px;margin-bottom:8px;font-size:13px;line-height:1.5;color:#333}
+.mil-wrapper .log-item:last-child{margin-bottom:0}
+.mil-wrapper .log-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.mil-wrapper .log-who{font-weight:700;color:#9f0000}
+.mil-wrapper .log-time{color:#888;font-size:12px}
+.mil-wrapper .log-what{color:#444;margin-bottom:4px;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .log-reason{color:#c0392b;font-weight:600;word-wrap:break-word;overflow-wrap:break-word;margin-bottom:6px}
+.mil-wrapper .log-type{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-right:6px;vertical-align:middle;text-transform:uppercase}
+.mil-wrapper .log-type.log-del{background:#fdecea;color:#c0392b}
+.mil-wrapper .log-type.log-edit{background:#eaf1fb;color:#1f4e79}
+.mil-wrapper .log-type.log-restore{background:#eaf7ee;color:#1e7e34}
+.mil-wrapper .log-type.log-purge{background:#3a1a1a;color:#fff}
+.mil-wrapper .log-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.mil-wrapper .del-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px}
+.mil-wrapper .del-modal{background:#fff;border-radius:8px;width:100%;max-width:520px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:hidden;max-height:92vh;display:flex;flex-direction:column}
+.mil-wrapper .del-modal-header{background:#c0392b;color:#fff;padding:14px 18px;font-size:16px;font-weight:700}
+.mil-wrapper .del-modal-header.edit-mode{background:#1f4e79}
+.mil-wrapper .del-modal-body{padding:20px 18px;overflow-y:auto}
+.mil-wrapper .del-summary{background:#fef6f6;border:1px solid #f5c6c6;border-radius:6px;padding:10px 12px;font-size:13px;color:#444;margin-bottom:14px;line-height:1.5;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .del-modal-body label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .del-modal-body label .req{color:#c0392b}
+.mil-wrapper .del-modal-body textarea,.mil-wrapper .del-modal-body input,.mil-wrapper .del-modal-body select{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;font-size:14px;outline:none;transition:border-color .15s;background:#fff}
+.mil-wrapper .del-modal-body textarea{resize:vertical;min-height:80px}
+.mil-wrapper .del-modal-body textarea:focus,.mil-wrapper .del-modal-body input:focus,.mil-wrapper .del-modal-body select:focus{border-color:#9f0000}
+.mil-wrapper .del-error{background:#fef0f0;border:1px solid #f5c6c6;color:#a94442;font-size:13px;padding:8px 10px;border-radius:4px;margin-top:10px;display:none}
+.mil-wrapper .del-modal-actions{display:flex;gap:12px;margin-top:16px;justify-content:flex-end;flex-wrap:wrap}
+.mil-wrapper .paper{background:#fff;border:1px solid #ddd;padding:30px 40px;font-family:'Times New Roman',serif;color:#111;line-height:1.6;font-size:15px}
+.mil-wrapper .paper .p-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;border-bottom:1px solid #ccc;padding-bottom:12px}
+.mil-wrapper .paper .p-emblem{width:80px;height:80px;object-fit:contain}
+.mil-wrapper .paper .p-center{text-align:center;font-weight:700;font-size:13px;line-height:1.4}
+.mil-wrapper .paper .p-address{text-align:right;font-size:13px;line-height:1.5}
+.mil-wrapper .paper .p-title{text-align:center;font-size:20px;font-weight:700;letter-spacing:4px;margin:16px 0}
+.mil-wrapper .paper .p-body{text-indent:30px;text-align:justify;font-size:15px;line-height:1.7;margin-bottom:16px;white-space:pre-line}
+.mil-wrapper .paper .p-sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:30px;gap:14px}
+.mil-wrapper .paper .p-sign-left{font-size:14px;line-height:1.5}
+.mil-wrapper .paper .p-sign-right{text-align:right;font-size:14px;line-height:1.5}
+.mil-wrapper .paper .p-underline{border-bottom:1px solid #333;display:inline-block;min-width:80px;text-align:center}
+.mil-wrapper .paper .p-line{display:flex;justify-content:space-between;gap:14px;margin-bottom:8px;font-size:14px}
+.mil-wrapper .paper .p-line .p-val{border-bottom:1px solid #333;flex:1;text-align:center;min-width:80px;padding:0 6px}
+.mil-wrapper .paper .p-note{margin-top:14px;font-size:13px;color:#444;line-height:1.6}
+.mil-wrapper .paper .p-stamp{margin-top:20px;text-align:right;font-size:13px;color:#1f4e79}
+.mil-wrapper .paper .p-print-actions{display:flex;gap:12px;margin-top:24px;justify-content:flex-end;flex-wrap:wrap}
+.mil-wrapper .main-footer{background:#1f2025;color:#fff;padding:40px 0 28px;margin-top:10px;min-height:300px;width:100%}
+.mil-wrapper .footer-copy-year{font-size:14px;color:#888;white-space:nowrap}
+.mil-wrapper .footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-bottom:32px}
+.mil-wrapper .footer-col .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.mil-wrapper .footer-col .footer-logo .logo-sm{width:48px;height:48px;background:#1f2025;border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.mil-wrapper .footer-col .footer-logo .logo-sm img{width:100%;height:100%;object-fit:contain;display:block}
+.mil-wrapper .footer-col .footer-logo .org-title-sm{font-weight:700;font-size:16px;line-height:1.2}
+.mil-wrapper .footer-col .footer-logo .org-sub-sm{font-size:13px;color:#ccc}
+.mil-wrapper .footer-title{font-weight:700;font-size:15px;margin-bottom:12px;color:#fff}
+.mil-wrapper .footer-links{list-style:none;display:flex;flex-direction:column;gap:2px}
+.mil-wrapper .footer-links li a{color:#ccc;font-size:14px;line-height:2;transition:color .15s}
+.mil-wrapper .footer-links li a:hover{color:#fff}
+.mil-wrapper .footer-utility{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mil-wrapper .footer-utility li a{display:flex;align-items:center;gap:8px;color:#bbb;font-size:14px;transition:color .15s}
+.mil-wrapper .footer-utility li a:hover{color:#fff}
+.mil-wrapper .footer-utility li a svg{fill:currentColor;width:18px;height:18px}
+.mil-wrapper .footer-bottom-text{border-top:1px solid #333;padding-top:20px;font-size:14px;color:#888;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.mil-wrapper .mil-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px}
+.mil-wrapper .mil-modal{background:#fff;border-radius:8px;width:100%;max-width:400px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:hidden}
+.mil-wrapper .mil-modal-header{background:#1f2025;color:#fff;padding:14px 18px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.mil-wrapper .mil-modal-close{background:transparent;border:none;color:#ccc;font-size:24px;line-height:1;cursor:pointer;padding:0 4px}
+.mil-wrapper .mil-modal-close:hover{color:#fff}
+.mil-wrapper .mil-modal-body{padding:20px 18px}
+.mil-wrapper .mil-form-group{margin-bottom:14px}
+.mil-wrapper .mil-form-group label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .mil-form-group input{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;font-size:15px;outline:none;transition:border-color .15s}
+.mil-wrapper .mil-form-group input:focus{border-color:#9f0000}
+.mil-wrapper .mil-btn-primary,.mil-wrapper .mil-btn-secondary{width:100%;padding:11px 16px;border:none;border-radius:4px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.mil-wrapper .mil-btn-primary{background:#9f0000;color:#fff}
+.mil-wrapper .mil-btn-primary:hover{background:#7d0000}
+.mil-wrapper .mil-btn-secondary{background:#e9ecef;color:#333;margin-top:8px}
+.mil-wrapper .mil-btn-secondary:hover{background:#d6d9dd}
+.mil-wrapper .mil-login-error{background:#fef0f0;border:1px solid #f5c6c6;color:#a94442;font-size:13px;padding:8px 10px;border-radius:4px;margin-bottom:12px}
+.mil-wrapper .mail-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.mil-wrapper .mail-tab{background:#eef1f4;border:1px solid #d7dde3;border-radius:6px;padding:9px 18px;font-size:14px;font-weight:700;color:#444;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.mil-wrapper .mail-tab:hover{background:#e2e7ec}
+.mil-wrapper .mail-tab.active{background:#9f0000;border-color:#9f0000;color:#fff}
+.mil-wrapper .mail-tab .mail-tab-badge{background:#c0392b;color:#fff;border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px;margin-left:6px}
+.mil-wrapper .mail-tab.active .mail-tab-badge{background:#fff;color:#9f0000}
+.mil-wrapper .mail-pane{display:none}
+.mil-wrapper .mail-pane.active{display:block}
+.mil-wrapper .mail-list{display:flex;flex-direction:column;gap:8px}
+.mil-wrapper .mail-item{background:#fff;border:1px solid #e3e3e3;border-radius:8px;padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+.mil-wrapper .mail-item:hover{border-color:#9f0000;background:#fdf7f7}
+.mil-wrapper .mail-item.unread{border-left:4px solid #9f0000;background:#fffafa}
+.mil-wrapper .mail-item-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.mil-wrapper .mail-item-subject{font-size:15px;font-weight:700;color:#1a1a2e;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .mail-item-time{font-size:12px;color:#888;white-space:nowrap}
+.mil-wrapper .mail-item-meta{font-size:13px;color:#666;margin-bottom:2px}
+.mil-wrapper .mail-item-meta strong{color:#333}
+.mil-wrapper .mail-item-preview{font-size:13px;color:#777;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mil-wrapper .mail-item-attach{font-size:12px;color:#1f4e79;margin-top:4px}
+.mil-wrapper .mail-empty{padding:30px 16px;text-align:center;color:#888;font-style:italic;font-size:14px;background:#f8f9fa;border:1px dashed #d7dde3;border-radius:8px}
+.mil-wrapper .mail-error{background:#fef0f0;border:1px solid #f5c6c6;color:#a94442;font-size:13px;padding:10px 12px;border-radius:6px;margin-bottom:12px}
+.mil-wrapper .mail-form{background:#f8f9fa;border:1px solid #e3e3e3;border-radius:8px;padding:20px}
+.mil-wrapper .mail-form h3{font-size:17px;font-weight:700;color:#9f0000;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #9f0000}
+.mil-wrapper .mail-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mil-wrapper .mail-field{margin-bottom:0}
+.mil-wrapper .mail-field.full{grid-column:1/-1}
+.mil-wrapper .mail-field label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.mil-wrapper .mail-field label .req{color:#c0392b}
+.mil-wrapper .mail-field input,.mil-wrapper .mail-field select,.mil-wrapper .mail-field textarea{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:4px;font-size:14px;outline:none;transition:border-color .15s;background:#fff}
+.mil-wrapper .mail-field input:focus,.mil-wrapper .mail-field select:focus,.mil-wrapper .mail-field textarea:focus{border-color:#9f0000}
+.mil-wrapper .mail-field textarea{resize:vertical;min-height:140px}
+.mil-wrapper .mail-files-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.mil-wrapper .mail-file-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #e3e3e3;border-radius:4px;padding:6px 10px;font-size:13px;color:#333}
+.mil-wrapper .mail-file-row .mail-file-del{background:#fef0f0;color:#c0392b;border:1px solid #f5c6c6;border-radius:4px;padding:2px 8px;font-size:12px;font-weight:600;cursor:pointer}
+.mil-wrapper .mail-file-row .mail-file-del:hover{background:#c0392b;color:#fff}
+.mil-wrapper .mail-actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.mil-wrapper .mail-msg{font-size:14px;margin-top:10px}
+.mil-wrapper .mail-msg.ok{color:#1e7e34;font-weight:600}
+.mil-wrapper .mail-msg.err{color:#c0392b;font-weight:600}
+.mil-wrapper .mail-read-subject{font-size:20px;font-weight:700;color:#1a1a2e;margin-bottom:6px;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .mail-read-meta{font-size:13px;color:#666;margin-bottom:16px;border-bottom:1px solid #eee;padding-bottom:12px;line-height:1.7}
+.mil-wrapper .mail-read-body{font-size:15px;line-height:1.8;color:#333;white-space:pre-line;word-wrap:break-word;overflow-wrap:break-word;margin-bottom:20px}
+.mil-wrapper .mail-attach-block{border-top:1px solid #eee;padding-top:14px;margin-top:8px}
+.mil-wrapper .mail-attach-block h4{font-size:14px;font-weight:700;color:#444;margin-bottom:10px}
+.mil-wrapper .mail-attach-item{display:flex;align-items:center;gap:10px;background:#f8f9fa;border:1px solid #e3e3e3;border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:13px}
+.mil-wrapper .mail-attach-item .mail-attach-icon{font-size:18px}
+.mil-wrapper .mail-attach-item .mail-attach-name{flex:1;color:#333;word-wrap:break-word;overflow-wrap:break-word}
+.mil-wrapper .mail-attach-item .mail-attach-size{color:#888;font-size:12px;white-space:nowrap}
+.mil-wrapper .mail-attach-item a{color:#1f4e79;font-weight:600;white-space:nowrap}
+.mil-wrapper .mail-attach-item a:hover{text-decoration:underline}
+@media(max-width:680px){
+  .mil-wrapper .main-header{min-height:auto;padding:12px 0}
+  .mil-wrapper .main-header .container{flex-direction:row;flex-wrap:wrap}
+  .mil-wrapper .header-left{flex:1 1 auto;gap:10px}
+  .mil-wrapper .header-right{flex:0 0 auto;gap:8px}
+  .mil-wrapper .account-login-btn{padding:7px 10px;font-size:12px}
+  .mil-wrapper .account-login-btn .account-label{display:none}
+  .mil-wrapper .green-menu .container{flex-wrap:wrap;height:auto;padding:8px 20px}
+  .mil-wrapper .menu-left{flex-wrap:wrap;gap:8px 16px}
+  .mil-wrapper .menu-left li{font-size:14px;padding:4px 0;height:auto}
+  .mil-wrapper .news-card{flex-direction:column;gap:14px}
+  .mil-wrapper .news-img{width:100%;height:auto;aspect-ratio:16/9;max-height:250px;min-height:150px}
+  .mil-wrapper .footer-grid{grid-template-columns:1fr;gap:24px}
+  .mil-wrapper .account-card{flex-direction:column;text-align:center}
+  .mil-wrapper .account-row{flex-direction:column;gap:2px}
+  .mil-wrapper .account-row strong{text-align:left}
+  .mil-wrapper .paper{padding:16px 18px}
+  .mil-wrapper .mail-form-grid{grid-template-columns:1fr}
+  .mil-wrapper .mail-item-time{white-space:normal}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="mil-wrapper">
+  <header class="main-header">
+    <div class="container">
+      <div class="header-left">
+        <div class="logo-wrapper">
+          <div class="logo"><img src="https://psv4.vkuserphoto.ru/s/v1/d2/3mi-8d4X9mKt3DotGc7hhwiYmcirOOTdSwLUqCJTTSl7kUY1rxifq1JOPyzgaTCIiTrWaQjXvPoLmsg7Lek62BSsdYvp0ZNmYFhCun5c-lBLcuMDzI9IBv9XtilXvYlfVFD7YTaZzZCJ/image-Photoroom.png" alt="Герб" width="55"></div>
+          <div>
+            <div class="org-title">Министерство обороны</div>
+            <div class="org-title">Российской Федерации</div>
+            <div class="org-sub">Военная комендатура 1-го разряда Нижегородского территориального гарнизона</div>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="electronic-reception">
+          <svg viewBox="0 0 25 24" fill="none"><path d="M19.283 6h-13a1.5 1.5 0 00-1.5 1.5v9a1.5 1.5 0 001.5 1.5h13a1.5 1.5 0 001.5-1.5v-9a1.5 1.5 0 00-1.5-1.5zm0 1.5v1.275a319.84 319.84 0 01-4.206 3.328c-.526.414-1.569 1.409-2.294 1.397-.726.012-1.768-.983-2.294-1.397-2.388-1.87-3.506-2.757-4.206-3.328V7.5h13zm-13 9v-5.8c.716.57 1.731 1.37 3.279 2.583.683.537 1.88 1.724 3.22 1.717 1.336.007 2.517-1.162 3.221-1.717a535.429 535.429 0 003.28-2.583v5.8h-13z" fill="currentColor"/></svg>
+          <span>Электронная приёмная</span>
+          <span class="dropdown-arrow">▼</span>
+          <div class="dropdown-menu">
+            <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=8234" target="_blank" class="dropdown-item">Приёмная Военной комендатуры</a>
+            <div class="dropdown-divider"></div>
+            <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=31547" target="_blank" class="dropdown-item">Приёмная ВАИ</a>
+            <div class="dropdown-divider"></div>
+            <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=8867" target="_blank" class="dropdown-item">Приёмная войсковой части №41659</a>
+          </div>
+        </div>
+        <div class="account-login-btn" id="mil-account-login-btn" title="Личный кабинет" role="button" tabindex="0">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/></svg>
+          <span class="account-label">Личный кабинет</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="green-menu">
+    <div class="container">
+      <ul class="menu-left">
+        <li class="nav-btn" data-page="about" style="cursor:pointer;">О Военной полиции</li>
+        <li class="nav-btn" data-page="directions" style="cursor:pointer;">Направления деятельности</li>
+        <li class="nav-btn active" data-page="news" style="cursor:pointer;">Новости</li>
+        <li class="nav-btn" data-page="rucuvodsvo" style="cursor:pointer;">Руководство</li>
+        <li><a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=forums&id=1271" target="_blank">Служба в ВП</a></li>
+      </ul>
+      <div class="menu-social">
+        <a href="https://vk.ru/vhgreentech" target="_blank" title="ВКонтакте"><img src="https://psv4.vkuserphoto.ru/s/v1/d2/Hz4IS_A5zu6b0UPV-67ktIDL9Bcpmz6uDFkEXM0aoXiATqjCRtotja7siVf0uZBEA1P_UvJCrqzINi630xmuzU2UJDBOo8Am_49cxOVvpnbw--fdyfj-FrnuxQAiHhwYgt3_SBDPrXOq/image_1.png" alt="ВКонтакте" width="18" height="18"></a>
+        <a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=forums&id=55" target="_blank" title="Forum"><img src="https://psv4.vkuserphoto.ru/s/v1/d2/BB3JqCLPejiXlcTf_zTKNEeykqB6tq7zGoAoUUYdOWeba8a-7_yTO__ytrpwzQxsiCa5zuHEBeo89ZPrdLZjfKCnJIzfNt9MpY3OjTI0mWYfGvNYTJ8Z2u0tECwzJXKNw-Kq76fUjGh_/image_3.png" alt="Форум" width="18" height="18"></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container main-grid">
+      <section class="left-col">
+
+        <div id="mil-page-about" style="display:none;">
+          <h1 class="page-title">О Военной полиции</h1>
+          <div class="title-underline"></div>
+          <div style="font-size:16px;line-height:1.8;color:#333;text-align:justify;">
+            <p style="margin-bottom:16px;"><strong>Военная полиция Вооружённых Сил Российской Федерации</strong> является специализированным органом, предназначенным для обеспечения законности, правопорядка и воинской дисциплины в войсках. В соответствии с Уставом военной полиции Вооружённых Сил РФ и иными нормативными правовыми актами Министерства обороны Российской Федерации, на военную полицию возложен комплекс задач, направленных на защиту прав, свобод и законных интересов военнослужащих, гражданского персонала и иных лиц, находящихся на территориях воинских частей и гарнизонов.</p>
+            <p style="margin-bottom:16px;">К основным направлениям деятельности военной полиции относятся: осуществление патрульной службы и контроль за соблюдением требований воинской дисциплины; проведение разбирательств по фактам дисциплинарных проступков; организация розыска и задержания военнослужащих, самовольно оставивших часть либо уклоняющихся от исполнения обязанностей военной службы; обеспечение охраны объектов Министерства обороны РФ, а также служебных помещений органов военной прокуратуры и военных следственных органов; содержание и конвоирование задержанных и подвергнутых дисциплинарному аресту лиц.</p>
+            <p style="margin-bottom:16px;">В пределах установленной компетенции военная полиция реализует полномочия органа дознания, в том числе вправе проверять документы, удостоверяющие личность, производить досмотр, осуществлять задержание лиц, подозреваемых в совершении правонарушений, и передавать материалы о выявленных преступлениях в компетентные следственные органы. Деятельность подразделений военной полиции, развёрнутых во всех военных округах и функционирующих на территории гарнизонов, воинских частей и закрытых военных городков, строится на принципах законности, объективности, беспристрастности и межведомственного взаимодействия.</p>
+            <p style="margin-bottom:16px;">Важной составляющей деятельности военной полиции является участие в обеспечении режима секретности и противодействии утечке сведений, составляющих государственную тайну: сотрудники контролируют соблюдение установленного порядка обращения с документами ограниченного доступа, проверяют организацию пропускного режима на охраняемых объектах, фиксируют нарушения, способные создать угрозу информационной безопасности Вооружённых Сил РФ.</p>
+          </div>
+        </div>
+
+        <div id="mil-page-directions" style="display:none;">
+          <h1 class="page-title">Направления деятельности</h1>
+          <div class="title-underline"></div>
+          <div style="font-size:16px;line-height:1.8;color:#333;text-align:justify;">
+            <p style="margin-bottom:16px;">Деятельность Военной полиции охватывает несколько направлений, каждое из которых имеет свою специфику и регламентируется соответствующими нормативными правовыми актами Министерства обороны.</p>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Обеспечение правопорядка и воинской дисциплины</h3><p>Данное направление является основополагающим и заключается в поддержании установленного порядка и дисциплины среди военнослужащих, лиц гражданского персонала и граждан, проходящих военные сборы, а также в противодействии преступности в Вооруженных Силах.</p></div>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Осуществление полномочий органа дознания</h3><p>Военная полиция проводит дознание по грубым дисциплинарным проступкам, отнесенным к ее компетенции, выявляет и пресекает преступления и правонарушения, совершаемые военнослужащими и иными лицами на территории воинских частей и учреждений.</p></div>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Охрана объектов Вооруженных Сил Российской Федерации</h3><p>Военная полиция участвует в охране и обороне важных государственных и военных объектов, командных пунктов, линий коммуникаций, а также служебных помещений органов военной прокуратуры и военных следственных органов</p></div>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Розыск и задержание военнослужащих</h3><p>Данное направление включает розыск и задержание военнослужащих, самовольно оставивших воинские части (места службы), а также осужденных, подозреваемых либо обвиняемых в совершении преступлений и скрывшихся от органов дознания, следствия или суда.</p></div>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Охрана и конвоирование военнослужащих</h3><p>Военная полиция осуществляет функции по охране и конвоированию военнослужащих, в том числе подозреваемых, обвиняемых или осужденных, а также обеспечивает личную охрану, охрану жилища и имущества лиц, подлежащих государственной защите в соответствии с законодательством.</p></div>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Организация патрульной службы и обеспечение правопорядка в общественных местах</h3><p>Военная полиция организует патрульную службу, обеспечивает правопорядок и воинскую дисциплину среди военнослужащих на улицах, вокзалах, аэропортах, в общественных местах, а также в районах проведения учений и ликвидации последствий чрезвычайных ситуаций.</p></div>
+            <div style="margin-bottom:24px;background:#f8f9fa;padding:20px;border-radius:8px;border-left:4px solid #9f0000;"><h3 style="color:#9f0000;margin-bottom:8px;font-size:18px;">Предупреждение и пресечение правонарушений</h3><p>В рамках данной функции военная полиция осуществляет предупреждение и пресечение преступлений, административных правонарушений и дисциплинарных проступков, совершаемых военнослужащими, а также лицами гражданского персонала на территориях воинских частей.</p></div>
+          </div>
+        </div>
+
+        <div id="mil-page-rucuvodsvo" style="display:none;">
+          <h1 class="page-title">Руководство</h1><div class="title-underline"></div>
+          <div id="mil-rucuvodsvo-loading" style="text-align:center;padding:40px 0;"><div class="spinner" style="margin:0 auto 15px;"></div><div style="color:#666;">Загрузка данных руководства...</div></div>
+          <div id="mil-rucuvodsvo-error" style="display:none;text-align:center;padding:40px 20px;background:#fef0f0;border-radius:8px;border:1px solid #f5c6c6;"><div style="font-size:20px;font-weight:600;color:#a94442;margin-bottom:10px;">Ошибка загрузки</div><div id="mil-rucuvodsvo-error-text" style="color:#a94442;font-size:15px;"></div></div>
+          <div id="mil-rucuvodsvo-content" style="display:none;"><div id="mil-rucuvodsvo-list"></div></div>
+          <div id="mil-rucuvodsvo-detail" style="display:none;">
+            <div class="back-to-news" id="mil-back-to-rucuvodsvo-btn"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>К списку руководства</div>
+            <div style="display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;">
+              <div id="mil-rucuvodsvo-detail-image-wrap" style="flex:0 0 260px;max-width:100%;"><img id="mil-rucuvodsvo-detail-image" src="" alt="Фото" style="width:100%;max-width:260px;height:auto;border-radius:8px;border:1px solid #e0e0e0;display:block;background:#f5f5f5;aspect-ratio:3/4;object-fit:cover;"></div>
+              <div style="flex:1;min-width:280px;">
+                <h2 id="mil-rucuvodsvo-detail-name" style="font-size:26px;font-weight:700;margin-bottom:6px;color:#1a1a2e;"></h2>
+                <div id="mil-rucuvodsvo-detail-position" style="font-size:18px;color:#888;font-weight:600;margin-bottom:12px;"></div>
+                <div id="mil-rucuvodsvo-detail-bio" style="font-size:16px;line-height:1.8;color:#333;white-space:pre-line;"></div>
+                <div id="mil-rucuvodsvo-detail-extra" style="margin-top:16px;font-size:15px;color:#555;border-top:1px solid #eee;padding-top:16px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="mil-page-account" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+            <h1 class="page-title" style="margin-bottom:0;">Личный кабинет</h1>
+            <div class="notif-wrap">
+              <button class="notif-btn" id="mil-notif-btn" title="Уведомления"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>Уведомления<span class="notif-badge" id="mil-notif-badge" style="display:none;">0</span></button>
+              <div class="notif-panel" id="mil-notif-panel"><div class="notif-header"><span>Уведомления</span><button class="mil-btn-secondary" id="mil-notif-clear" style="width:auto;padding:4px 10px;font-size:12px;margin:0;">Очистить</button></div><div class="notif-list" id="mil-notif-list"><div class="notif-empty">Пока уведомлений нет.</div></div></div>
+            </div>
+          </div>
+          <div class="title-underline"></div>
+          <div class="account-card"><div class="account-avatar" id="mil-account-avatar">👤</div><div class="account-info"><h2 id="mil-account-name">—</h2><div id="mil-account-position" class="account-position">—</div><div id="mil-account-login" class="account-login">Логин: —</div></div></div>
+          <div class="account-section"><h3>Данные профиля</h3>
+            <div class="account-row"><span>Звание:</span><strong id="mil-account-rank">—</strong></div>
+            <div class="account-row"><span>Подразделение:</span><strong id="mil-account-unit">—</strong></div>
+            <div class="account-row"><span>Дата вступления:</span><strong id="mil-account-joined">—</strong></div>
+            <div class="account-row"><span>Статус:</span><strong id="mil-account-status">—</strong></div>
+          </div>
+          <div class="account-actions-row">
+            <button class="registry-btn" id="mil-open-ogips"><svg viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V6l9-4z"/></svg>ОГиПС</button>
+            <button class="registry-btn requirements-btn" id="mil-open-oddp"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>ОДДП</button>
+          </div>
+          <div class="account-section">
+            <h3>Почта</h3>
+            <div class="mail-tabs">
+              <button class="mail-tab active" data-mail-tab="inbox">Входящие<span class="mail-tab-badge" id="mil-mail-inbox-badge" style="display:none;">0</span></button>
+              <button class="mail-tab" data-mail-tab="outbox">Исходящие</button>
+              <button class="mail-tab" data-mail-tab="compose">Написать</button>
+            </div>
+            <div class="mail-pane active" id="mil-mail-pane-inbox"><div id="mil-mail-inbox-error"></div><div class="mail-list" id="mil-mail-inbox-list"><div class="mail-empty">Загрузка...</div></div></div>
+            <div class="mail-pane" id="mil-mail-pane-outbox"><div id="mil-mail-outbox-error"></div><div class="mail-list" id="mil-mail-outbox-list"><div class="mail-empty">Загрузка...</div></div></div>
+            <div class="mail-pane" id="mil-mail-pane-compose">
+              <div class="mail-form">
+                <h3>Новое письмо</h3>
+                <div class="mail-form-grid">
+                  <div class="mail-field"><label>Получатель (сайт) <span class="req">*</span></label><select id="mil-mail-to-site"></select></div>
+                  <div class="mail-field"><label>Кому (ФИО/должность)</label><input type="text" id="mil-mail-to-user" placeholder="Необязательно"></div>
+                  <div class="mail-field"><label>Должность отправителя <span class="req">*</span></label><input type="text" id="mil-mail-from-position" placeholder="Начальник патруля..."></div>
+                  <div class="mail-field"><label>Звание отправителя <span class="req">*</span></label><input type="text" id="mil-mail-from-rank" placeholder="Лейтенант..."></div>
+                  <div class="mail-field full"><label>ФИО отправителя <span class="req">*</span></label><input type="text" id="mil-mail-from-name" placeholder="Иванов Иван Иванович"></div>
+                  <div class="mail-field full"><label>Тема <span class="req">*</span></label><input type="text" id="mil-mail-subject" placeholder="Тема письма"></div>
+                  <div class="mail-field full"><label>Текст письма <span class="req">*</span></label><textarea id="mil-mail-body" placeholder="Текст письма..."></textarea></div>
+                  <div class="mail-field full"><label>Вложения (до 5 файлов, каждый до 5 МБ)</label><input type="file" id="mil-mail-files" multiple><div class="mail-files-list" id="mil-mail-files-list"></div></div>
+                </div>
+                <div class="mail-actions"><button class="btn-add" id="mil-mail-send">Отправить</button><button class="btn-cancel" id="mil-mail-clear">Очистить</button><span class="mail-msg" id="mil-mail-msg"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="account-section"><h3>Действия</h3><button class="mil-btn-secondary" id="mil-account-logout">Выйти из аккаунта</button></div>
+        </div>
+
+        <div id="mil-page-ogips" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-ogips"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в личный кабинет</div>
+          <h1 class="page-title">ОГиПС</h1><div class="title-underline"></div>
+          <div class="account-section"><h3>Отделение гарнизонной и патрульной службы</h3><div class="account-actions-row" style="margin-bottom:0;"><button class="registry-btn patrol-btn" id="mil-open-patrol"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>КАРТОЧКА ПАТРУЛЯ</button></div></div>
+        </div>
+
+        <div id="mil-page-oddp" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-oddp"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в личный кабинет</div>
+          <h1 class="page-title">ОДДП</h1><div class="title-underline"></div>
+          <div class="account-section"><h3>Отдел дознания и дисциплинарной практики</h3>
+            <div class="account-actions-row" style="margin-bottom:0;">
+              <button class="registry-btn" id="mil-open-registry"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>РЕЕСТР ВОЕННОСЛУЖАЩИХ</button>
+              <button class="registry-btn requirements-btn" id="mil-open-requirements"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>ТРЕБОВАНИЯ</button>
+              <button class="registry-btn guard-btn" id="mil-open-guard"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>ГАУПТВАХТА</button>
+              <button class="registry-btn kupo-btn" id="mil-open-kupo"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>КУПО</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- РЕЕСТР -->
+        <div id="mil-page-registry" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-btn"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП</div>
+          <h1 class="page-title">Реестр военнослужащих</h1><div class="title-underline"></div>
+          <div class="registry-stats"><div class="registry-stat"><div class="num" id="mil-registry-count">0</div><div class="lbl">Всего записей в реестре</div></div></div>
+          <div class="registry-form"><h3>Добавить запись</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field"><label>ФИО <span class="req">*</span></label><input type="text" id="reg-fio" placeholder="Иванов Иван Иванович"></div>
+              <div class="registry-field"><label>Дата рождения <span class="req">*</span></label><input type="date" id="reg-birth"></div>
+              <div class="registry-field"><label>Воинское звание <span class="req">*</span></label><input type="text" id="reg-rank" placeholder="Рядовой..."></div>
+              <div class="registry-field"><label>Воинская должность <span class="req">*</span></label><input type="text" id="reg-position" placeholder="Стрелок..."></div>
+              <div class="registry-field"><label>Подразделение <span class="req">*</span></label><input type="text" id="reg-unit" placeholder="1-я рота..."></div>
+              <div class="registry-field" style="grid-column:1/-1;"><label>Дисциплинарный проступок <span class="req">*</span></label><textarea id="reg-offense"></textarea></div>
+              <div class="registry-field"><label>Мера наказания <span class="req">*</span></label><input type="text" id="reg-punishment" placeholder="Арест / выговор..."></div>
+              <div class="registry-field"><label>Уполномоченное лицо <span class="req">*</span></label><input type="text" id="reg-officer" placeholder="Петров П.П."></div>
+            </div>
+            <div class="registry-actions"><button class="btn-add" id="mil-registry-add">Добавить в реестр</button><button class="btn-cancel" id="mil-registry-clear">Очистить</button></div>
+            <div id="mil-registry-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+          <div class="search-wrap"><input type="text" class="search-input" id="mil-registry-search" placeholder="🔍 Поиск по реестру..."><div class="search-hint">Поиск работает в реальном времени.</div></div>
+          <div class="registry-table-wrap"><table class="registry-table"><thead><tr><th>№</th><th>ФИО</th><th>Дата рождения</th><th>Звание</th><th>Должность</th><th>Подразделение</th><th>Проступок</th><th>Наказание</th><th>Уполномоченное лицо</th><th>Действие</th></tr></thead><tbody id="mil-registry-tbody"><tr class="empty-row"><td colspan="10">Реестр пуст. Добавьте первую запись.</td></tr></tbody></table></div>
+          <div class="logs-block"><div class="logs-header"><span>Журнал реестра</span><span class="logs-count" id="mil-registry-logs-count">0 записей</span></div><div class="logs-body" id="mil-registry-logs-body"><div class="logs-empty">Пока событий не было.</div></div></div>
+        </div>
+
+        <!-- ТРЕБОВАНИЯ -->
+        <div id="mil-page-requirements" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-from-req-btn"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП</div>
+          <h1 class="page-title">Требования</h1><div class="title-underline"></div>
+          <div class="registry-stats"><div class="registry-stat"><div class="num" id="mil-requirements-count">0</div><div class="lbl">Всего требований</div></div></div>
+          <div class="registry-form"><h3>Выписать требование</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field" style="grid-column:1/-1;"><label>Кому выписано (ФИО) <span class="req">*</span></label><input type="text" id="req-to"></div>
+              <div class="registry-field" style="grid-column:1/-1;"><label>Нарушения УВС или иное <span class="req">*</span></label><textarea id="req-violation"></textarea></div>
+              <div class="registry-field"><label>Цель прибытия <span class="req">*</span></label><input type="text" id="req-purpose"></div>
+              <div class="registry-field"><label>Время прибытия <span class="req">*</span></label><input type="time" id="req-arrival-time"></div>
+              <div class="registry-field"><label>Дата прибытия <span class="req">*</span></label><input type="date" id="req-arrival-date"></div>
+              <div class="registry-field"><label>Дата выписывания <span class="req">*</span></label><input type="date" id="req-issue-date"></div>
+              <div class="registry-field" style="grid-column:1/-1;"><label>Начальник патруля <span class="req">*</span></label><input type="text" id="req-patrol-chief"></div>
+            </div>
+            <div class="registry-actions"><button class="btn-add" id="mil-requirements-add">Выписать</button><button class="btn-cancel" id="mil-requirements-clear">Очистить</button></div>
+            <div id="mil-requirements-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+          <div class="search-wrap"><input type="text" class="search-input" id="mil-requirements-search" placeholder="🔍 Поиск по требованиям..."><div class="search-hint">Поиск работает в реальном времени.</div></div>
+          <div class="registry-table-wrap"><table class="registry-table"><thead><tr><th>№</th><th>Кому выписано</th><th>Нарушения УВС или иное</th><th>Цель прибытия</th><th>Время прибытия</th><th>Дата прибытия</th><th>Дата выписывания</th><th>Начальник патруля</th><th>Статус</th><th>Действие</th></tr></thead><tbody id="mil-requirements-tbody"><tr class="empty-row"><td colspan="10">Требований нет. Выпишите первое.</td></tr></tbody></table></div>
+          <div class="logs-block"><div class="logs-header"><span>Журнал требований</span><span class="logs-count" id="mil-requirements-logs-count">0 записей</span></div><div class="logs-body" id="mil-requirements-logs-body"><div class="logs-empty">Пока событий не было.</div></div></div>
+        </div>
+
+        <!-- ГАУПТВАХТА -->
+        <div id="mil-page-guard" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-guard"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП</div>
+          <h1 class="page-title">Гауптвахта</h1><div class="title-underline"></div>
+          <div class="registry-stats"><div class="registry-stat"><div class="num" id="mil-guard-count">0</div><div class="lbl">Всего записей</div></div></div>
+          <div class="registry-form"><h3>Добавить на гауптвахту</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field" style="grid-column:1/-1;"><label>ФИО <span class="req">*</span></label><input type="text" id="guard-fio"></div>
+              <div class="registry-field"><label>Воинская часть <span class="req">*</span></label><input type="text" id="guard-unit"></div>
+              <div class="registry-field"><label>Номер камеры <span class="req">*</span></label><input type="text" id="guard-cell"></div>
+              <div class="registry-field"><label>Время принятия <span class="req">*</span></label><input type="time" id="guard-accept-time"></div>
+              <div class="registry-field"><label>Дата принятия <span class="req">*</span></label><input type="date" id="guard-accept-date"></div>
+              <div class="registry-field"><label>Дата посадки <span class="req">*</span></label><input type="date" id="guard-put-date"></div>
+              <div class="registry-field"><label>Дата освобождения <span class="req">*</span></label><input type="date" id="guard-release-date"></div>
+              <div class="registry-field"><label>Кто передал <span class="req">*</span></label><input type="text" id="guard-handed"></div>
+              <div class="registry-field"><label>Начальник гауптвахты <span class="req">*</span></label><input type="text" id="guard-chief"></div>
+            </div>
+            <div class="registry-actions"><button class="btn-add" id="mil-guard-add">Добавить</button><button class="btn-cancel" id="mil-guard-clear">Очистить</button></div>
+            <div id="mil-guard-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+          <div class="search-wrap"><input type="text" class="search-input" id="mil-guard-search" placeholder="🔍 Поиск по гауптвахте..."><div class="search-hint">Поиск работает в реальном времени.</div></div>
+          <div class="registry-table-wrap"><table class="registry-table"><thead><tr><th>№</th><th>ФИО</th><th>В/ч</th><th>Принят</th><th>Посадка</th><th>Освобождение</th><th>Камера</th><th>Передал</th><th>Нач. гауптвахты</th><th>Занесено</th><th>Статус</th><th>Таймер</th><th>Действие</th></tr></thead><tbody id="mil-guard-tbody"><tr class="empty-row"><td colspan="13">Записей нет.</td></tr></tbody></table></div>
+          <div class="logs-block"><div class="logs-header"><span>Журнал гауптвахты</span><span class="logs-count" id="mil-guard-logs-count">0 записей</span></div><div class="logs-body" id="mil-guard-logs-body"><div class="logs-empty">Пока событий не было.</div></div></div>
+        </div>
+
+        <!-- КУПО -->
+        <div id="mil-page-kupo" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-kupo"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОДДП</div>
+          <h1 class="page-title">КУПО</h1><div class="title-underline"></div>
+          <div class="account-section"><h3>Что такое КУПО?</h3><p style="color:#444;font-size:15px;line-height:1.7;margin-bottom:0;"><strong>КУПО — Книга учёта письменных обращений</strong>. Система автоматически присваивает номер в формате <strong>КУПО-26-N</strong>.</p></div>
+          <div class="registry-stats"><div class="registry-stat"><div class="num" id="mil-kupo-count">0</div><div class="lbl">Всего зарегистрировано</div></div></div>
+          <div class="registry-form"><h3>Регистрация обращения</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field" style="grid-column:1/-1;"><label>Тип документа</label><select id="kupo-type"><option value="report">Рапорт</option><option value="protocol">Протокол принятия устного заявления</option></select></div>
+              <div class="registry-field" style="grid-column:1/-1;"><label>На имя кого пишется <span class="req">*</span></label><input type="text" id="kupo-to"></div>
+              <div class="registry-field"><label>Дата <span class="req">*</span></label><input type="date" id="kupo-date"></div>
+              <div class="registry-field"><label>Время <span class="req">*</span></label><input type="time" id="kupo-time"></div>
+              <div class="registry-field" style="grid-column:1/-1;"><label>Объяснение ситуации <span class="req">*</span></label><textarea id="kupo-explanation"></textarea></div>
+              <div class="registry-field"><label>Дата написания <span class="req">*</span></label><input type="date" id="kupo-written-date"></div>
+              <div class="registry-field"><label>Должность <span class="req">*</span></label><input type="text" id="kupo-position"></div>
+              <div class="registry-field"><label>Звание <span class="req">*</span></label><input type="text" id="kupo-rank"></div>
+              <div class="registry-field"><label>ФИО <span class="req">*</span></label><input type="text" id="kupo-fio"></div>
+            </div>
+            <div class="registry-actions"><button class="btn-add" id="mil-kupo-add">Зарегистрировать</button><button class="btn-cancel" id="mil-kupo-clear">Очистить</button></div>
+            <div id="mil-kupo-msg" style="margin-top:12px;font-size:14px;display:none;"></div>
+          </div>
+          <div class="search-wrap"><input type="text" class="search-input" id="mil-kupo-search" placeholder="🔍 Поиск по КУПО..."><div class="search-hint">Поиск работает в реальном времени.</div></div>
+          <div class="registry-table-wrap"><table class="registry-table"><thead><tr><th>№ КУПО</th><th>На имя</th><th>Дата/время</th><th>Объяснение</th><th>Дата написания</th><th>Должность</th><th>Звание</th><th>ФИО</th><th>Действие</th></tr></thead><tbody id="mil-kupo-tbody"><tr class="empty-row"><td colspan="9">Обращений нет.</td></tr></tbody></table></div>
+          <div class="logs-block"><div class="logs-header"><span>Журнал КУПО</span><span class="logs-count" id="mil-kupo-logs-count">0 записей</span></div><div class="logs-body" id="mil-kupo-logs-body"><div class="logs-empty">Пока событий не было.</div></div></div>
+        </div>
+
+        <!-- ПАТРУЛЬ -->
+        <div id="mil-page-patrol" style="display:none;">
+          <div class="back-to-news" id="mil-back-to-account-patrol"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Назад в ОГиПС</div>
+          <h1 class="page-title">Карточка патруля</h1><div class="title-underline"></div>
+          <div class="registry-stats"><div class="registry-stat"><div class="num" id="mil-patrol-count">0</div><div class="lbl">Всего карточек</div></div></div>
+          <div class="registry-form"><h3>Создать карточку</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="registry-field"><label>Время с <span class="req">*</span></label><input type="time" id="patrol-time-from"></div>
+              <div class="registry-field"><label>по <span class="req">*</span></label><input type="time" id="patrol-time-to"></div>
+              <div class="registry-field"><label>Дата <span class="req">*</span></label><input type="date" id="patrol-date"></div>
+              <div class="registry-field"><label>Место <span class="req">*</span></label><input type="text" id="patrol-place" placeholder="Нижегородский гарнизон..."></div>
+              <div class="registry-field"><label>Вид <span class="req">*</span></label><input type="text" id="patrol-type" placeholder="механизированный"></div>
+              <div class="registry-field"><label>Начальник патруля <span class="req">*</span></label><input type="text" id="patrol-chief"></div>
+              <div class="registry-field"><label>Патрульный <span class="req">*</span></label><input type="text" id="patrol-officer"></div>
+              <div class="registry-field"><label>Автомобиль <span class="req">*</span></label><input type="text" id="patrol-car"></div>
+              <div class="registry-field" style="grid-column:1/-1;"><label>Кем выдано <span class="req">*</span></label><input type="text" id="patrol-issued"></div>
+            </div>
+            <div class="registry-actions"><button class="btn-add" id="mil-patrol-add">Создать</button><button class="btn-cancel" id="mil-patrol-clear">Очистить</button></div>
+          </div>
+          <div class="registry-table-wrap"><table class="registry-table"><thead><tr><th>№</th><th>Время</th><th>Дата</th><th>Место</th><th>Вид</th><th>Нач. патруля</th><th>Автомобиль</th><th>Выдано</th><th>Действие</th></tr></thead><tbody id="mil-patrol-tbody"><tr class="empty-row"><td colspan="9">Карточек нет.</td></tr></tbody></table></div>
+        </div>
+
+        <div id="mil-loading-container"><h1 class="page-title">Новости</h1><div class="title-underline"></div><div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Загрузка новостей...</div></div></div>
+        <div id="mil-news-list-container" style="display:none;"><h1 class="page-title">Новости</h1><div class="title-underline"></div><div class="news-list"></div><div class="pagination"></div></div>
+        <div id="mil-error-container" style="display:none;"><h1 class="page-title">Новости</h1><div class="title-underline"></div><div class="error-message"><div class="error-title">Ошибка загрузки новостей</div><div class="error-text" id="mil-error-text"></div></div></div>
+        <div id="mil-news-detail-container" class="news-detail">
+          <div class="back-to-news" id="mil-back-to-news-btn"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>К списку новостей</div>
+          <h1 class="news-detail-title" id="mil-detail-title"></h1><div class="news-detail-date" id="mil-detail-date"></div><div class="news-detail-text" id="mil-detail-text"></div><div class="news-detail-author" id="mil-detail-author"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><div class="footer-logo"><div class="logo-sm"><img src="https://psv4.vkuserphoto.ru/s/v1/d2/3mi-8d4X9mKt3DotGc7hhwiYmcirOOTdSwLUqCJTTSl7kUY1rxifq1JOPyzgaTCIiTrWaQjXvPoLmsg7Lek62BSsdYvp0ZNmYFhCun5c-lBLcuMDzI9IBv9XtilXvYlfVFD7YTaZzZCJ/image-Photoroom.png" alt="Герб"></div><div><div class="org-title-sm">Министерство обороны</div><div class="org-sub-sm">Военная комендатура 1-го разряда Нижегородского территорального гарнизона</div></div></div></div>
+        <div class="footer-col"><div class="footer-title">Разделы сайта</div><ul class="footer-links"><li><a href="#" class="nav-btn" data-page="about">О Военной полиции</a></li><li><a href="#" class="nav-btn" data-page="directions">Направления деятельности ВП</a></li><li><a href="#" class="nav-btn" data-page="news">Новости</a></li><li><a href="#" class="nav-btn" data-page="rucuvodsvo">Руководство</a></li><li><a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=forums&id=1271" target="_blank">Служба в ВП</a></li><li><a href="https://forum.greentech-rp.com/index.php?app=forums&module=forums&controller=topic&id=31547" target="_blank">Электронная приемная</a></li></ul></div>
+        <div class="footer-col"><ul class="footer-utility"><li><a href="https://vk.ru/chelmaximum" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> СООБЩИТЬ ОБ ОШИБКЕ</a></li></ul></div>
+      </div>
+      <div class="footer-bottom-text"><span>Данный сайт создан исключительно для использования в качестве атрибута ролевой игры <strong>GreenTech Role Play</strong> и не является официальным сайтом Министерства обороны РФ. Все материалы носят вымышленный характер.</span><span class="footer-copy-year">© 2026 Maksim_Kudashov</span></div>
+    </div>
+  </footer>
+
+  <div class="mil-modal-overlay" id="mil-login-modal" style="display:none;">
+    <div class="mil-modal">
+      <div class="mil-modal-header"><span>Вход в личный кабинет</span><button class="mil-modal-close" id="mil-login-modal-close">×</button></div>
+      <div class="mil-modal-body">
+        <div class="mil-form-group"><label for="mil-login-username">Логин</label><input type="text" id="mil-login-username" placeholder="Введите логин" autocomplete="username"></div>
+        <div class="mil-form-group"><label for="mil-login-password">Пароль</label><input type="password" id="mil-login-password" placeholder="Введите пароль" autocomplete="current-password"></div>
+        <div class="mil-login-error" id="mil-login-error" style="display:none;"></div>
+        <button class="mil-btn-primary" id="mil-login-submit">Войти</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==================== ПОЧТАМТ ==================== */
+var MAILBOX_URL='https://dbgwirtttnaxmyaaejdl.supabase.co';
+var MAILBOX_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiZ3dpcnR0dG5heG15YWFlamRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MzQzMjcsImV4cCI6MjEwODAxMDMyN30.se2h44QDEGKy5WpcqldoL97ZOmdCMaeS6-fzI1MX5PM';
+var MAILBOX_MY_SITE='vp',MAILBOX_BUCKET='mail-attachments',MAILBOX_MAX_FILE_SIZE=5*1024*1024,MAILBOX_MAX_ATTACHMENTS=5;
+var MAILBOX_RECIPIENTS=[{value:'vai',label:'66-я территориальная ВАИ'},{value:'msb',label:'МСБ (Медико-санитарный батальон)'}];
+var mailboxClient=window.supabase.createClient(MAILBOX_URL,MAILBOX_ANON_KEY);
+function mailboxTranslitSafe(name){var map={'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya','А':'A','Б':'B','В':'V','Г':'G','Д':'D','Е':'E','Ё':'E','Ж':'Zh','З':'Z','И':'I','Й':'Y','К':'K','Л':'L','М':'M','Н':'N','О':'O','П':'P','Р':'R','С':'S','Т':'T','У':'U','Ф':'F','Х':'H','Ц':'Ts','Ч':'Ch','Ш':'Sh','Щ':'Sch','Ъ':'','Ы':'Y','Ь':'','Э':'E','Ю':'Yu','Я':'Ya'};return String(name).split('').map(function(ch){return map[ch]!==undefined?map[ch]:ch}).join('').replace(/[^a-zA-Z0-9._-]/g,'_')}
+async function mailboxSend(payload){var attachments=[];var files=payload.files||[];for(var i=0;i<files.length;i++){var file=files[i];if(file.size>MAILBOX_MAX_FILE_SIZE)throw new Error('Файл "'+file.name+'" больше 5 МБ');var safeName=mailboxTranslitSafe(file.name);var path=MAILBOX_MY_SITE+'/'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'_'+safeName;var upRes=await mailboxClient.storage.from(MAILBOX_BUCKET).upload(path,file,{contentType:file.type||'application/octet-stream',upsert:false});if(upRes.error)throw new Error('Не удалось загрузить файл: '+upRes.error.message);var pubRes=mailboxClient.storage.from(MAILBOX_BUCKET).getPublicUrl(path);attachments.push({name:file.name,size:file.size,type:file.type||'application/octet-stream',url:pubRes.data.publicUrl,path:path})}var insRes=await mailboxClient.from('messages').insert({from_site:MAILBOX_MY_SITE,to_site:payload.toSite,from_position:payload.fromPosition,from_rank:payload.fromRank,from_name:payload.fromName,to_user:payload.toUser,subject:payload.subject,body:payload.body,attachments:attachments}).select().single();if(insRes.error)throw new Error('Не удалось отправить письмо: '+insRes.error.message);return insRes.data}
+async function mailboxLoadInbox(){var res=await mailboxClient.from('messages').select('*').eq('to_site',MAILBOX_MY_SITE).order('created_at',{ascending:false});if(res.error)throw new Error('Не удалось загрузить входящие: '+res.error.message);return res.data||[]}
+async function mailboxLoadOutbox(){var res=await mailboxClient.from('messages').select('*').eq('from_site',MAILBOX_MY_SITE).order('created_at',{ascending:false});if(res.error)throw new Error('Не удалось загрузить исходящие: '+res.error.message);return res.data||[]}
+async function mailboxMarkRead(id){var res=await mailboxClient.from('messages').update({is_read:true,read_at:new Date().toISOString()}).eq('id',id);if(res.error)console.warn('[mailbox] mark read error:',res.error.message)}
+function mailboxSubscribeInbox(cb){return mailboxClient.channel('mailbox-inbox').on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'to_site=eq.'+MAILBOX_MY_SITE},function(p){if(typeof cb==='function')cb(p.new)}).subscribe()}
+function mailboxFileIcon(type,name){var ext=(name.split('.').pop()||'').toLowerCase();if(type&&type.indexOf('image/')===0)return'🖼';if(type&&type.indexOf('video/')===0)return'🎬';if(type&&type.indexOf('audio/')===0)return'🎵';if(ext==='pdf')return'📕';if(ext==='doc'||ext==='docx')return'📘';if(ext==='xls'||ext==='xlsx')return'📗';if(ext==='zip'||ext==='rar'||ext==='7z')return'🗜';return'📄'}
+function mailboxFormatSize(bytes){if(bytes<1024)return bytes+' Б';if(bytes<1024*1024)return(bytes/1024).toFixed(1)+' КБ';return(bytes/(1024*1024)).toFixed(2)+' МБ'}
+function mailboxEscape(str){if(str===null||str===undefined)return'';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+
+/* ==================== ОСНОВНОЙ СКРИПТ ==================== */
+(function(){
+var SPREADSHEET_ID='13OmMeBkeuGjzsSPLOIW949VYA1dH8RqvaTX7gS93l40',NEWS_SHEET='Новости',ACCOUNTS_SHEET='Аккаунты';
+var NEWS_API_URL='https://opensheet.elk.sh/'+SPREADSHEET_ID+'/'+encodeURIComponent(NEWS_SHEET);
+var ACCOUNTS_API_URL='https://opensheet.elk.sh/'+SPREADSHEET_ID+'/'+encodeURIComponent(ACCOUNTS_SHEET);
+var NEWS_PER_PAGE=10,currentPage=1,allNewsData=[],totalPages=1,currentPageType='news';
+var $=function(id){return document.getElementById(id)};
+var loadingContainer=$('mil-loading-container'),newsListContainer=$('mil-news-list-container'),errorContainer=$('mil-error-container'),errorText=$('mil-error-text'),newsDetailContainer=$('mil-news-detail-container'),backToNewsBtn=$('mil-back-to-news-btn');
+var newsList=document.querySelector('.mil-wrapper .news-list'),pagination=document.querySelector('.mil-wrapper .pagination');
+var pageAbout=$('mil-page-about'),pageDirections=$('mil-page-directions'),pageRucuvodsvo=$('mil-page-rucuvodsvo'),pageAccount=$('mil-page-account'),pageOgips=$('mil-page-ogips'),pageOddp=$('mil-page-oddp'),pageRegistry=$('mil-page-registry'),pageRequirements=$('mil-page-requirements'),pageGuard=$('mil-page-guard'),pageKupo=$('mil-page-kupo'),pagePatrol=$('mil-page-patrol');
+
+function hideAllPages(){var all=[pageAbout,pageDirections,pageRucuvodsvo,pageAccount,pageOgips,pageOddp,pageRegistry,pageRequirements,pageGuard,pageKupo,pagePatrol];for(var i=0;i<all.length;i++)if(all[i])all[i].style.display='none';loadingContainer.style.display='none';newsListContainer.style.display='none';errorContainer.style.display='none';newsDetailContainer.style.display='none'}
+function showPage(pageType){hideAllPages();currentPageType=pageType;var btns=document.querySelectorAll('.mil-wrapper .nav-btn');for(var i=0;i<btns.length;i++){btns[i].classList.remove('active');if(btns[i].getAttribute('data-page')===pageType)btns[i].classList.add('active')}
+if(pageType==='about'){if(pageAbout)pageAbout.style.display='block'}
+else if(pageType==='directions'){if(pageDirections)pageDirections.style.display='block'}
+else if(pageType==='rucuvodsvo'){if(pageRucuvodsvo){pageRucuvodsvo.style.display='block';if(window.loadRucuvodsvoData)window.loadRucuvodsvoData()}}
+else if(pageType==='account'){if(pageAccount){pageAccount.style.display='block';renderAccountPage();initMailUI()}}
+else if(pageType==='ogips'){if(pageOgips)pageOgips.style.display='block'}
+else if(pageType==='oddp'){if(pageOddp)pageOddp.style.display='block'}
+else if(pageType==='registry'){if(pageRegistry){pageRegistry.style.display='block';var s=$('mil-registry-search');if(s)s.value='';registrySearchQuery='';renderRegistryTable();renderRegistryLogs()}}
+else if(pageType==='requirements'){if(pageRequirements){pageRequirements.style.display='block';var s2=$('mil-requirements-search');if(s2)s2.value='';requirementsSearchQuery='';renderRequirementsTable();renderRequirementsLogs()}}
+else if(pageType==='guard'){if(pageGuard){pageGuard.style.display='block';var s3=$('mil-guard-search');if(s3)s3.value='';guardSearchQuery='';renderGuardTable();renderGuardLogs()}}
+else if(pageType==='kupo'){if(pageKupo){pageKupo.style.display='block';var s4=$('mil-kupo-search');if(s4)s4.value='';kupoSearchQuery='';renderKupoTable();renderKupoLogs()}}
+else if(pageType==='patrol'){if(pagePatrol){pagePatrol.style.display='block';renderPatrolTable()}}
+else if(pageType==='news'){if(allNewsData.length>0){newsListContainer.style.display='block';renderNewsPage(currentPage)}else{showLoading()}}}
+function showLoading(){hideAllPages();loadingContainer.style.display='block';currentPageType='news'}
+function showNewsList(){hideAllPages();newsListContainer.style.display='block';currentPageType='news'}
+function showError(msg){hideAllPages();errorContainer.style.display='block';errorText.textContent=msg;currentPageType='news'}
+function escapeHTML(str){if(!str)return'';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function getImagesArray(imageStr){if(!imageStr||imageStr.trim()==='')return[];return imageStr.split(';').map(function(url){return url.trim()}).filter(function(url){return url!==''})}
+
+function loadNewsData(){showLoading();fetch(NEWS_API_URL).then(function(r){if(!r.ok)throw new Error('Ошибка сети: '+r.status);return r.json()}).then(function(data){if(!data||data.length===0){showError('Таблица пуста.');return}var rawData=[];for(var i=0;i<data.length;i++){var row=data[i];rawData.push({id:parseInt(row['ID'])||i+1,date:row['Дата']||'',title:row['Заголовок']||'',desc:row['Краткое описание']||'',text:row['Полное описание']||'',image:row['Изображение']||'',author:row['Автор']||''})}rawData.sort(function(a,b){return b.id-a.id});allNewsData=rawData;if(allNewsData.length===0){showError('Новости не найдены.');return}totalPages=Math.ceil(allNewsData.length/NEWS_PER_PAGE);showNewsList();renderNewsPage(1)}).catch(function(error){console.error('Ошибка:',error);showError('Не удалось загрузить данные из Google Таблицы.')})}
+
+function renderNewsPage(page){currentPage=page;var start=(page-1)*NEWS_PER_PAGE;var pageNews=allNewsData.slice(start,start+NEWS_PER_PAGE);newsList.innerHTML='';for(var i=0;i<pageNews.length;i++){(function(news){var card=document.createElement('article');card.className='news-card';card.style.cursor='pointer';var imgDiv=document.createElement('div');imgDiv.className='news-img';var images=getImagesArray(news.image);if(images.length>0){var img=document.createElement('img');img.src=images[0];img.onerror=function(){this.parentElement.textContent='📄'};imgDiv.appendChild(img)}else{imgDiv.textContent='Новость без изображения'}var contentDiv=document.createElement('div');contentDiv.className='news-content';var titleH2=document.createElement('h2');titleH2.className='news-title';titleH2.textContent=escapeHTML(news.title);contentDiv.appendChild(titleH2);var descP=document.createElement('p');descP.className='news-desc';descP.textContent=escapeHTML(news.desc);contentDiv.appendChild(descP);var dateTime=document.createElement('time');dateTime.className='news-date';dateTime.textContent=escapeHTML(news.date);contentDiv.appendChild(dateTime);card.appendChild(imgDiv);card.appendChild(contentDiv);card.addEventListener('click',function(){openNewsDetail(news.id)});newsList.appendChild(card)})(pageNews[i])}renderPagination()}
+
+function renderPagination(){pagination.innerHTML='';if(totalPages<=1){pagination.style.display='none';return}pagination.style.display='flex';if(currentPage>1){var prevArrow=document.createElement('span');prevArrow.className='arrow-left';prevArrow.innerHTML='‹';prevArrow.style.cursor='pointer';prevArrow.addEventListener('click',function(){renderNewsPage(currentPage-1)});pagination.appendChild(prevArrow)}var maxVisible=7,startPage,endPage;if(totalPages<=maxVisible){startPage=1;endPage=totalPages}else{if(currentPage<=4){startPage=1;endPage=7}else if(currentPage>=totalPages-3){startPage=totalPages-6;endPage=totalPages}else{startPage=currentPage-3;endPage=currentPage+3}}if(startPage>1){pagination.appendChild(createPageElement(1));if(startPage>2){var dots=document.createElement('span');dots.className='page';dots.textContent='…';dots.style.cursor='default';pagination.appendChild(dots)}}for(var i=startPage;i<=endPage;i++)pagination.appendChild(createPageElement(i));if(endPage<totalPages){if(endPage<totalPages-1){var dots2=document.createElement('span');dots2.className='page';dots2.textContent='…';dots2.style.cursor='default';pagination.appendChild(dots2)}pagination.appendChild(createPageElement(totalPages))}if(currentPage<totalPages){var nextArrow=document.createElement('span');nextArrow.className='arrow-right';nextArrow.innerHTML='›';nextArrow.style.cursor='pointer';nextArrow.addEventListener('click',function(){renderNewsPage(currentPage+1)});pagination.appendChild(nextArrow)}}
+
+function createPageElement(pageNum){var span=document.createElement('span');span.className='page';span.textContent=pageNum;span.style.cursor='pointer';if(pageNum===currentPage)span.classList.add('active');span.addEventListener('click',function(){if(pageNum!==currentPage)renderNewsPage(pageNum)});return span}
+
+var currentImageIndex=0,currentImages=[];
+function openNewsDetail(newsId){var data=null;for(var i=0;i<allNewsData.length;i++){if(allNewsData[i].id===newsId){data=allNewsData[i];break}}if(!data)return;$('mil-detail-title').textContent=data.title;$('mil-detail-date').textContent=data.date;$('mil-detail-text').textContent=data.text;$('mil-detail-author').textContent=data.author;var oldGallery=$('mil-detail-gallery');if(oldGallery)oldGallery.remove();var detailDate=$('mil-detail-date'),detailText=$('mil-detail-text');var gallery=document.createElement('div');gallery.id='mil-detail-gallery';gallery.style.cssText='position:relative;margin-bottom:28px;';var images=getImagesArray(data.image);currentImages=images;currentImageIndex=0;if(images.length>0){var imgWrapper=document.createElement('div');imgWrapper.style.cssText='position:relative;width:100%;';var img=document.createElement('img');img.id='mil-detail-current-image';img.src=images[0];img.style.cssText='width:100%;max-width:100%;height:auto;border-radius:4px;display:block;';img.onerror=function(){this.style.display='none'};imgWrapper.appendChild(img);if(images.length>1){var dotsContainer=document.createElement('div');dotsContainer.id='mil-detail-dots';dotsContainer.style.cssText='display:flex;justify-content:center;gap:8px;margin-top:8px;padding:2px 0;';for(var d=0;d<images.length;d++){(function(dot,index){dot.addEventListener('click',function(e){e.stopPropagation();navigateToImage(index)})})((function(){var dot=document.createElement('span');dot.className='mil-dot';dot.dataset.index=d;dot.style.cssText='width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;';if(d===0){dot.classList.add('active');dot.style.background='#1f2025'}return dot})(),d);dotsContainer.appendChild(dot)}gallery.appendChild(imgWrapper);gallery.appendChild(dotsContainer)}else{gallery.appendChild(imgWrapper)}}if(detailDate&&detailText)detailDate.parentNode.insertBefore(gallery,detailText);hideAllPages();newsDetailContainer.style.display='block'}
+
+function navigateToImage(index){if(!currentImages||currentImages.length===0)return;if(index<0||index>=currentImages.length)return;currentImageIndex=index;var img=$('mil-detail-current-image');if(img){img.src=currentImages[index];img.style.display='block'}var dots=document.querySelectorAll('.mil-dot');for(var i=0;i<dots.length;i++){if(i===index){dots[i].classList.add('active');dots[i].style.background='#1f2025'}else{dots[i].classList.remove('active');dots[i].style.background='#ccc'}}}
+
+function closeNewsDetail(){currentImageIndex=0;currentImages=[];hideAllPages();newsListContainer.style.display='block';currentPageType='news'}
+backToNewsBtn.addEventListener('click',closeNewsDetail);
+
+/* РУКОВОДСТВО */
+var RUCUVODSVO_SHEETS=['Руководство','Руководство_ОГПС','Руководство_ОДДП','Руководство_УЦ_ВП'];
+var SECTION_TITLES={'Руководство':'Военная комендатура','Руководство_ОГПС':'Отделение гарнизонной и патрульной службы','Руководство_ОДДП':'Отдел дознания и дисциплинарной практики','Руководство_УЦ_ВП':'Учебный центр военной полиции'};
+var allRucuvodsvoData={};
+var rucuvodsvoLoading=$('mil-rucuvodsvo-loading'),rucuvodsvoError=$('mil-rucuvodsvo-error'),rucuvodsvoErrorText=$('mil-rucuvodsvo-error-text'),rucuvodsvoContent=$('mil-rucuvodsvo-content'),rucuvodsvoList=$('mil-rucuvodsvo-list'),rucuvodsvoDetail=$('mil-rucuvodsvo-detail'),backToRucuvodsvoBtn=$('mil-back-to-rucuvodsvo-btn'),detailImage=$('mil-rucuvodsvo-detail-image'),detailName=$('mil-rucuvodsvo-detail-name'),detailPosition=$('mil-rucuvodsvo-detail-position'),detailBio=$('mil-rucuvodsvo-detail-bio'),detailExtra=$('mil-rucuvodsvo-detail-extra');
+
+function loadRucuvodsvoData(){rucuvodsvoLoading.style.display='block';rucuvodsvoError.style.display='none';rucuvodsvoContent.style.display='none';rucuvodsvoDetail.style.display='none';var promises=RUCUVODSVO_SHEETS.map(function(sheetName){var url='https://opensheet.elk.sh/'+SPREADSHEET_ID+'/'+encodeURIComponent(sheetName);return fetch(url).then(function(r){if(!r.ok)return[];return r.json()}).then(function(data){if(!data||data.length===0)return{sheet:sheetName,data:[]};var rawData=[];for(var i=0;i<data.length;i++){var row=data[i];rawData.push({id:parseInt(row['ID'])||i+1,name:row['ФИО']||row['Имя']||'',position:row['Должность']||'',bio:row['Биография']||row['Описание']||'',image:row['Фото']||row['Изображение']||'',extra:row['Дополнительно']||''})}rawData.sort(function(a,b){return a.id-b.id});return{sheet:sheetName,data:rawData}}).catch(function(){return{sheet:sheetName,data:[]}})});Promise.all(promises).then(function(results){var hasData=false;results.forEach(function(result){if(result.data&&result.data.length>0)hasData=true;allRucuvodsvoData[result.sheet]=result.data});if(!hasData){rucuvodsvoLoading.style.display='none';showRucuvodsvoError('Данные не найдены.');return}rucuvodsvoLoading.style.display='none';rucuvodsvoContent.style.display='block';renderRucuvodsvoList()}).catch(function(){showRucuvodsvoError('Ошибка загрузки.')})}
+function showRucuvodsvoError(msg){rucuvodsvoLoading.style.display='none';rucuvodsvoContent.style.display='none';rucuvodsvoDetail.style.display='none';rucuvodsvoError.style.display='block';rucuvodsvoErrorText.textContent=msg}
+function renderRucuvodsvoList(){rucuvodsvoList.innerHTML='';RUCUVODSVO_SHEETS.forEach(function(sheetName){var people=allRucuvodsvoData[sheetName]||[];if(people.length===0)return;var section=document.createElement('div');section.className='rucuvodsvo-section';var title=document.createElement('h2');title.className='rucuvodsvo-section-title';title.textContent=SECTION_TITLES[sheetName]||sheetName;section.appendChild(title);for(var i=0;i<people.length;i++){(function(person,index,sheet){var card=document.createElement('div');card.style.cssText='display:flex;gap:20px;padding:18px 20px;margin-bottom:16px;border:1px solid #e8e8e8;border-radius:8px;cursor:pointer;align-items:center;background:#fff;';var imgContainer=document.createElement('div');imgContainer.style.cssText='flex:0 0 80px;width:80px;height:80px;border-radius:50%;overflow:hidden;background:#f0f0f0;flex-shrink:0;';var img=document.createElement('img');img.src=person.image||'';img.style.cssText='width:100%;height:100%;object-fit:cover;';img.onerror=function(){this.style.display='none';this.parentElement.textContent='👤';this.parentElement.style.cssText='display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;'};imgContainer.appendChild(img);var info=document.createElement('div');info.style.cssText='flex:1;';var nameEl=document.createElement('div');nameEl.style.cssText='font-size:18px;font-weight:700;color:#1a1a2e;';nameEl.textContent=person.name;info.appendChild(nameEl);var posEl=document.createElement('div');posEl.style.cssText='font-size:15px;color:#888;';posEl.textContent=person.position;info.appendChild(posEl);card.appendChild(imgContainer);card.appendChild(info);card.addEventListener('click',function(){openRucuvodsvoDetail(sheet,index)});section.appendChild(card)})(people[i],i,sheetName)}rucuvodsvoList.appendChild(section)})}
+function openRucuvodsvoDetail(sheetName,index){var people=allRucuvodsvoData[sheetName]||[];var person=people[index];if(!person)return;rucuvodsvoContent.style.display='none';rucuvodsvoDetail.style.display='block';detailImage.src=person.image||'';detailImage.onerror=function(){this.style.display='none';var wrap=$('mil-rucuvodsvo-detail-image-wrap');if(wrap)wrap.innerHTML='<div style="width:100%;height:300px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:48px;color:#ccc;">👤</div>'};detailName.textContent=person.name;detailPosition.textContent=person.position;detailBio.textContent=person.bio||'Информация отсутствует.';detailExtra.textContent=person.extra||''}
+function closeRucuvodsvoDetail(){rucuvodsvoDetail.style.display='none';rucuvodsvoContent.style.display='block'}
+backToRucuvodsvoBtn.addEventListener('click',closeRucuvodsvoDetail);
+window.loadRucuvodsvoData=loadRucuvodsvoData;
+
+/* НАВИГАЦИЯ */
+var navBtns=document.querySelectorAll('.mil-wrapper .nav-btn');
+for(var i=0;i<navBtns.length;i++){navBtns[i].addEventListener('click',function(e){e.preventDefault();var pageType=this.getAttribute('data-page');if(pageType)showPage(pageType)})}
+
+/* АККАУНТЫ */
+var accountsCache=null,accountsLoadingPromise=null;
+var accountLoginBtn=$('mil-account-login-btn'),loginModal=$('mil-login-modal'),loginModalClose=$('mil-login-modal-close'),loginUsername=$('mil-login-username'),loginPassword=$('mil-login-password'),loginError=$('mil-login-error'),loginSubmit=$('mil-login-submit'),accountLogoutBtn=$('mil-account-logout');
+var currentUser=null;
+function loadAccountsData(){if(accountsCache)return Promise.resolve(accountsCache);if(accountsLoadingPromise)return accountsLoadingPromise;accountsLoadingPromise=fetch(ACCOUNTS_API_URL).then(function(r){return r.json()}).then(function(data){if(!data||data.length===0)return[];var arr=[];for(var i=0;i<data.length;i++){var row=data[i];arr.push({login:(row['Логин']||'').trim(),password:(row['Пароль']||'').trim(),name:row['ФИО']||'',position:row['Должность']||'',rank:row['Звание']||'',unit:row['Подразделение']||'',joined:row['Дата вступления']||'',status:row['Статус']||''})}accountsCache=arr;return arr}).catch(function(err){accountsLoadingPromise=null;throw err});return accountsLoadingPromise}
+function openLoginModal(){loginError.style.display='none';loginModal.style.display='flex';loginUsername.focus();loadAccountsData().catch(function(){})}
+function closeLoginModal(){loginModal.style.display='none';loginUsername.value='';loginPassword.value=''}
+function showLoginError(msg){loginError.textContent=msg;loginError.style.display='block'}
+function attemptLogin(){var u=loginUsername.value.trim(),p=loginPassword.value;if(!u||!p){showLoginError('Введите логин и пароль.');return}loginSubmit.disabled=true;loginSubmit.textContent='Проверка...';loadAccountsData().then(function(accounts){var found=null;for(var i=0;i<accounts.length;i++){if(accounts[i].login===u&&accounts[i].password===p){found=accounts[i];break}}if(!found){showLoginError('Неверный логин или пароль.');loginSubmit.disabled=false;loginSubmit.textContent='Войти';return}currentUser=found;localStorage.setItem('mil_current_user_login',found.login);closeLoginModal();renderAccountPage();showPage('account');loginSubmit.disabled=false;loginSubmit.textContent='Войти'}).catch(function(){showLoginError('Ошибка входа.');loginSubmit.disabled=false;loginSubmit.textContent='Войти'})}
+function restoreSession(){var saved=localStorage.getItem('mil_current_user_login');if(!saved)return;loadAccountsData().then(function(accounts){for(var i=0;i<accounts.length;i++){if(accounts[i].login===saved){currentUser=accounts[i];return}}}).catch(function(){})}
+function renderAccountPage(){if(!currentUser)return;$('mil-account-name').textContent=currentUser.name||'—';$('mil-account-position').textContent=currentUser.position||'—';$('mil-account-login').textContent='Логин: '+(currentUser.login||'—');$('mil-account-rank').textContent=currentUser.rank||'—';$('mil-account-unit').textContent=currentUser.unit||'—';$('mil-account-joined').textContent=currentUser.joined||'—';$('mil-account-status').textContent=currentUser.status||'—'}
+function logout(){currentUser=null;localStorage.removeItem('mil_current_user_login');showPage('news')}
+accountLoginBtn.addEventListener('click',function(){if(currentUser){renderAccountPage();showPage('account')}else{openLoginModal()}});
+loginModalClose.addEventListener('click',closeLoginModal);
+loginSubmit.addEventListener('click',attemptLogin);
+loginPassword.addEventListener('keydown',function(e){if(e.key==='Enter')attemptLogin()});
+loginModal.addEventListener('click',function(e){if(e.target===loginModal)closeLoginModal()});
+accountLogoutBtn.addEventListener('click',logout);
+
+/* КНОПКИ */
+$('mil-open-ogips').addEventListener('click',function(){showPage('ogips')});
+$('mil-open-oddp').addEventListener('click',function(){showPage('oddp')});
+$('mil-back-to-account-ogips').addEventListener('click',function(){showPage('account')});
+$('mil-back-to-account-oddp').addEventListener('click',function(){showPage('account')});
+$('mil-open-patrol').addEventListener('click',function(){showPage('patrol')});
+$('mil-back-to-account-patrol').addEventListener('click',function(){showPage('ogips')});
+$('mil-open-registry').addEventListener('click',function(){showPage('registry')});
+$('mil-back-to-account-btn').addEventListener('click',function(){showPage('oddp')});
+$('mil-registry-add').addEventListener('click',addRegistryRecord);
+$('mil-registry-search').addEventListener('input',function(){registrySearchQuery=this.value;renderRegistryTable()});
+$('mil-registry-clear').addEventListener('click',function(){['reg-fio','reg-birth','reg-rank','reg-position','reg-unit','reg-offense','reg-punishment','reg-officer'].forEach(function(id){var el=$(id);if(el)el.value=''})});
+$('mil-open-requirements').addEventListener('click',function(){showPage('requirements')});
+$('mil-back-to-account-from-req-btn').addEventListener('click',function(){showPage('oddp')});
+$('mil-requirements-add').addEventListener('click',addRequirementRecord);
+$('mil-requirements-search').addEventListener('input',function(){requirementsSearchQuery=this.value;renderRequirementsTable()});
+$('mil-requirements-clear').addEventListener('click',function(){['req-to','req-violation','req-purpose','req-arrival-time','req-arrival-date','req-issue-date','req-patrol-chief'].forEach(function(id){var el=$(id);if(el)el.value=''})});
+$('mil-open-guard').addEventListener('click',function(){showPage('guard')});
+$('mil-back-to-account-guard').addEventListener('click',function(){showPage('oddp')});
+$('mil-guard-add').addEventListener('click',addGuardRecord);
+$('mil-guard-search').addEventListener('input',function(){guardSearchQuery=this.value;renderGuardTable()});
+$('mil-guard-clear').addEventListener('click',function(){['guard-fio','guard-unit','guard-cell','guard-accept-time','guard-accept-date','guard-put-date','guard-release-date','guard-handed','guard-chief'].forEach(function(id){var el=$(id);if(el)el.value=''})});
+$('mil-open-kupo').addEventListener('click',function(){showPage('kupo')});
+$('mil-back-to-account-kupo').addEventListener('click',function(){showPage('oddp')});
+$('mil-kupo-add').addEventListener('click',addKupoRecord);
+$('mil-kupo-search').addEventListener('input',function(){kupoSearchQuery=this.value;renderKupoTable()});
+$('mil-kupo-clear').addEventListener('click',function(){['kupo-to','kupo-date','kupo-time','kupo-explanation','kupo-written-date','kupo-position','kupo-rank','kupo-fio'].forEach(function(id){var el=$(id);if(el)el.value=''})});
+$('mil-patrol-add').addEventListener('click',addPatrolRecord);
+$('mil-patrol-clear').addEventListener('click',function(){['patrol-time-from','patrol-time-to','patrol-date','patrol-place','patrol-type','patrol-chief','patrol-officer','patrol-car','patrol-issued'].forEach(function(id){var el=$(id);if(el)el.value=''})});
+
+function rankIndex(rank){if(!rank)return-1;var r=String(rank).toLowerCase();var order=['рядовой','ефрейтор','младший сержант','сержант','старший сержант','старшина','прапорщик','старший прапорщик','младший лейтенант','лейтенант','старший лейтенант','капитан','майор','подполковник','полковник','генерал-майор','генерал-лейтенант','генерал-полковник','генерал армии','маршал'];for(var i=order.length-1;i>=0;i--){if(r.indexOf(order[i])!==-1)return i}return-1}
+
+/* РЕЕСТР */
+var REGISTRY_KEY='mil_registry_records',REGISTRY_LOGS_KEY='mil_registry_logs',registrySearchQuery='';
+function loadRegistry(){try{return JSON.parse(localStorage.getItem(REGISTRY_KEY))||[]}catch(e){return[]}}
+function saveRegistry(arr){localStorage.setItem(REGISTRY_KEY,JSON.stringify(arr))}
+function loadRegistryLogs(){try{return JSON.parse(localStorage.getItem(REGISTRY_LOGS_KEY))||[]}catch(e){return[]}}
+function saveRegistryLogs(arr){localStorage.setItem(REGISTRY_LOGS_KEY,JSON.stringify(arr))}
+function recordMatches(rec,q){if(!q)return true;q=q.toLowerCase();var fields=[rec.fio,rec.birth,rec.rank,rec.position,rec.unit,rec.offense,rec.punishment,rec.officer];for(var i=0;i<fields.length;i++){if(fields[i]&&String(fields[i]).toLowerCase().indexOf(q)!==-1)return true}return false}
+function renderRegistryTable(){var allRecords=loadRegistry();var records=[];for(var ri=0;ri<allRecords.length;ri++){if(recordMatches(allRecords[ri],registrySearchQuery))records.push({rec:allRecords[ri],origIndex:ri})}var tbody=$('mil-registry-tbody'),countEl=$('mil-registry-count');if(countEl)countEl.textContent=allRecords.length;if(!tbody)return;tbody.innerHTML='';if(records.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="10">Реестр пуст.</td></tr>';return}for(var i=0;i<records.length;i++){(function(item,displayIdx){var rec=item.rec,idx=item.origIndex,tr=document.createElement('tr');var cells=[(displayIdx+1).toString(),rec.fio||'',rec.birth||'',rec.rank||'',rec.position||'',rec.unit||'',rec.offense||'',rec.punishment||'',rec.officer||''];for(var c=0;c<cells.length;c++){var td=document.createElement('td');td.textContent=cells[c];tr.appendChild(td)}var actionTd=document.createElement('td');actionTd.className='action-cell';var editBtn=document.createElement('button');editBtn.className='registry-edit';editBtn.textContent='Изменить';editBtn.addEventListener('click',function(){openEditRegistryModal(idx,rec)});var delBtn=document.createElement('button');delBtn.className='registry-del';delBtn.textContent='Удалить';delBtn.addEventListener('click',function(){openDeleteModal({title:'Удаление',summary:'ФИО: '+(rec.fio||'—'),onConfirm:function(reason){var list=loadRegistry();list.splice(idx,1);saveRegistry(list);addRegistryLog({type:'del',who:currentUser?currentUser.name:'Гость',what:'Удалена запись: '+(rec.fio||'—'),reason:reason,time:new Date().toISOString()});renderRegistryTable();renderRegistryLogs()}})});actionTd.appendChild(editBtn);actionTd.appendChild(delBtn);tr.appendChild(actionTd);tbody.appendChild(tr)})(records[i],i)}}
+function addRegistryLog(entry){var logs=loadRegistryLogs();logs.unshift(entry);saveRegistryLogs(logs)}
+function renderRegistryLogs(){var logs=loadRegistryLogs(),body=$('mil-registry-logs-body'),countEl=$('mil-registry-logs-count');if(countEl)countEl.textContent=logs.length+' записей';if(!body)return;body.innerHTML='';if(logs.length===0){body.innerHTML='<div class="logs-empty">Пока событий не было.</div>';return}for(var i=0;i<logs.length;i++){(function(log){var item=document.createElement('div');item.className='log-item';var dt=log.time?new Date(log.time):new Date();item.innerHTML='<div class="log-meta"><span class="log-who"><span class="log-type log-del">Удаление</span>'+escapeHTML(log.who)+'</span><span class="log-time">'+dt.toLocaleString('ru-RU')+'</span></div><div class="log-what">'+escapeHTML(log.what)+'</div><div class="log-reason">Причина: '+escapeHTML(log.reason)+'</div>';body.appendChild(item)})(logs[i])}}
+function addRegistryRecord(){var fio=$('reg-fio').value.trim(),birth=$('reg-birth').value;if(!fio||!birth){alert('Заполните поля');return}var records=loadRegistry();records.push({fio:fio,birth:birth,rank:$('reg-rank').value,position:$('reg-position').value,unit:$('reg-unit').value,offense:$('reg-offense').value,punishment:$('reg-punishment').value,officer:$('reg-officer').value});saveRegistry(records);renderRegistryTable();['reg-fio','reg-birth','reg-rank','reg-position','reg-unit','reg-offense','reg-punishment','reg-officer'].forEach(function(id){var el=$(id);if(el)el.value=''});openRegistryPaper(records[records.length-1])}
+function openRegistryPaper(rec){var body=document.createElement('div');body.className='del-modal-body';var paper=document.createElement('div');paper.className='paper';paper.innerHTML='<div class="p-head"><div><img src="https://psv4.vkuserphoto.ru/s/v1/d2/3mi-8d4X9mKt3DotGc7hhwiYmcirOOTdSwLUqCJTTSl7kUY1rxifq1JOPyzgaTCIiTrWaQjXvPoLmsg7Lek62BSsdYvp0ZNmYFhCun5c-lBLcuMDzI9IBv9XtilXvYlfVFD7YTaZzZCJ/image-Photoroom.png" style="width:80px;"></div><div style="flex:1;text-align:center;font-weight:700;font-size:13px;">МИНИСТЕРСТВО ОБОРОНЫ<br>РОССИЙСКОЙ ФЕДЕРАЦИИ<br><br>ВОЕННАЯ КОМЕНДАТУРА</div></div><div class="p-title">КАРТОЧКА УЧЁТА</div><div class="p-body"><div class="p-line"><span>ФИО:</span><span class="p-val">'+escapeHTML(rec.fio)+'</span></div><div class="p-line"><span>Дата рождения:</span><span class="p-val">'+escapeHTML(rec.birth)+'</span></div><div class="p-line"><span>Звание:</span><span class="p-val">'+escapeHTML(rec.rank)+'</span></div><div class="p-line"><span>Должность:</span><span class="p-val">'+escapeHTML(rec.position)+'</span></div><div class="p-line"><span>Подразделение:</span><span class="p-val">'+escapeHTML(rec.unit)+'</span></div><div class="p-line"><span>Проступок:</span><span class="p-val">'+escapeHTML(rec.offense)+'</span></div><div class="p-line"><span>Наказание:</span><span class="p-val">'+escapeHTML(rec.punishment)+'</span></div><div class="p-line"><span>Уполномоченное лицо:</span><span class="p-val">'+escapeHTML(rec.officer)+'</span></div></div><div class="p-stamp">М.П.</div>';body.appendChild(paper);var acts=document.createElement('div');acts.className='del-modal-actions';var close=document.createElement('button');close.className='btn-cancel';close.textContent='Закрыть';close.onclick=closeDeleteModal;var print=document.createElement('button');print.className='btn-add';print.textContent='Печать';print.onclick=function(){printPaper(paper.innerHTML,'Карточка')};var save=document.createElement('button');save.className='btn-add';save.textContent='Скачать';save.onclick=function(){downloadPaper(paper.innerHTML,'Карточка')};acts.appendChild(close);acts.appendChild(print);acts.appendChild(save);body.appendChild(acts);buildModal('Документ',body,'edit-mode')}
+function openEditRegistryModal(idx,rec){var fields=[{key:'fio',label:'ФИО',type:'text'},{key:'birth',label:'Дата рождения',type:'date'},{key:'rank',label:'Звание',type:'text'},{key:'position',label:'Должность',type:'text'},{key:'unit',label:'Подразделение',type:'text'},{key:'offense',label:'Проступок',type:'textarea'},{key:'punishment',label:'Наказание',type:'text'},{key:'officer',label:'Уполномоченное лицо',type:'text'}];openGenericEditModal('Редактирование',fields,rec,function(values){var list=loadRegistry();list[idx]=values;saveRegistry(list);renderRegistryTable();return true})}
+
+/* ТРЕБОВАНИЯ */
+var REQUIREMENTS_KEY='mil_requirements_records',requirementsSearchQuery='';
+function loadRequirements(){try{return JSON.parse(localStorage.getItem(REQUIREMENTS_KEY))||[]}catch(e){return[]}}
+function saveRequirements(arr){localStorage.setItem(REQUIREMENTS_KEY,JSON.stringify(arr))}
+function renderRequirementsTable(){var allRecords=loadRequirements(),tbody=$('mil-requirements-tbody'),countEl=$('mil-requirements-count');if(countEl)countEl.textContent=allRecords.length;if(!tbody)return;tbody.innerHTML='';if(allRecords.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="10">Требований нет.</td></tr>';return}for(var i=0;i<allRecords.length;i++){(function(rec,idx){var tr=document.createElement('tr');var cells=[(idx+1).toString(),rec.to||'',rec.violation||'',rec.purpose||'',rec.arrivalTime||'',rec.arrivalDate||'',rec.issueDate||'',rec.patrolChief||'',rec.status||''];for(var c=0;c<cells.length;c++){var td=document.createElement('td');td.textContent=cells[c];tr.appendChild(td)}var actionTd=document.createElement('td');actionTd.className='action-cell';var select=document.createElement('select');select.className='status-select';select.innerHTML='<option value="">—</option><option value="Исполнено">Исполнено</option><option value="Не исполнено">Не исполнено</option>';select.value=rec.status||'';select.addEventListener('change',function(){var list=loadRequirements();list[idx].status=this.value;saveRequirements(list)});var delBtn=document.createElement('button');delBtn.className='registry-del';delBtn.textContent='Удалить';delBtn.addEventListener('click',function(){openDeleteModal({title:'Удаление',summary:'Требование',onConfirm:function(reason){var list=loadRequirements();list.splice(idx,1);saveRequirements(list);renderRequirementsTable()}})});actionTd.appendChild(select);actionTd.appendChild(delBtn);tr.appendChild(actionTd);tbody.appendChild(tr)})(allRecords[i],i)}}
+function renderRequirementsLogs(){/* журнал требований не ведём — оставлено для совместимости */}
+function addRequirementRecord(){var to=$('req-to').value.trim();if(!to){alert('Заполните');return}var records=loadRequirements();var rec={to:to,violation:$('req-violation').value,purpose:$('req-purpose').value,arrivalTime:$('req-arrival-time').value,arrivalDate:$('req-arrival-date').value,issueDate:$('req-issue-date').value,patrolChief:$('req-patrol-chief').value,status:''};records.push(rec);saveRequirements(records);renderRequirementsTable();openRequirementPaper(rec)}
+function openRequirementPaper(rec){var body=document.createElement('div');body.className='del-modal-body';var paper=document.createElement('div');paper.className='paper';paper.innerHTML='<div class="p-title">ТРЕБОВАНИЕ</div><div class="p-body" style="text-indent:0;">В соответствии со ст. 114 Устава военной полиции ВС РФ <strong>'+escapeHTML(rec.to)+'</strong> за нарушение статьи УВС прибыть в военную комендатуру 1-го разряда Нижегородского гарнизона для разбирательства. Дата выписывания: '+escapeHTML(rec.issueDate)+' в '+escapeHTML(rec.arrivalTime)+' по адресу: в/ч 41659 пгт. Бусаево, ул. Папина, д. 1. стр. 2</div><div class="p-sign"><div class="p-sign-left">«'+escapeHTML(rec.issueDate)+'»</div><div class="p-sign-right">Начальник патруля<br><br><span class="p-underline">'+escapeHTML(rec.patrolChief)+'</span></div></div><div class="p-sign"><div class="p-sign-left">Военнослужащий</div><div class="p-sign-right"><br><br><span class="p-underline">'+escapeHTML(rec.to)+'</span></div></div>';body.appendChild(paper);var acts=document.createElement('div');acts.className='del-modal-actions';var close=document.createElement('button');close.className='btn-cancel';close.textContent='Закрыть';close.onclick=closeDeleteModal;var print=document.createElement('button');print.className='btn-add';print.textContent='Печать';print.onclick=function(){printPaper(paper.innerHTML,'Требование')};var save=document.createElement('button');save.className='btn-add';save.textContent='Скачать';save.onclick=function(){downloadPaper(paper.innerHTML,'Требование')};acts.appendChild(close);acts.appendChild(print);acts.appendChild(save);body.appendChild(acts);buildModal('Документ',body,'edit-mode')}
+
+/* ГАУПТВАХТА */
+var GUARD_KEY='mil_guard_records',guardSearchQuery='';
+function loadGuard(){try{return JSON.parse(localStorage.getItem(GUARD_KEY))||[]}catch(e){return[]}}
+function saveGuard(arr){localStorage.setItem(GUARD_KEY,JSON.stringify(arr))}
+function renderGuardTable(){var allRecords=loadGuard(),tbody=$('mil-guard-tbody'),countEl=$('mil-guard-count');if(countEl)countEl.textContent=allRecords.length;if(!tbody)return;tbody.innerHTML='';if(allRecords.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="13">Записей нет.</td></tr>';return}for(var i=0;i<allRecords.length;i++){(function(rec,idx){var tr=document.createElement('tr');var cells=[(idx+1).toString(),rec.fio||'',rec.unit||'',rec.acceptDate||'',rec.putDate||'',rec.releaseDate||'',rec.cell||'',rec.handed||'',rec.chief||'',rec.added||'',rec.status||'',''];for(var c=0;c<cells.length;c++){var td=document.createElement('td');td.textContent=cells[c];tr.appendChild(td)}var actionTd=document.createElement('td');actionTd.className='action-cell';var delBtn=document.createElement('button');delBtn.className='registry-del';delBtn.textContent='Удалить';delBtn.addEventListener('click',function(){openDeleteModal({title:'Удаление',summary:'Гауптвахта',onConfirm:function(reason){var list=loadGuard();list.splice(idx,1);saveGuard(list);renderGuardTable()}})});actionTd.appendChild(delBtn);tr.appendChild(actionTd);tbody.appendChild(tr)})(allRecords[i],i)}}
+function renderGuardLogs(){/* журнал гауптвахты не ведём */}
+function addGuardRecord(){var fio=$('guard-fio').value.trim();if(!fio){alert('Заполните ФИО');return}var list=loadGuard();list.push({fio:fio,unit:$('guard-unit').value,cell:$('guard-cell').value,acceptTime:$('guard-accept-time').value,acceptDate:$('guard-accept-date').value,putDate:$('guard-put-date').value,releaseDate:$('guard-release-date').value,handed:$('guard-handed').value,chief:$('guard-chief').value,added:new Date().toLocaleString('ru-RU'),status:''});saveGuard(list);renderGuardTable();['guard-fio','guard-unit','guard-cell','guard-accept-time','guard-accept-date','guard-put-date','guard-release-date','guard-handed','guard-chief'].forEach(function(id){var el=$(id);if(el)el.value=''})}
+
+/* КУПО */
+var KUPO_KEY='mil_kupo_records',kupoSearchQuery='';
+function loadKupo(){try{return JSON.parse(localStorage.getItem(KUPO_KEY))||[]}catch(e){return[]}}
+function saveKupo(arr){localStorage.setItem(KUPO_KEY,JSON.stringify(arr))}
+function renderKupoTable(){var allRecords=loadKupo(),tbody=$('mil-kupo-tbody'),countEl=$('mil-kupo-count');if(countEl)countEl.textContent=allRecords.length;if(!tbody)return;tbody.innerHTML='';if(allRecords.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="9">Обращений нет.</td></tr>';return}for(var i=0;i<allRecords.length;i++){(function(rec,idx){var tr=document.createElement('tr');var cells=[rec.num||'',rec.to||'',(rec.date||'')+' '+(rec.time||''),rec.explanation||'',rec.writtenDate||'',rec.position||'',rec.rank||'',rec.fio||''];for(var c=0;c<cells.length;c++){var td=document.createElement('td');td.textContent=cells[c];tr.appendChild(td)}var actionTd=document.createElement('td');actionTd.className='action-cell';var delBtn=document.createElement('button');delBtn.className='registry-del';delBtn.textContent='Удалить';delBtn.addEventListener('click',function(){openDeleteModal({title:'Удаление',summary:'КУПО',onConfirm:function(reason){var list=loadKupo();list.splice(idx,1);saveKupo(list);renderKupoTable()}})});actionTd.appendChild(delBtn);tr.appendChild(actionTd);tbody.appendChild(tr)})(allRecords[i],i)}}
+function renderKupoLogs(){/* журнал КУПО не ведём */}
+function addKupoRecord(){var to=$('kupo-to').value.trim();if(!to){alert('Заполните');return}var list=loadKupo();var nextNum='КУПО-26-'+(list.length+1);list.push({num:nextNum,to:to,date:$('kupo-date').value,time:$('kupo-time').value,explanation:$('kupo-explanation').value,writtenDate:$('kupo-written-date').value,position:$('kupo-position').value,rank:$('kupo-rank').value,fio:$('kupo-fio').value});saveKupo(list);renderKupoTable();['kupo-to','kupo-date','kupo-time','kupo-explanation','kupo-written-date','kupo-position','kupo-rank','kupo-fio'].forEach(function(id){var el=$(id);if(el)el.value=''})}
+
+/* ПАТРУЛЬ */
+var PATROL_KEY='mil_patrol_records';
+function loadPatrol(){try{return JSON.parse(localStorage.getItem(PATROL_KEY))||[]}catch(e){return[]}}
+function savePatrol(arr){localStorage.setItem(PATROL_KEY,JSON.stringify(arr))}
+function renderPatrolTable(){var allRecords=loadPatrol(),tbody=$('mil-patrol-tbody'),countEl=$('mil-patrol-count');if(countEl)countEl.textContent=allRecords.length;if(!tbody)return;tbody.innerHTML='';if(allRecords.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="9">Карточек нет.</td></tr>';return}for(var i=0;i<allRecords.length;i++){(function(rec,idx){var tr=document.createElement('tr');var cells=[(idx+1).toString(),(rec.timeFrom||'')+'-'+(rec.timeTo||''),rec.date||'',rec.place||'',rec.type||'',rec.chief||'',rec.car||'',rec.issued||''];for(var c=0;c<cells.length;c++){var td=document.createElement('td');td.textContent=cells[c];tr.appendChild(td)}var actionTd=document.createElement('td');actionTd.className='action-cell';var delBtn=document.createElement('button');delBtn.className='registry-del';delBtn.textContent='Удалить';delBtn.addEventListener('click',function(){openDeleteModal({title:'Удаление',summary:'Патруль',onConfirm:function(reason){var list=loadPatrol();list.splice(idx,1);savePatrol(list);renderPatrolTable()}})});actionTd.appendChild(delBtn);tr.appendChild(actionTd);tbody.appendChild(tr)})(allRecords[i],i)}}
+function addPatrolRecord(){var place=$('patrol-place').value.trim();if(!place){alert('Заполните место');return}var list=loadPatrol();list.push({timeFrom:$('patrol-time-from').value,timeTo:$('patrol-time-to').value,date:$('patrol-date').value,place:place,type:$('patrol-type').value,chief:$('patrol-chief').value,officer:$('patrol-officer').value,car:$('patrol-car').value,issued:$('patrol-issued').value});savePatrol(list);renderPatrolTable();['patrol-time-from','patrol-time-to','patrol-date','patrol-place','patrol-type','patrol-chief','patrol-officer','patrol-car','patrol-issued'].forEach(function(id){var el=$(id);if(el)el.value=''})}
+
+/* ОБЩИЕ МОДАЛКИ */
+function openDeleteModal(opts){var body=document.createElement('div');body.className='del-modal-body';var summary=document.createElement('div');summary.className='del-summary';summary.textContent=opts.summary||'';body.appendChild(summary);var lbl=document.createElement('label');lbl.innerHTML='Причина <span class="req">*</span>';body.appendChild(lbl);var ta=document.createElement('textarea');ta.placeholder='Укажите причину';body.appendChild(ta);var err=document.createElement('div');err.className='del-error';body.appendChild(err);var acts=document.createElement('div');acts.className='del-modal-actions';var cancel=document.createElement('button');cancel.className='btn-cancel';cancel.textContent='Отмена';cancel.onclick=closeDeleteModal;var ok=document.createElement('button');ok.className='btn-add';ok.textContent='Удалить';ok.onclick=function(){if(!ta.value.trim()){err.textContent='Укажите причину';err.style.display='block';return}closeDeleteModal();opts.onConfirm(ta.value.trim())};acts.appendChild(cancel);acts.appendChild(ok);body.appendChild(acts);buildModal(opts.title||'Удаление',body,'')}
+function buildModal(title,body,cls){var overlay=document.createElement('div');overlay.className='del-modal-overlay';var modal=document.createElement('div');modal.className='del-modal';var header=document.createElement('div');header.className='del-modal-header '+(cls||'');header.textContent=title;var closeBtn=document.createElement('button');closeBtn.textContent='×';closeBtn.style.cssText='float:right;background:transparent;border:none;color:#fff;font-size:20px;cursor:pointer;';header.appendChild(closeBtn);modal.appendChild(header);modal.appendChild(body);overlay.appendChild(modal);document.body.appendChild(overlay);function close(){if(overlay.parentNode)overlay.parentNode.removeChild(overlay)}closeBtn.addEventListener('click',close);overlay.addEventListener('click',function(e){if(e.target===overlay)close()})}
+function closeDeleteModal(){var overlays=document.querySelectorAll('.del-modal-overlay');for(var i=0;i<overlays.length;i++)overlays[i].remove()}
+function printPaper(html,title){var w=window.open('','_blank');w.document.write('<html><head><title>'+title+'</title></head><body>'+html+'</body></html>');w.document.close();w.print()}
+function downloadPaper(html,title){var blob=new Blob([html],{type:'text/html;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=title+'.html';a.click();URL.revokeObjectURL(a.href)}
+function openGenericEditModal(title,fields,rec,onSave){var body=document.createElement('div');body.className='del-modal-body';var inputs={};fields.forEach(function(f){var wrap=document.createElement('div');wrap.className='registry-field';var lbl=document.createElement('label');lbl.textContent=f.label;var input=f.type==='textarea'?document.createElement('textarea'):document.createElement('input');if(f.type!=='textarea')input.type=f.type;input.value=rec[f.key]||'';wrap.appendChild(lbl);wrap.appendChild(input);body.appendChild(wrap);inputs[f.key]=input});var acts=document.createElement('div');acts.className='del-modal-actions';var cancel=document.createElement('button');cancel.className='btn-cancel';cancel.textContent='Отмена';cancel.onclick=closeDeleteModal;var save=document.createElement('button');save.className='btn-add';save.textContent='Сохранить';save.onclick=function(){var values={};for(var k in inputs)values[k]=inputs[k].value;if(onSave(values)!==false)closeDeleteModal()};acts.appendChild(cancel);acts.appendChild(save);body.appendChild(acts);buildModal(title,body,'edit-mode')}
+
+/* ==================== ПОЧТА UI ==================== */
+var mailInitialized=false,mailInboxCache=[],mailRealtimeChannel=null,mailFilesSelected=[];
+function initMailUI(){if(mailInitialized)return;mailInitialized=true;var sel=$('mil-mail-to-site');if(sel&&sel.options.length===0){MAILBOX_RECIPIENTS.forEach(function(r){var opt=document.createElement('option');opt.value=r.value;opt.textContent=r.label;sel.appendChild(opt)})}var tabs=document.querySelectorAll('.mil-wrapper .mail-tab');for(var i=0;i<tabs.length;i++){tabs[i].addEventListener('click',function(){var target=this.getAttribute('data-mail-tab');for(var j=0;j<tabs.length;j++)tabs[j].classList.remove('active');this.classList.add('active');var panes=document.querySelectorAll('.mil-wrapper .mail-pane');for(var k=0;k<panes.length;k++)panes[k].classList.remove('active');var pane=$('mil-mail-pane-'+target);if(pane)pane.classList.add('active');if(target==='inbox')loadMailInbox();if(target==='outbox')loadMailOutbox();if(target==='compose')prefillCompose()})}$('mil-mail-send').addEventListener('click',sendMail);$('mil-mail-clear').addEventListener('click',clearComposeForm);$('mil-mail-files').addEventListener('change',onMailFilesChange);try{mailRealtimeChannel=mailboxSubscribeInbox(function(letter){loadMailInbox();if(letter&&letter.subject)showMailMsg('ok','Новое письмо: '+letter.subject)})}catch(e){console.warn('[mail] realtime error',e)}loadMailInbox()}
+function prefillCompose(){if(currentUser){var pos=$('mil-mail-from-position'),rk=$('mil-mail-from-rank'),nm=$('mil-mail-from-name');if(pos&&!pos.value)pos.value=currentUser.position||'';if(rk&&!rk.value)rk.value=currentUser.rank||'';if(nm&&!nm.value)nm.value=currentUser.name||''}}
+function loadMailInbox(){var list=$('mil-mail-inbox-list'),errBox=$('mil-mail-inbox-error');if(errBox)errBox.innerHTML='';if(!list)return;list.innerHTML='<div class="mail-empty">Загрузка...</div>';mailboxLoadInbox().then(function(data){mailInboxCache=data;renderMailList(data,'inbox');updateInboxBadge(data)}).catch(function(err){list.innerHTML='<div class="mail-empty">Не удалось загрузить</div>';if(errBox)errBox.innerHTML='<div class="mail-error">'+mailboxEscape(err.message)+'</div>'})}
+function loadMailOutbox(){var list=$('mil-mail-outbox-list'),errBox=$('mil-mail-outbox-error');if(errBox)errBox.innerHTML='';if(!list)return;list.innerHTML='<div class="mail-empty">Загрузка...</div>';mailboxLoadOutbox().then(function(data){renderMailList(data,'outbox')}).catch(function(err){list.innerHTML='<div class="mail-empty">Не удалось загрузить</div>';if(errBox)errBox.innerHTML='<div class="mail-error">'+mailboxEscape(err.message)+'</div>'})}
+function updateInboxBadge(data){var unread=0;for(var i=0;i<data.length;i++){if(!data[i].is_read)unread++}var badge=$('mil-mail-inbox-badge');if(badge){if(unread>0){badge.style.display='inline-block';badge.textContent=unread}else{badge.style.display='none'}}}
+function renderMailList(data,mode){var listId=mode==='inbox'?'mil-mail-inbox-list':'mil-mail-outbox-list';var list=$(listId);if(!list)return;if(!data||data.length===0){list.innerHTML='<div class="mail-empty">'+(mode==='inbox'?'Входящих писем нет.':'Исходящих писем нет.')+'</div>';return}list.innerHTML='';for(var i=0;i<data.length;i++){(function(letter){var item=document.createElement('div');item.className='mail-item'+((mode==='inbox'&&!letter.is_read)?' unread':'');var dt=letter.created_at?new Date(letter.created_at):new Date();var attachCount=(letter.attachments&&letter.attachments.length)?letter.attachments.length:0;var preview=String(letter.body||'').replace(/\s+/g,' ').slice(0,120);var head=document.createElement('div');head.className='mail-item-head';var subj=document.createElement('div');subj.className='mail-item-subject';subj.textContent=letter.subject||'(без темы)';var time=document.createElement('div');time.className='mail-item-time';time.textContent=dt.toLocaleString('ru-RU');head.appendChild(subj);head.appendChild(time);var meta=document.createElement('div');meta.className='mail-item-meta';if(mode==='inbox'){meta.innerHTML='От: <strong>'+mailboxEscape(letter.from_rank||'')+' '+mailboxEscape(letter.from_name||'')+'</strong> ('+mailboxEscape(letter.from_site||'')+')'}else{meta.innerHTML='Кому: <strong>'+mailboxEscape(letter.to_user||'—')+'</strong> (сайт: '+mailboxEscape(letter.to_site||'')+')'}var prev=document.createElement('div');prev.className='mail-item-preview';prev.textContent=preview||'(пусто)';item.appendChild(head);item.appendChild(meta);item.appendChild(prev);if(attachCount>0){var att=document.createElement('div');att.className='mail-item-attach';att.textContent='📎 Вложений: '+attachCount;item.appendChild(att)}item.addEventListener('click',function(){openMailRead(letter,mode)});list.appendChild(item)})(data[i])}}
+function openMailRead(letter,mode){if(mode==='inbox'&&!letter.is_read){mailboxMarkRead(letter.id).then(function(){letter.is_read=true;updateInboxBadge(mailInboxCache)})}var overlay=document.createElement('div');overlay.className='del-modal-overlay';var modal=document.createElement('div');modal.className='del-modal';var header=document.createElement('div');header.className='del-modal-header edit-mode';header.textContent=letter.subject||'(без темы)';header.style.display='flex';header.style.justifyContent='space-between';header.style.alignItems='center';var closeBtn=document.createElement('button');closeBtn.textContent='×';closeBtn.style.cssText='background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;';header.appendChild(closeBtn);var body=document.createElement('div');body.className='del-modal-body';var dt=letter.created_at?new Date(letter.created_at):new Date();var metaHtml='<div class="mail-read-meta">От: <strong>'+mailboxEscape(letter.from_rank||'')+' '+mailboxEscape(letter.from_name||'')+'</strong> ('+mailboxEscape(letter.from_site||'')+')<br>Кому: <strong>'+mailboxEscape(letter.to_user||'—')+'</strong> (сайт: '+mailboxEscape(letter.to_site||'')+')<br>Дата: '+dt.toLocaleString('ru-RU')+'</div>';var bodyHtml='<div class="mail-read-body">'+mailboxEscape(letter.body||'')+'</div>';var attachHtml='';if(letter.attachments&&letter.attachments.length){attachHtml+='<div class="mail-attach-block"><h4>Вложения ('+letter.attachments.length+')</h4>';for(var i=0;i<letter.attachments.length;i++){var a=letter.attachments[i];attachHtml+='<div class="mail-attach-item"><span class="mail-attach-icon">'+mailboxFileIcon(a.type||'',a.name||'')+'</span><span class="mail-attach-name">'+mailboxEscape(a.name||'файл')+'</span><span class="mail-attach-size">'+mailboxFormatSize(a.size||0)+'</span><a href="'+mailboxEscape(a.url||'#')+'" target="_blank" rel="noopener">Скачать</a></div>'}attachHtml+='</div>'}body.innerHTML=metaHtml+bodyHtml+attachHtml;modal.appendChild(header);modal.appendChild(body);overlay.appendChild(modal);document.body.appendChild(overlay);function closeOverlay(){if(overlay.parentNode)overlay.parentNode.removeChild(overlay)}closeBtn.addEventListener('click',closeOverlay);overlay.addEventListener('click',function(e){if(e.target===overlay)closeOverlay()})}
+function onMailFilesChange(e){var input=e.target;var files=Array.prototype.slice.call(input.files||[]);if(files.length>MAILBOX_MAX_ATTACHMENTS){showMailMsg('err','Можно прикрепить не более '+MAILBOX_MAX_ATTACHMENTS+' файлов.');input.value='';mailFilesSelected=[];renderSelectedFiles();return}for(var i=0;i<files.length;i++){if(files[i].size>MAILBOX_MAX_FILE_SIZE){showMailMsg('err','Файл "'+files[i].name+'" больше 5 МБ.');input.value='';mailFilesSelected=[];renderSelectedFiles();return}}mailFilesSelected=files;renderSelectedFiles();input.value=''}
+function renderSelectedFiles(){var box=$('mil-mail-files-list');if(!box)return;box.innerHTML='';for(var i=0;i<mailFilesSelected.length;i++){(function(file,idx){var row=document.createElement('div');row.className='mail-file-row';var label=document.createElement('span');label.textContent=mailboxFileIcon(file.type,file.name)+' '+file.name+' ('+mailboxFormatSize(file.size)+')';var del=document.createElement('button');del.className='mail-file-del';del.textContent='Убрать';del.addEventListener('click',function(){mailFilesSelected.splice(idx,1);renderSelectedFiles()});row.appendChild(label);row.appendChild(del);box.appendChild(row)})(mailFilesSelected[i],i)}}
+function showMailMsg(type,text){var el=$('mil-mail-msg');if(!el)return;el.className='mail-msg '+(type==='ok'?'ok':'err');el.textContent=text;if(type==='ok'){setTimeout(function(){if(el.textContent===text)el.textContent=''},5000)}}
+function clearComposeForm(){$('mil-mail-to-user').value='';$('mil-mail-from-position').value=currentUser?(currentUser.position||''):'';$('mil-mail-from-rank').value=currentUser?(currentUser.rank||''):'';$('mil-mail-from-name').value=currentUser?(currentUser.name||''):'';$('mil-mail-subject').value='';$('mil-mail-body').value='';mailFilesSelected=[];renderSelectedFiles();$('mil-mail-msg').textContent=''}
+async function sendMail(){var toSite=$('mil-mail-to-site').value;var toUser=$('mil-mail-to-user').value.trim();var fromPos=$('mil-mail-from-position').value.trim();var fromRank=$('mil-mail-from-rank').value.trim();var fromName=$('mil-mail-from-name').value.trim();var subject=$('mil-mail-subject').value.trim();var body=$('mil-mail-body').value.trim();if(!toSite){showMailMsg('err','Выберите получателя.');return}if(!fromPos||!fromRank||!fromName){showMailMsg('err','Заполните данные отправителя.');return}if(!subject){showMailMsg('err','Укажите тему.');return}if(!body){showMailMsg('err','Введите текст письма.');return}var btn=$('mil-mail-send');btn.disabled=true;btn.textContent='Отправка...';try{await mailboxSend({toSite:toSite,toUser:toUser,fromPosition:fromPos,fromRank:fromRank,fromName:fromName,subject:subject,body:body,files:mailFilesSelected});showMailMsg('ok','Письмо отправлено.');clearComposeForm()}catch(err){showMailMsg('err',err.message||'Ошибка отправки.')}finally{btn.disabled=false;btn.textContent='Отправить'}}
+
+/* Загрузка новостей при старте */
+loadNewsData();
+restoreSession();
+})();
+</script>
+</body>
+</html>
